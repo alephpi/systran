@@ -15,6 +15,8 @@ def _batch_elements(elements):
         return elements
     if isinstance(elements[0], tuple):
         return tuple(list(batch) for batch in zip(*elements))
+    if isinstance(elements[0], dict):
+        return {key: [dct[key] for dct in elements] for key in elements[0].keys()}
     raise TypeError("Cannot batch element")
 
 

@@ -10,7 +10,7 @@ def main():
     parser.add_argument("checkpoints_dir", help="Directory containing the checkpoints")
     parser.add_argument(
         "--output",
-        default="averaged_checkpoint.txt",
+        default="averaged_checkpoint.pt",
         help="Path to the averaged checkpoint",
     )
     parser.add_argument(

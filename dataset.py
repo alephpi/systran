@@ -10,14 +10,146 @@ import torch
 from data import encode_line
 
 
-def _batch_elements(elements):
-    if not elements:
-        return elements
-    if isinstance(elements[0], tuple):
-        return tuple(list(batch) for batch in zip(*elements))
-    if isinstance(elements[0], dict):
-        return {key: [dct[key] for dct in elements] for key in elements[0].keys()}
-    raise TypeError("Cannot batch element")
+def create_training_dataset(
+    source_dataset,
+    target_dataset,
+    source_vocabulary,
+    target_vocabulary,
+    batch_size=4096,
+    batch_type="tokens",
+    pad_to_multiple=1,
+    padding_idx=0,
+    maximum_source_length=150,
+    maximum_target_length=150,
+    num_accum_batches=None,
+    device="cpu",
+    num_shards=1,
+    shard_index=0,
+    prefetch_size=None,
+    shuffle_buffer_size=None,
+):
+    """Creates a dataset with all transformations required for training."""
+
+    if isinstance(source_dataset, str):
+        source_dataset = TextFileDataset(source_dataset)
+    if isinstance(target_dataset, str):
+        target_dataset = TextFileDataset(target_dataset)
+
+    dataset = ZipDataset(source_dataset, target_dataset)
+
+    if num_shards > 1:
+        dataset = ShardDataset(dataset, num_shards, shard_index)
+
+    dataset = ShuffleDataset(dataset, shuffle_buffer_size)
+    dataset = RepeatDataset(dataset)
+    dataset = MapDataset(dataset, EncodeTokens(source_vocabulary, target_vocabulary))
+    dataset = FilterDataset(
+        dataset,
+        FilterByLength(maximum_source_length, maximum_target_length),
+    )
+
+    if batch_type == "tokens":
+        dataset = BatchByTokensDataset(
+            dataset,
+            batch_size=batch_size,
+            length_fn=length_fn,
+            length_bucket_width=pad_to_multiple,
+            maximum_length=max(maximum_source_length, maximum_target_length),
+            drop_remainder=True,
+        )
+    else:
+        dataset = BatchDataset(dataset, batch_size, drop_remainder=True)
+
+    if prefetch_size is None:
+        prefetch_size = num_accum_batches if num_accum_batches is not None else 1
+
+    # Prepare batches in a separate process for true parallelism,
+    # then bufferize in a separate thread.
+    dataset = PrefetchDataset(dataset, prefetch_size=prefetch_size, use_threading=False)
+    dataset = MapDataset(dataset, ConvertToTensor(device, padding_idx, pad_to_multiple))
+    dataset = PrefetchDataset(dataset, prefetch_size=prefetch_size, use_threading=True)
+
+    if num_accum_batches is not None:
+        dataset = GroupDataset(dataset, num_accum_batches)
+
+    return dataset
+
+
+class EncodeTokens:
+    """Transformation to encode text lines into a list of token IDs."""
+
+    def __init__(self, source_vocabulary, target_vocabulary):
+        self.source_vocabulary = source_vocabulary
+        self.target_vocabulary = target_vocabulary
+
+    def __call__(self, element):
+        source, target = element
+
+        source = encode_line(source, self.source_vocabulary, add_eos=True)
+        target = encode_line(target, self.target_vocabulary, add_bos=True, add_eos=True)
+
+        if target:
+            target_in = target[:-1]
+            target_out = target[1:]
+        else:
+            target_in = []
+            target_out = []
+
+        return source, target_in, target_out
+
+
+class FilterByLength:
+    """Filter condition to keep elements satisfying the length constraints."""
+
+    def __init__(self, maximum_source_length, maximum_target_length):
+        self.maximum_source_length = maximum_source_length
+        self.maximum_target_length = maximum_target_length
+
+    def __call__(self, element):
+        source, target, _ = element
+        return (
+            0 < len(source) <= self.maximum_source_length
+            and 0 < len(target) <= self.maximum_target_length
+        )
+
+
+def length_fn(element):
+    """Returns the representative length for a parallel source/target example."""
+    source, target, _ = element
+    return max(len(source), len(target))
+
+
+class ConvertToTensor:
+    """Transformation to convert Python lists to PyTorch tensors."""
+
+    def __init__(self, device, padding_idx=0, pad_to_multiple=1):
+        self.device = device
+        self.padding_idx = padding_idx
+        self.pad_to_multiple = pad_to_multiple
+
+    def __call__(self, elements):
+        return tuple(
+            to_tensor(
+                element,
+                device=self.device,
+                padding_value=self.padding_idx,
+                pad_to_multiple=self.pad_to_multiple,
+            )
+            for element in elements
+        )
+
+
+def to_tensor(batch_ids, device=None, padding_value=0, pad_to_multiple=1):
+    """Converts a batch of token IDs into a dense 2D tensor."""
+    maximum_length = max(len(ids) for ids in batch_ids)
+    if maximum_length % pad_to_multiple != 0:
+        maximum_length += pad_to_multiple - (maximum_length % pad_to_multiple)
+
+    batch_ids = [
+        ids + [padding_value] * (maximum_length - len(ids)) for ids in batch_ids
+    ]
+
+    return torch.tensor(batch_ids, device=device)
 
 
 class TextFileDataset:
@@ -295,143 +427,11 @@ class LatencyDataset:
                 break
 
 
-class EncodeTokens:
-    """Transformation to encode text lines into a list of token IDs."""
-
-    def __init__(self, source_vocabulary, target_vocabulary):
-        self.source_vocabulary = source_vocabulary
-        self.target_vocabulary = target_vocabulary
-
-    def __call__(self, element):
-        source, target = element
-
-        source = encode_line(source, self.source_vocabulary, add_eos=True)
-        target = encode_line(target, self.target_vocabulary, add_bos=True, add_eos=True)
-
-        if target:
-            target_in = target[:-1]
-            target_out = target[1:]
-        else:
-            target_in = []
-            target_out = []
-
-        return source, target_in, target_out
-
-
-class FilterByLength:
-    """Filter condition to keep elements satisfying the length constraints."""
-
-    def __init__(self, maximum_source_length, maximum_target_length):
-        self.maximum_source_length = maximum_source_length
-        self.maximum_target_length = maximum_target_length
-
-    def __call__(self, element):
-        source, target, _ = element
-        return (
-            0 < len(source) <= self.maximum_source_length
-            and 0 < len(target) <= self.maximum_target_length
-        )
-
-
-def length_fn(element):
-    """Returns the representative length for a parallel source/target example."""
-    source, target, _ = element
-    return max(len(source), len(target))
-
-
-class ConvertToTensor:
-    """Transformation to convert Python lists to PyTorch tensors."""
-
-    def __init__(self, device, padding_idx=0, pad_to_multiple=1):
-        self.device = device
-        self.padding_idx = padding_idx
-        self.pad_to_multiple = pad_to_multiple
-
-    def __call__(self, elements):
-        return tuple(
-            to_tensor(
-                element,
-                device=self.device,
-                padding_value=self.padding_idx,
-                pad_to_multiple=self.pad_to_multiple,
-            )
-            for element in elements
-        )
-
-
-def to_tensor(batch_ids, device=None, padding_value=0, pad_to_multiple=1):
-    """Converts a batch of token IDs into a dense 2D tensor."""
-    maximum_length = max(len(ids) for ids in batch_ids)
-    if maximum_length % pad_to_multiple != 0:
-        maximum_length += pad_to_multiple - (maximum_length % pad_to_multiple)
-
-    batch_ids = [
-        ids + [padding_value] * (maximum_length - len(ids)) for ids in batch_ids
-    ]
-
-    return torch.tensor(batch_ids, device=device)
-
-
-def create_training_dataset(
-    source_dataset,
-    target_dataset,
-    source_vocabulary,
-    target_vocabulary,
-    batch_size=4096,
-    batch_type="tokens",
-    pad_to_multiple=1,
-    padding_idx=0,
-    maximum_source_length=150,
-    maximum_target_length=150,
-    num_accum_batches=None,
-    device="cpu",
-    num_shards=1,
-    shard_index=0,
-    prefetch_size=None,
-    shuffle_buffer_size=None,
-):
-    """Creates a dataset with all transformations required for training."""
-
-    if isinstance(source_dataset, str):
-        source_dataset = TextFileDataset(source_dataset)
-    if isinstance(target_dataset, str):
-        target_dataset = TextFileDataset(target_dataset)
-
-    dataset = ZipDataset(source_dataset, target_dataset)
-
-    if num_shards > 1:
-        dataset = ShardDataset(dataset, num_shards, shard_index)
-
-    dataset = ShuffleDataset(dataset, shuffle_buffer_size)
-    dataset = RepeatDataset(dataset)
-    dataset = MapDataset(dataset, EncodeTokens(source_vocabulary, target_vocabulary))
-    dataset = FilterDataset(
-        dataset,
-        FilterByLength(maximum_source_length, maximum_target_length),
-    )
-
-    if batch_type == "tokens":
-        dataset = BatchByTokensDataset(
-            dataset,
-            batch_size=batch_size,
-            length_fn=length_fn,
-            length_bucket_width=pad_to_multiple,
-            maximum_length=max(maximum_source_length, maximum_target_length),
-            drop_remainder=True,
-        )
-    else:
-        dataset = BatchDataset(dataset, batch_size, drop_remainder=True)
-
-    if prefetch_size is None:
-        prefetch_size = num_accum_batches if num_accum_batches is not None else 1
-
-    # Prepare batches in a separate process for true parallelism,
-    # then bufferize in a separate thread.
-    dataset = PrefetchDataset(dataset, prefetch_size=prefetch_size, use_threading=False)
-    dataset = MapDataset(dataset, ConvertToTensor(device, padding_idx, pad_to_multiple))
-    dataset = PrefetchDataset(dataset, prefetch_size=prefetch_size, use_threading=True)
-
-    if num_accum_batches is not None:
-        dataset = GroupDataset(dataset, num_accum_batches)
-
-    return dataset
+def _batch_elements(elements):
+    if not elements:
+        return elements
+    if isinstance(elements[0], tuple):
+        return tuple(list(batch) for batch in zip(*elements))
+    if isinstance(elements[0], dict):
+        return {key: [dct[key] for dct in elements] for key in elements[0].keys()}
+    raise TypeError("Cannot batch element")

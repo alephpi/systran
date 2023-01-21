@@ -49,6 +49,12 @@ python3 average.py checkpoints/ --output averaged_checkpoint.pt
 python3 convert.py averaged_checkpoint.pt --src_vocab vocab.en --tgt_vocab vocab.de --output_dir ct2_model
 ```
 
+### Compute the validation loss
+
+```bash
+python3 eval.py ct2_model valid.en.tok valid.de.tok
+```
+
 ### Translate
 
 ```bash

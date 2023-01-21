@@ -28,6 +28,8 @@ pip install -r requirements.txt
 python3 train.py --src train.en.tok --tgt train.de.tok --src_vocab vocab.en --tgt_vocab vocab.de --save_dir checkpoints/
 ```
 
+For multi-GPU training, use `--num_gpus N`.
+
 Vocabularies that work with OpenNMT-tf also work here. If you are building your own vocabulary, make sure that it meets the following requirements:
 
 * must have one token per line (no token frequencies or other annotations)
@@ -52,3 +54,5 @@ python3 convert.py averaged_checkpoint.pt --src_vocab vocab.en --tgt_vocab vocab
 ```bash
 python3 translate.py ct2_model < input.txt.tok > output.txt.tok
 ```
+
+To run translation on the GPU (or multiple GPUs), use `--num_gpus N`.

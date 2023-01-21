@@ -44,7 +44,6 @@ save_every = 250
 max_step = 50000
 keep_checkpoints = 10
 
-num_gpus = 1
 compile_model = False
 mixed_precision = True
 
@@ -62,19 +61,22 @@ def main():
     parser.add_argument(
         "--save_dir", default="checkpoints/", help="Path to the checkpoint directory"
     )
+    parser.add_argument(
+        "--num_gpus", type=int, default=1, help="Number of GPUs to use"
+    )
     args = parser.parse_args()
 
     torch.multiprocessing.spawn(
         train,
         args=(
-            num_gpus,
+            args.num_gpus,
             args.src,
             args.tgt,
             args.src_vocab,
             args.tgt_vocab,
             args.save_dir,
         ),
-        nprocs=num_gpus,
+        nprocs=args.num_gpus,
         join=True,
     )
 

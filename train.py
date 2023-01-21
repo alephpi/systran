@@ -136,8 +136,8 @@ def train(
         share_embeddings=(
             source_vocabulary_path == target_vocabulary_path
             if share_embeddings is None
-            else share_embeddings)
-        ,
+            else share_embeddings
+        ),
         padding_idx=padding_idx,
     )
 

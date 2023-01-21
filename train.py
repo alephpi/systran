@@ -141,8 +141,12 @@ def train(
         padding_idx=padding_idx,
     )
 
+    trainable_parameters = [
+        parameter for parameter in model.parameters() if parameter.requires_grad
+    ]
+
     optimizer = torch.optim.Adam(
-        model.parameters(),
+        trainable_parameters,
         lr=1,  # The learning rate is defined by the scheduler.
         betas=adam_betas,
     )
@@ -187,11 +191,7 @@ def train(
         print("Accumulate gradients of %d batches" % accum_steps)
         print(
             "Optimize %d parameters"
-            % sum(
-                parameter.numel()
-                for parameter in model.parameters()
-                if parameter.requires_grad
-            )
+            % sum(parameter.numel() for parameter in trainable_parameters)
         )
 
     for batches in dataset:

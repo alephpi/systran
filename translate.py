@@ -37,7 +37,7 @@ def main():
         sys.stdout,
         max_batch_size=64 if use_gpu else 32,
         beam_size=5,
-        length_penalty=0.6,
+        length_penalty=1,
     )
 
 

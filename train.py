@@ -40,7 +40,7 @@ initial_learning_rate = 1e-7
 adam_betas = (0.9, 0.98)
 
 report_every = 20
-save_every = 250
+save_every = 500
 max_step = 50000
 keep_checkpoints = 10
 

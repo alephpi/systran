@@ -3,6 +3,7 @@ import contextlib
 import glob
 import math
 import os
+import random
 import socket
 import time
 
@@ -46,6 +47,7 @@ keep_checkpoints = 10
 
 compile_model = False
 mixed_precision = True
+seed = None
 
 
 def main():
@@ -100,6 +102,10 @@ def train(
     # Initialize distributed training.
     torch.distributed.init_process_group("nccl", rank=rank, world_size=world_size)
 
+    if seed is not None:
+        torch.manual_seed(seed)
+        random.seed(seed)
+
     source_vocabulary, _ = load_vocabulary(source_vocabulary_path)
     target_vocabulary, _ = load_vocabulary(target_vocabulary_path)
     padding_idx = 0
@@ -124,6 +130,7 @@ def train(
         num_accum_batches=accum_steps,
         num_shards=world_size,
         shard_index=rank,
+        seed=seed,
     )
 
     model = create_model(

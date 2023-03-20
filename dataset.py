@@ -27,6 +27,7 @@ def create_training_dataset(
     shard_index=0,
     prefetch_size=None,
     shuffle_buffer_size=None,
+    seed=None,
 ):
     """Creates a dataset with all transformations required for training."""
 
@@ -65,7 +66,9 @@ def create_training_dataset(
 
     # Prepare batches in a separate process for true parallelism,
     # then bufferize in a separate thread.
-    dataset = PrefetchDataset(dataset, prefetch_size=prefetch_size, use_threading=False)
+    dataset = PrefetchDataset(
+        dataset, prefetch_size=prefetch_size, use_threading=False, seed=seed
+    )
     dataset = MapDataset(dataset, ConvertToTensor(device, padding_idx, pad_to_multiple))
     dataset = PrefetchDataset(dataset, prefetch_size=prefetch_size, use_threading=True)
 
@@ -357,12 +360,16 @@ class BatchByTokensDataset:
 class PrefetchDataset:
     """Prefetch dataset elements in a background process or thread."""
 
-    def __init__(self, dataset, prefetch_size=1, use_threading=False):
+    def __init__(self, dataset, prefetch_size=1, use_threading=False, seed=None):
         self._dataset = dataset
         self._prefetch_size = prefetch_size
         self._use_threading = use_threading
+        self._seed = seed
 
     def _fetch_elements(self, queue):
+        if not self._use_threading and self._seed is not None:
+            random.seed(self._seed)
+
         for element in self._dataset:
             queue.put(element)
         queue.put(None)

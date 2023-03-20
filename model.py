@@ -200,7 +200,6 @@ class MultiHeadAttention(torch.nn.Module):
             self.value_proj = torch.nn.Linear(embed_dim, embed_dim * 2)
 
         self.out_proj = torch.nn.Linear(embed_dim, embed_dim)
-        self.softmax = torch.nn.Softmax(dim=-1)
 
     def forward(self, query, value=None, mask=None):
         if value is None:

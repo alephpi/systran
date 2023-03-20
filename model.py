@@ -191,8 +191,7 @@ class MultiHeadAttention(torch.nn.Module):
         super().__init__()
         self.embed_dim = embed_dim
         self.attention_heads = attention_heads
-        self.dim_per_head = embed_dim // attention_heads
-        self.query_scale = self.dim_per_head**-0.5
+        self.dropout = dropout
 
         if self_attention:
             self.in_proj = torch.nn.Linear(embed_dim, embed_dim * 3)
@@ -201,7 +200,6 @@ class MultiHeadAttention(torch.nn.Module):
             self.value_proj = torch.nn.Linear(embed_dim, embed_dim * 2)
 
         self.out_proj = torch.nn.Linear(embed_dim, embed_dim)
-        self.dropout = torch.nn.Dropout(dropout)
         self.softmax = torch.nn.Softmax(dim=-1)
 
     def forward(self, query, value=None, mask=None):
@@ -218,15 +216,14 @@ class MultiHeadAttention(torch.nn.Module):
             proj = split_heads(proj, self.attention_heads * 2)
             key, value = proj.split(self.attention_heads, dim=1)
 
-        dot = torch.matmul(query * self.query_scale, key.transpose(2, 3))
+        output = torch.nn.functional.scaled_dot_product_attention(
+            query,
+            key,
+            value,
+            attn_mask=mask,
+            dropout_p=self.dropout if self.training else 0,
+        )
 
-        if mask is not None:
-            dot += mask
-
-        attention_weight = self.softmax(dot)
-        attention_weight = self.dropout(attention_weight)
-
-        output = torch.matmul(attention_weight, value)
         output = combine_heads(output)
         output = self.out_proj(output)
 

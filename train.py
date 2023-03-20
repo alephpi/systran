@@ -158,6 +158,7 @@ def train(
         trainable_parameters,
         lr=1,  # The learning rate is defined by the scheduler.
         betas=adam_betas,
+        fused=True,
     )
 
     scheduler = torch.optim.lr_scheduler.LambdaLR(
@@ -234,7 +235,7 @@ def train(
         scaler.step(optimizer)
         scaler.update()
         scheduler.step()
-        optimizer.zero_grad(set_to_none=True)
+        optimizer.zero_grad()
 
         step += 1
 

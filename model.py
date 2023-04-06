@@ -59,23 +59,33 @@ class Transformer(torch.nn.Module):
             torch.nn.init.uniform_(module.weight, -0.07, 0.07)
 
     def forward(self, src_ids, tgt_ids):
-        batch_size = src_ids.shape[0]
+        encoder_output, src_mask = self.encode(src_ids)
+        decoder_output = self.decode(tgt_ids, encoder_output, src_mask=src_mask)
+        logits = self.output_layer(outputs)
+        return logits
+
+    def encode(self, src_ids):
         src_max_len = src_ids.shape[1]
-        tgt_max_len = tgt_ids.shape[1]
 
         src_inputs = self.src_embeddings(src_ids) * self.emb_scale
-        tgt_inputs = self.tgt_embeddings(tgt_ids) * self.emb_scale
-
         src_inputs += self.position_encodings[:src_max_len].unsqueeze(0)
-        tgt_inputs += self.position_encodings[:tgt_max_len].unsqueeze(0)
-
         src_inputs = self.dropout(src_inputs)
-        tgt_inputs = self.dropout(tgt_inputs)
 
         src_padding_mask = src_ids.eq(self.padding_idx)
         src_mask = src_inputs.new_zeros(src_padding_mask.shape)
         src_mask = src_mask.masked_fill(src_padding_mask, float("-inf"))
         src_mask = src_mask.view(-1, 1, 1, src_max_len)
+
+        memory = self.encoder(src_inputs, mask=src_mask)
+        return memory, src_mask
+
+    def decode(self, tgt_ids, encoder_output, src_mask=None, kv_cache=None):
+        batch_size, tgt_max_len = tgt_ids.shape
+        offset = next(iter(kv_cache.values())).shape[2] if kv_cache else 0
+
+        tgt_inputs = self.tgt_embeddings(tgt_ids) * self.emb_scale
+        tgt_inputs += self.position_encodings[offset:offset + tgt_max_len].unsqueeze(0)
+        tgt_inputs = self.dropout(tgt_inputs)
 
         tgt_padding_mask = tgt_ids.eq(self.padding_idx).unsqueeze(1)
         tgt_mask = self.triangular_mask[:tgt_max_len, :tgt_max_len].unsqueeze(0)
@@ -83,11 +93,15 @@ class Transformer(torch.nn.Module):
         tgt_mask = tgt_mask.masked_fill(tgt_padding_mask, float("-inf"))
         tgt_mask = tgt_mask.view(-1, 1, tgt_max_len, tgt_max_len)
 
-        memory = self.encoder(src_inputs, mask=src_mask)
-        outputs = self.decoder(tgt_inputs, memory, mask=tgt_mask, memory_mask=src_mask)
+        outputs = self.decoder(
+            tgt_inputs,
+            encoder_output,
+            mask=tgt_mask,
+            memory_mask=src_mask,
+            kv_cache=kv_cache,
+        )
 
-        logits = self.output_layer(outputs)
-        return logits
+        return outputs
 
 
 class TransformerEncoder(torch.nn.Module):
@@ -117,16 +131,16 @@ class TransformerDecoder(torch.nn.Module):
 
         self.layers = torch.nn.ModuleList(
             [
-                TransformerDecoderLayer(embed_dim, ffn_dim, attention_heads, dropout)
-                for _ in range(num_layers)
+                TransformerDecoderLayer(embed_dim, ffn_dim, attention_heads, dropout, i)
+                for i in range(num_layers)
             ]
         )
 
         self.norm = torch.nn.LayerNorm(embed_dim)
 
-    def forward(self, x, memory, mask=None, memory_mask=None):
+    def forward(self, x, memory, mask=None, memory_mask=None, kv_cache=None):
         for layer in self.layers:
-            x = layer(x, memory, mask=mask, memory_mask=memory_mask)
+            x = layer(x, memory, mask=mask, memory_mask=memory_mask, kv_cache=kv_cache)
 
         x = self.norm(x)
         return x
@@ -156,16 +170,16 @@ class TransformerEncoderLayer(torch.nn.Module):
 
 
 class TransformerDecoderLayer(torch.nn.Module):
-    def __init__(self, embed_dim, ffn_dim, attention_heads, dropout):
+    def __init__(self, embed_dim, ffn_dim, attention_heads, dropout, layer_index):
         super().__init__()
         self.norm1 = torch.nn.LayerNorm(embed_dim)
         self.self_attention = MultiHeadAttention(
-            embed_dim, attention_heads, dropout, self_attention=True
+            embed_dim, attention_heads, dropout, self_attention=True, layer_index=layer_index
         )
 
         self.norm2 = torch.nn.LayerNorm(embed_dim)
         self.attention = MultiHeadAttention(
-            embed_dim, attention_heads, dropout, self_attention=False
+            embed_dim, attention_heads, dropout, self_attention=False, layer_index=layer_index
         )
 
         self.norm3 = torch.nn.LayerNorm(embed_dim)
@@ -173,11 +187,11 @@ class TransformerDecoderLayer(torch.nn.Module):
 
         self.dropout = torch.nn.Dropout(dropout)
 
-    def forward(self, x, memory, mask=None, memory_mask=None):
-        y = self.self_attention(self.norm1(x), mask=mask)
+    def forward(self, x, memory, mask=None, memory_mask=None, kv_cache=None):
+        y = self.self_attention(self.norm1(x), mask=mask, kv_cache=kv_cache)
         x = self.dropout(y) + x
 
-        y = self.attention(self.norm2(x), memory, mask=memory_mask)
+        y = self.attention(self.norm2(x), memory, mask=memory_mask, kv_cache=kv_cache)
         x = self.dropout(y) + x
 
         y = self.ffn(self.norm3(x))
@@ -187,7 +201,7 @@ class TransformerDecoderLayer(torch.nn.Module):
 
 
 class MultiHeadAttention(torch.nn.Module):
-    def __init__(self, embed_dim, attention_heads, dropout, self_attention):
+    def __init__(self, embed_dim, attention_heads, dropout, self_attention, layer_index=0):
         super().__init__()
         self.embed_dim = embed_dim
         self.attention_heads = attention_heads
@@ -201,19 +215,40 @@ class MultiHeadAttention(torch.nn.Module):
 
         self.out_proj = torch.nn.Linear(embed_dim, embed_dim)
 
-    def forward(self, query, value=None, mask=None):
+        self.cache_prefix = "self_attention" if self_attention else "attention"
+        self.cache_prefix = "%s_%d" % (self.cache_prefix, layer_index)
+
+    def forward(self, query, value=None, mask=None, kv_cache=None):
+        if kv_cache is not None:
+            cached_key = kv_cache.get("%s_key" % self.cache_prefix)
+            cached_value = kv_cache.get("%s_value" % self.cache_prefix)
+        else:
+            cached_key, cached_value = None, None
+
         if value is None:
             proj = self.in_proj(query)
             proj = split_heads(proj, self.attention_heads * 3)
             query, key, value = proj.split(self.attention_heads, dim=1)
 
+            if cached_key is not None:
+                key = torch.cat([cached_key, key], dim=2)
+                value = torch.cat([cached_value, value], dim=2)
+
         else:
             query = self.query_proj(query)
             query = split_heads(query, self.attention_heads)
 
-            proj = self.value_proj(value)
-            proj = split_heads(proj, self.attention_heads * 2)
-            key, value = proj.split(self.attention_heads, dim=1)
+            if cached_key is not None:
+                key = cached_key
+                value = cached_value
+            else:
+                proj = self.value_proj(value)
+                proj = split_heads(proj, self.attention_heads * 2)
+                key, value = proj.split(self.attention_heads, dim=1)
+
+        if kv_cache is not None:
+            kv_cache["%s_key" % self.cache_prefix] = key
+            kv_cache["%s_value" % self.cache_prefix] = value
 
         output = torch.nn.functional.scaled_dot_product_attention(
             query,

@@ -158,13 +158,19 @@ def to_tensor(batch_ids, device=None, padding_value=0, pad_to_multiple=1):
 class TextFileDataset:
     """Read lines from a text dataset."""
 
-    def __init__(self, path):
-        self._path = path
+    def __init__(self, file):
+        self._file = file
 
     def __iter__(self):
-        with open(self._path) as f:
-            for line in f:
-                yield line.rstrip("\r\n")
+        if isinstance(self._file, str):
+            with open(self._file) as f:
+                yield from self._generate_lines(f)
+        else:
+            yield from self._generate_lines(self._file)
+
+    def _generate_lines(self, file):
+        for line in file:
+            yield line.rstrip("\r\n")
 
 
 class ZipDataset:
@@ -441,4 +447,6 @@ def _batch_elements(elements):
         return tuple(list(batch) for batch in zip(*elements))
     if isinstance(elements[0], dict):
         return {key: [dct[key] for dct in elements] for key in elements[0].keys()}
+    if isinstance(elements[0], list):
+        return elements
     raise TypeError("Cannot batch element")

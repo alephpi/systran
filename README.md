@@ -43,22 +43,8 @@ Vocabularies that work with OpenNMT-tf also work here. If you are building your 
 python3 average.py checkpoints/ --output averaged_checkpoint.pt
 ```
 
-### Convert to CTranslate2
+### Run inference
 
 ```bash
-python3 convert.py averaged_checkpoint.pt --src_vocab vocab.en --tgt_vocab vocab.de --output_dir ct2_model
+python3 beam_search.py --ckpt averaged_checkpoint.pt --src_vocab vocab.en --tgt_vocab vocab.de < test.en.tok
 ```
-
-### Compute the validation loss
-
-```bash
-python3 eval.py ct2_model valid.en.tok valid.de.tok
-```
-
-### Translate
-
-```bash
-python3 translate.py ct2_model < input.txt.tok > output.txt.tok
-```
-
-To run translation on the GPU (or multiple GPUs), use `--num_gpus N`.

@@ -12,8 +12,6 @@ The code implements:
 
 The default parameters are mostly copied from the [Scaling NMT](https://aclanthology.org/W18-6301/) paper.
 
-Note that the repository does not contain inference code in PyTorch, but the models can be converted to [CTranslate2](https://github.com/OpenNMT/CTranslate2).
-
 ## Installation
 
 ```bash

@@ -61,7 +61,7 @@ class Transformer(torch.nn.Module):
     def forward(self, src_ids, tgt_ids):
         encoder_output, src_mask = self.encode(src_ids)
         decoder_output = self.decode(tgt_ids, encoder_output, src_mask=src_mask)
-        logits = self.output_layer(outputs)
+        logits = self.output_layer(decoder_output)
         return logits
 
     def encode(self, src_ids):

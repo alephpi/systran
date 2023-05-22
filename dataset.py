@@ -8,6 +8,7 @@ import queue
 import torch
 
 from data import encode_line
+from utils import init_logger, get_logger
 
 
 def create_training_dataset(
@@ -241,7 +242,7 @@ class ShuffleDataset:
         self._buffer_size = buffer_size
 
     def _shuffle_and_yield(self, elements):
-        print("Shuffling %d elements" % len(elements))
+        get_logger().info("Shuffling %d elements", len(elements))
         random.shuffle(elements)
         while elements:
             yield elements.pop()
@@ -373,8 +374,11 @@ class PrefetchDataset:
         self._seed = seed
 
     def _fetch_elements(self, queue):
-        if not self._use_threading and self._seed is not None:
-            random.seed(self._seed)
+        if not self._use_threading:
+            init_logger()
+
+            if self._seed is not None:
+                random.seed(self._seed)
 
         for element in self._dataset:
             queue.put(element)

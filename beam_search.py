@@ -6,6 +6,7 @@ import torch
 from data import encode_line, load_vocabulary
 from dataset import TextFileDataset, MapDataset, BatchDataset, to_tensor
 from model import Transformer
+from utils import init_logger
 
 batch_size = 16
 beam_size = 5
@@ -14,6 +15,8 @@ max_length = 256
 
 
 def main():
+    init_logger()
+
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--src_vocab", required=True, help="Path to the source vocabulary"

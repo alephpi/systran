@@ -53,7 +53,8 @@ class Transformer(torch.nn.Module):
             else torch.nn.Embedding(tgt_vocab_size, dim_model, padding_idx=padding_idx)
         )
 
-        self.output_layer = torch.nn.Linear(dim_model, tgt_vocab_size, bias=False)
+        self.output_layer = torch.nn.Linear(
+            dim_model, tgt_vocab_size, bias=False)
         self.output_layer.weight = self.tgt_embeddings.weight
 
         self.dropout = torch.nn.Dropout(dropout)
@@ -64,7 +65,8 @@ class Transformer(torch.nn.Module):
         triangular_mask = torch.nn.Transformer.generate_square_subsequent_mask(
             max_length
         )
-        self.register_buffer("triangular_mask", triangular_mask, persistent=False)
+        self.register_buffer(
+            "triangular_mask", triangular_mask, persistent=False)
 
         self.apply(self.init_weights)
 
@@ -78,7 +80,8 @@ class Transformer(torch.nn.Module):
 
     def forward(self, src_ids, tgt_ids):
         encoder_output, src_mask = self.encode(src_ids)
-        decoder_output = self.decode(tgt_ids, encoder_output, src_mask=src_mask)
+        decoder_output = self.decode(
+            tgt_ids, encoder_output, src_mask=src_mask)
         logits = self.output_layer(decoder_output)
         return logits
 
@@ -101,12 +104,16 @@ class Transformer(torch.nn.Module):
         batch_size, tgt_max_len = tgt_ids.shape
         offset = next(iter(kv_cache.values())).shape[2] if kv_cache else 0
 
+        # is emb_scale a normalization, why?
         tgt_inputs = self.tgt_embeddings(tgt_ids) * self.emb_scale
-        tgt_inputs += self.position_encodings[offset:offset + tgt_max_len].unsqueeze(0)
-        tgt_inputs = self.dropout(tgt_inputs)
+        # add positional encodings
+        tgt_inputs += self.position_encodings[offset:offset +
+                                              tgt_max_len].unsqueeze(0)
+        tgt_inputs = self.dropout(tgt_inputs)  # why dropout?
 
         tgt_padding_mask = tgt_ids.eq(self.padding_idx).unsqueeze(1)
-        tgt_mask = self.triangular_mask[:tgt_max_len, :tgt_max_len].unsqueeze(0)
+        tgt_mask = self.triangular_mask[:tgt_max_len,
+                                        :tgt_max_len].unsqueeze(0)
         tgt_mask = tgt_mask.expand(batch_size, -1, -1)
         tgt_mask = tgt_mask.masked_fill(tgt_padding_mask, float("-inf"))
         tgt_mask = tgt_mask.view(-1, 1, tgt_max_len, tgt_max_len)
@@ -128,7 +135,8 @@ class TransformerEncoder(torch.nn.Module):
 
         self.layers = torch.nn.ModuleList(
             [
-                TransformerEncoderLayer(embed_dim, ffn_dim, attention_heads, dropout)
+                TransformerEncoderLayer(
+                    embed_dim, ffn_dim, attention_heads, dropout)
                 for _ in range(num_layers)
             ]
         )
@@ -149,7 +157,8 @@ class TransformerDecoder(torch.nn.Module):
 
         self.layers = torch.nn.ModuleList(
             [
-                TransformerDecoderLayer(embed_dim, ffn_dim, attention_heads, dropout, i)
+                TransformerDecoderLayer(
+                    embed_dim, ffn_dim, attention_heads, dropout, i)
                 for i in range(num_layers)
             ]
         )
@@ -158,7 +167,8 @@ class TransformerDecoder(torch.nn.Module):
 
     def forward(self, x, memory, mask=None, memory_mask=None, kv_cache=None):
         for layer in self.layers:
-            x = layer(x, memory, mask=mask, memory_mask=memory_mask, kv_cache=kv_cache)
+            x = layer(x, memory, mask=mask,
+                      memory_mask=memory_mask, kv_cache=kv_cache)
 
         x = self.norm(x)
         return x
@@ -209,7 +219,8 @@ class TransformerDecoderLayer(torch.nn.Module):
         y = self.self_attention(self.norm1(x), mask=mask, kv_cache=kv_cache)
         x = self.dropout(y) + x
 
-        y = self.attention(self.norm2(x), memory, mask=memory_mask, kv_cache=kv_cache)
+        y = self.attention(self.norm2(x), memory,
+                           mask=memory_mask, kv_cache=kv_cache)
         x = self.dropout(y) + x
 
         y = self.ffn(self.norm3(x))

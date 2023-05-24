@@ -2,6 +2,10 @@ import torch
 
 
 class Transformer(torch.nn.Module):
+    @classmethod
+    def from_config(cls, config):
+        return cls(**config)
+
     def __init__(
         self,
         src_vocab_size,
@@ -16,6 +20,20 @@ class Transformer(torch.nn.Module):
         padding_idx=0,
     ):
         super().__init__()
+
+        self.config = dict(
+            src_vocab_size=src_vocab_size,
+            tgt_vocab_size=tgt_vocab_size,
+            num_layers=num_layers,
+            num_heads=num_heads,
+            dim_model=dim_model,
+            dim_ffn=dim_ffn,
+            dropout=dropout,
+            max_length=max_length,
+            share_embeddings=share_embeddings,
+            padding_idx=padding_idx,
+        )
+
         self.emb_scale = dim_model**0.5
         self.padding_idx = padding_idx
 

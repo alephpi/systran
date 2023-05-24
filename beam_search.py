@@ -44,13 +44,17 @@ def main():
     bos = target_vocabulary["<s>"]
     eos = target_vocabulary["</s>"]
 
-    model = Transformer(
-        len(source_vocabulary),
-        len(target_vocabulary),
-        share_embeddings=True,
-    )
-
     checkpoint = torch.load(args.ckpt)
+
+    model_config = checkpoint.get("model_config")
+    if model_config is None:
+        model_config = dict(
+            src_vocab_size=len(source_vocabulary),
+            tgt_vocab_size=len(target_vocabulary),
+            share_embeddings=True,
+        )
+
+    model = Transformer.from_config(model_config)
     model.load_state_dict(checkpoint["model"])
     model.to(args.device)
     model.eval()

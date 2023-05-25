@@ -1,6 +1,11 @@
 import logging
 import os
 
+import matplotlib.pyplot as plt
+import torch
+from data import load_vocabulary
+_, tgt_vocab_rev = load_vocabulary('../corpus/vocab_en_fr.txt')
+
 
 def init_logger(level=None):
     if level is None:
@@ -15,3 +20,15 @@ def init_logger(level=None):
 
 def get_logger():
     return logging.getLogger("pytorch_transformer")
+
+
+def probe(probs: torch.Tensor):
+    v, ids = torch.topk(probs, k=10)
+    print([tgt_vocab_rev[i] for i in ids])
+    plt.bar(range(v.shape[0]), v)
+    plt.show()
+
+
+def vis(tgt_ids: torch.Tensor, score: torch.Tensor):
+    for i, sent in enumerate(tgt_ids.view(-1, tgt_ids.shape[-1]).tolist()):
+        print(f'{score.view(-1)[i].item():.4f}', ' '.join([tgt_vocab_rev[i] for i in sent]))

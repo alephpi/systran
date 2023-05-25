@@ -104,12 +104,12 @@ class Transformer(torch.nn.Module):
         batch_size, tgt_max_len = tgt_ids.shape
         offset = next(iter(kv_cache.values())).shape[2] if kv_cache else 0
 
-        # is emb_scale a normalization, why?
+        # is emb_scale a normalization, why? section 3.4
         tgt_inputs = self.tgt_embeddings(tgt_ids) * self.emb_scale
         # add positional encodings
         tgt_inputs += self.position_encodings[offset:offset +
                                               tgt_max_len].unsqueeze(0)
-        tgt_inputs = self.dropout(tgt_inputs)  # why dropout?
+        tgt_inputs = self.dropout(tgt_inputs)  # why dropout? section 5.4
 
         tgt_padding_mask = tgt_ids.eq(self.padding_idx).unsqueeze(1)
         tgt_mask = self.triangular_mask[:tgt_max_len,

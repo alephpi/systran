@@ -1,4 +1,5 @@
 import argparse
+import os
 import sys
 from typing import Dict
 
@@ -7,6 +8,9 @@ import torch
 from data import encode_line, load_vocabulary
 from dataset import TextFileDataset, MapDataset, BatchDataset, to_tensor
 from model import Transformer
+
+from tqdm import tqdm
+import spacy
 
 batch_size = 16
 beam_size = 5
@@ -32,6 +36,8 @@ def main():
     bos = target_vocabulary["<s>"]
     eos = target_vocabulary["</s>"]
 
+    mask = calc_mask(target_vocabulary)
+
     model = Transformer(
         len(source_vocabulary),
         len(target_vocabulary),
@@ -47,7 +53,7 @@ def main():
 
     with torch.no_grad():
         for batch in dataset:
-            result = beam_search(model, batch, bos, eos)
+            result = beam_search(model, batch, bos, eos, mask=mask)
 
             # result = (batch_size, ), hypo = (score, sent)
             for hypotheses in result:
@@ -71,8 +77,9 @@ def create_dataset(path, source_vocabulary, device):
     return dataset
 
 
-def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty=False):
+def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty=True, naive_penalty=None, mask=1):
     print("my beam search")
+    print(naive_penalty)
     batch_size = src_ids.shape[0]
     # encoder_output.shape = (batch, sent, embedding)
     # why src_mask has 4 dimension? (batch, 1, 1, sent)
@@ -96,7 +103,7 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
                            for _ in range(batch_size)]  # inner list stores beam
     kv_cache = {}
 
-    for step in range(max_length):  # inference step, beam forward
+    for step in tqdm(range(max_length)):  # inference step, beam forward
         # the last output for next input, view it as a batch of 10
         tgt_inputs = tgt_ids[:, :, -1].view(-1, 1)
         decoder_output = model.decode(
@@ -112,8 +119,9 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
         log_probs = torch.nn.functional.log_softmax(logits, dim=-1)
         # add penalization to the appeared tokens to reduce future repetitions
         if rep_penalty:
-            log_probs = add_penalty(
-                tgt_ids, log_probs, method='naive', naive_penalty=2)
+            penalty = calc_penalty(
+                tgt_ids, log_probs, method='naive', naive_penalty=naive_penalty, mask=mask)
+            log_probs += penalty
         log_probs += cum_log_probs.reshape(-1, 1)
 
         vocab_size = log_probs.shape[-1]
@@ -181,21 +189,45 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
     return finished_hypotheses
 
 
-def add_penalty(tgt_ids, log_probs, method, naive_penalty=None):
+def calc_mask(target_vocab: Dict[str, int], path='./penalty_mask.pt'):
+    if os.path.exists(path):
+        mask = torch.load(path)
+    else:
+        IS_CLOSE = ['ADP', 'AUX', 'CCONJ', 'DET',
+                    'NUM', 'PART', 'PRON', 'SCONJ']
+        IS_OTHER = ['PUNCT', 'SYM', 'X']
+        IGNORE_TAG = IS_CLOSE + IS_OTHER
+        print(IGNORE_TAG)
+        # the first four special tokens are ignorable
+        ignore_ids = [0, 1, 2, 3]
+        # remember to generalize for other target langs.
+        nlp = spacy.load('fr_core_news_lg')
+        for token in tqdm(list(target_vocab.keys())[4:]):
+            pos = nlp(token.strip('￭'))[0].pos_
+            if pos in IGNORE_TAG:
+                ignore_ids.append(target_vocab[token])
+        mask = torch.ones(len(target_vocab))
+        mask[ignore_ids] = 0
+        torch.save(mask, path)
+    return mask
+
+
+def calc_penalty(tgt_ids, log_probs, method, naive_penalty=None, mask=1):
+    # torch.use_deterministic_algorithms(True)
     # where to apply
     penalty_matrix = torch.zeros_like(log_probs)
-    appeared_token_ids = tgt_ids.view(beam_size*batch_size, -1)
+    appeared_token_ids = tgt_ids.view(-1, tgt_ids.shape[-1])
     # loop over position in sequence
-    for i in appeared_token_ids.size(-1):
-        penalty_matrix.scatter_add(1, appeared_token_ids[:, i])
+    for i in range(appeared_token_ids.size(-1)):
+        penalty_matrix.scatter_add_(1, appeared_token_ids[:, i].unsqueeze(-1), torch.ones_like(
+            appeared_token_ids[:, i].unsqueeze(-1), dtype=penalty_matrix.dtype))
     # how much to apply
     if method == 'naive':
         if naive_penalty is None:
             raise ValueError("please specify naive_penalty for method='naive'")
-        log_probs -= penalty_matrix * naive_penalty
+        return -penalty_matrix * naive_penalty * mask
     else:
-        pass
-    return log_probs
+        return 0
 
 
 def repeat_beam(x: torch.Tensor, beam_size):

@@ -139,3 +139,5 @@ ui-tests/.pnp.*
 *checkpoint*
 *.sh
 log
+
+*.png

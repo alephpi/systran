@@ -1,6 +1,8 @@
 import argparse
 import os
 import sys
+import time
+import timeit
 from typing import Dict
 
 import torch
@@ -81,6 +83,7 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
     print("my beam search")
     print(naive_penalty)
     batch_size = src_ids.shape[0]
+    vocab_size = model
     # encoder_output.shape = (batch, sent, embedding)
     # why src_mask has 4 dimension? (batch, 1, 1, sent)
     encoder_output, src_mask = model.encode(src_ids)
@@ -117,14 +120,29 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
         logits = model.output_layer(decoder_output)
 
         log_probs = torch.nn.functional.log_softmax(logits, dim=-1)
+        vocab_size = log_probs.shape[-1]
         # add penalization to the appeared tokens to reduce future repetitions
         if rep_penalty:
+            if step == 0:  # initialize at step 0
+                penalty_matrix = torch.zeros(batch_size*beam_size, vocab_size)
+            # else:  # prevent undefined variables at the first step
+                # s = time.time()
+                # penalty_matrix = update_penalty(penalty_matrix, tgt_ids, from_beam)
+                # e = time.time()
+                # el2 = e - s
+                # print(el, el2, el < el2)
+                # if not penalty.equal(penalty_matrix):
+                #     return penalty, penalty_matrix
+            s = time.time()
             penalty = calc_penalty(
-                tgt_ids, log_probs, method='naive', naive_penalty=naive_penalty, mask=mask)
-            log_probs += penalty
+                tgt_ids, log_probs, method='naive', naive_penalty=naive_penalty)
+            # log_probs += - penalty * naive_penalty * mask
+            e = time.time()
+            el = e - s
+            assert penalty_matrix.equal(penalty)
+
         log_probs += cum_log_probs.reshape(-1, 1)
 
-        vocab_size = log_probs.shape[-1]
         # we need to keep beam_size active sentences, hence we need a candidate list of 2*beam_size
         # we want to find top-2*beam_size prob(and id) from beam_size*vocab_size candidates for each beam
         cum_log_probs, top_ids = torch.topk(
@@ -138,6 +156,11 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
         top_ids = top_ids % vocab_size
 
         tgt_ids = index_beam(tgt_ids, from_beam)
+        s = time.time()
+        penalty_matrix = cache_penalty(
+            penalty_matrix, top_ids.view(-1, 1), from_beam, batch_size, beam_size)
+        e = time.time()
+        el2 = e - s
         tgt_ids = torch.cat([tgt_ids, top_ids.unsqueeze(-1)], dim=-1)
 
         for i in range(batch_size):
@@ -161,9 +184,11 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
                 # Replace the finished hypothesis by an active candidate.
                 for j in range(beam_size, beam_size * 2):
                     if top_ids[i, j] != eos:
-                        tgt_ids[i, k, -1] = top_ids[i, j]
+                        tgt_ids[i, k] = tgt_ids[i, j]
                         cum_log_probs[i, k] = cum_log_probs[i, j]
                         from_beam[i, k] = from_beam[i, j]
+                        penalty_matrix.view(
+                            batch_size, 2*beam_size, -1)[i, k] = penalty_matrix.view(batch_size, 2*beam_size, -1)[i, j]
                         top_ids[i, j] = eos
                         break
 
@@ -181,6 +206,12 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
         tgt_ids = tgt_ids[:, :beam_size].contiguous()
         cum_log_probs = cum_log_probs[:, :beam_size].contiguous()
         from_beam = from_beam[:, :beam_size].contiguous()
+        s = time.time()
+        penalty_matrix = penalty_matrix.view(
+            batch_size, 2*beam_size, -1)[:, :beam_size].reshape(-1, vocab_size).contiguous()
+        e = time.time()
+        el3 = e - s
+        print(el, el2+el3, el < (el2+el3))
 
         # what's the purpose?
         update_kv_cache(kv_cache, from_beam)
@@ -212,22 +243,62 @@ def calc_mask(target_vocab: Dict[str, int], path='./penalty_mask.pt'):
     return mask
 
 
-def calc_penalty(tgt_ids, log_probs, method, naive_penalty=None, mask=1):
+def calc_penalty(tgt_ids, log_probs, method, naive_penalty=None):
     # torch.use_deterministic_algorithms(True)
     # where to apply
+    seq_length = tgt_ids.shape[-1]
+    s = time.time()
     penalty_matrix = torch.zeros_like(log_probs)
-    appeared_token_ids = tgt_ids.view(-1, tgt_ids.shape[-1])
+    appeared_token_ids = tgt_ids.view(-1, seq_length)
     # loop over position in sequence
-    for i in range(appeared_token_ids.size(-1)):
+    for i in range(1, appeared_token_ids.size(-1)):
         penalty_matrix.scatter_add_(1, appeared_token_ids[:, i].unsqueeze(-1), torch.ones_like(
             appeared_token_ids[:, i].unsqueeze(-1), dtype=penalty_matrix.dtype))
+    e = time.time()
+    el = e - s
+    # # try parallelize
+    # s2 = time.time()
+    # penalty_broadcast = torch.zeros_like(
+    #     log_probs).unsqueeze(-1).expand(-1, -1, seq_length)
+    # idx = tgt_ids.view(-1, 1, seq_length)
+    # penalty_matrix2 = penalty_broadcast.scatter_add(
+    #     1, idx, torch.ones_like(idx, dtype=penalty_broadcast.dtype)).sum(dim=-1)
+    # e2 = time.time()
+    # el2 = e2 - s2
+    # print(el, el2, el < el2)
+    # assert penalty_matrix2.equal(penalty_matrix)
+    # turns out broadcast is slower than loop
+
+    # try cache
+
     # how much to apply
     if method == 'naive':
         if naive_penalty is None:
             raise ValueError("please specify naive_penalty for method='naive'")
-        return -penalty_matrix * naive_penalty * mask
+        return penalty_matrix
     else:
         return 0
+
+
+def update_penalty(p: torch.Tensor, x: torch.Tensor, beam_ids: torch.Tensor):
+    batch_size, beam_size = x.shape[:2]
+    batch_offset = torch.arange(batch_size, device=beam_ids.device) * beam_size
+    flat_beam_ids = (beam_ids + batch_offset.view(-1, 1)).view(-1)
+    p = p.index_select(0, flat_beam_ids)
+
+    seq_length = x.shape[-1]
+    ids = x.view(-1, seq_length, 1)[:, -1]
+    p.scatter_add_(1, ids, torch.ones_like(ids, dtype=p.dtype))
+    return p
+
+
+def cache_penalty(p: torch.Tensor, ids: torch.Tensor, beam_ids: torch.Tensor, batch_size, beam_size):
+    batch_offset = torch.arange(batch_size, device=beam_ids.device) * beam_size
+    flat_beam_ids = (beam_ids + batch_offset.view(-1, 1)).view(-1)
+    p = p.index_select(0, flat_beam_ids)
+
+    p.scatter_add_(1, ids, torch.ones_like(ids, dtype=p.dtype))
+    return p
 
 
 def repeat_beam(x: torch.Tensor, beam_size):

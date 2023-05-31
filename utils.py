@@ -31,4 +31,9 @@ def probe(probs: torch.Tensor):
 
 def vis(tgt_ids: torch.Tensor, score: torch.Tensor):
     for i, sent in enumerate(tgt_ids.view(-1, tgt_ids.shape[-1]).tolist()):
-        print(f'{score.view(-1)[i].item():.4f}', ' '.join([tgt_vocab_rev[i] for i in sent]))
+        print(f'{score.view(-1)[i].item():.4f}',
+              ' '.join([tgt_vocab_rev[i] for i in sent]))
+
+
+def diff(t1: torch.Tensor, t2: torch.Tensor):
+    return set(tuple(idx.tolist()) for idx in t1.nonzero()).difference(set(tuple(idx.tolist()) for idx in t2.nonzero()))

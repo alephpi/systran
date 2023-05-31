@@ -6,7 +6,6 @@ import ctranslate2
 import numpy as np
 
 from data import load_vocabulary
-from train import num_layers, num_heads
 
 
 def main():
@@ -41,11 +40,12 @@ class CT2Converter(ctranslate2.converters.Converter):
         _, target_vocabulary = load_vocabulary(self.target_vocabulary_path)
 
         checkpoint = torch.load(self.checkpoint_path, map_location="cpu")
+        model_config = checkpoint.get("model_config", {})
         weights = checkpoint["model"]
 
         spec = ctranslate2.specs.TransformerSpec.from_config(
-            num_layers=num_layers,
-            num_heads=num_heads,
+            num_layers=model_config.get("num_layers", 6),
+            num_heads=model_config.get("num_heads", 16),
             pre_norm=True,
         )
 

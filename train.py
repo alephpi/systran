@@ -280,6 +280,7 @@ def train(
                     "grad_scaler": scaler.state_dict(),
                     "lr_scheduler": scheduler.state_dict(),
                     "model": model.module.state_dict(),
+                    "model_config": model.module.config,
                     "optimizer": optimizer.state_dict(),
                     "step": step,
                 }

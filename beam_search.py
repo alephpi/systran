@@ -8,24 +8,34 @@ from dataset import TextFileDataset, MapDataset, BatchDataset, to_tensor
 from model import Transformer
 from utils import init_logger
 
-batch_size = 16
-beam_size = 5
-length_penalty = 1
-max_length = 256
-
 
 def main():
     init_logger()
 
     parser = argparse.ArgumentParser()
-    parser.add_argument(
+
+    data_options = parser.add_argument_group("Data options")
+    data_options.add_argument(
         "--src_vocab", required=True, help="Path to the source vocabulary"
     )
-    parser.add_argument(
+    data_options.add_argument(
         "--tgt_vocab", required=True, help="Path to the target vocabulary"
     )
-    parser.add_argument("--ckpt", required=True, help="Path to the checkpoint")
-    parser.add_argument("--device", default="cpu", help="Device to use")
+    data_options.add_argument("--batch_size", type=int, default=16, help="Batch size")
+
+    model_options = parser.add_argument_group("Model options")
+    model_options.add_argument("--ckpt", required=True, help="Path to the checkpoint")
+    model_options.add_argument("--device", default="cpu", help="Device to use")
+
+    decoding_options = parser.add_argument_group("Decoding options")
+    decoding_options.add_argument("--beam_size", type=int, default=5, help="Beam size")
+    decoding_options.add_argument(
+        "--length_penalty", type=float, default=1, help="Length penalty"
+    )
+    decoding_options.add_argument(
+        "--max_length", type=int, default=256, help="Maximum decoding length"
+    )
+
     args = parser.parse_args()
 
     source_vocabulary, _ = load_vocabulary(args.src_vocab)
@@ -34,22 +44,34 @@ def main():
     bos = target_vocabulary["<s>"]
     eos = target_vocabulary["</s>"]
 
-    model = Transformer(
-        len(source_vocabulary),
-        len(target_vocabulary),
-        share_embeddings=True,
-    )
-
     checkpoint = torch.load(args.ckpt)
+
+    model_config = checkpoint.get("model_config")
+    if model_config is None:
+        model_config = dict(
+            src_vocab_size=len(source_vocabulary),
+            tgt_vocab_size=len(target_vocabulary),
+            share_embeddings=True,
+        )
+
+    model = Transformer.from_config(model_config)
     model.load_state_dict(checkpoint["model"])
     model.to(args.device)
     model.eval()
 
-    dataset = create_dataset(sys.stdin, source_vocabulary, args.device)
+    dataset = create_dataset(sys.stdin, source_vocabulary, args.batch_size, args.device)
 
     with torch.no_grad():
         for batch in dataset:
-            result = beam_search(model, batch, bos, eos)
+            result = beam_search(
+                model,
+                batch,
+                bos,
+                eos,
+                beam_size=args.beam_size,
+                length_penalty=args.length_penalty,
+                max_length=args.max_length,
+            )
 
             for hypotheses in result:
                 tokens = hypotheses[0][1]
@@ -59,7 +81,7 @@ def main():
                 print(" ".join(tokens), flush=True)
 
 
-def create_dataset(path, source_vocabulary, device):
+def create_dataset(path, source_vocabulary, batch_size, device):
     dataset = TextFileDataset(path)
     dataset = MapDataset(
         dataset, lambda line: encode_line(line, source_vocabulary, add_eos=True)
@@ -69,7 +91,15 @@ def create_dataset(path, source_vocabulary, device):
     return dataset
 
 
-def beam_search(model, src_ids, bos, eos):
+def beam_search(
+    model,
+    src_ids,
+    bos,
+    eos,
+    beam_size=5,
+    length_penalty=1,
+    max_length=256,
+):
     batch_size = src_ids.shape[0]
 
     encoder_output, src_mask = model.encode(src_ids)

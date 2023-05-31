@@ -3,9 +3,12 @@ import argparse
 import torch
 
 from train import get_checkpoints
+from utils import init_logger, get_logger
 
 
 def main():
+    init_logger()
+
     parser = argparse.ArgumentParser()
     parser.add_argument("checkpoints_dir", help="Directory containing the checkpoints")
     parser.add_argument(
@@ -28,13 +31,15 @@ def main():
 
 
 def average_checkpoints(checkpoints, output_path):
+    logger = get_logger()
+
     num_checkpoints = len(checkpoints)
-    print("Averaging %d checkpoints" % num_checkpoints)
+    logger.info("Averaging %d checkpoints", num_checkpoints)
 
     averaged_model = None
 
     for checkpoint in checkpoints:
-        print("Loading %s" % checkpoint)
+        logger.info("Loading %s", checkpoint)
         checkpoint = torch.load(checkpoint, map_location="cpu")
 
         model = checkpoint["model"]
@@ -46,7 +51,7 @@ def average_checkpoints(checkpoints, output_path):
             for key, value in model.items():
                 averaged_model[key] += value
 
-    print("Saving %s" % output_path)
+    logger.info("Saving %s", output_path)
     checkpoint = {"model": averaged_model}
     torch.save(checkpoint, output_path)
 

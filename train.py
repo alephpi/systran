@@ -14,6 +14,7 @@ import torch.multiprocessing
 from data import load_vocabulary
 from dataset import create_training_dataset
 from model import Transformer
+from utils import init_logger, get_logger
 
 
 num_layers = 6
@@ -95,6 +96,11 @@ def train(
     """Runs the training on a single device."""
 
     is_master = rank == 0
+
+    if is_master:
+        init_logger()
+
+    logger = get_logger()
 
     device = torch.device("cuda", rank)
     torch.cuda.set_device(device)
@@ -181,12 +187,12 @@ def train(
     checkpoint_path = get_latest_checkpoint(save_dir)
 
     if checkpoint_path is not None:
-        print("Restoring checkpoint %s" % checkpoint_path)
+        logger.info("Restoring checkpoint %s", checkpoint_path)
         checkpoint = torch.load(checkpoint_path)
 
         step = int(checkpoint["step"])
         if step >= max_step:
-            print("Training already reached max_step = %d" % max_step)
+            logger.info("Training already reached max_step = %d", max_step)
             return
 
         model.module.load_state_dict(checkpoint["model"])
@@ -198,10 +204,10 @@ def train(
     num_tokens = 0
 
     if is_master:
-        print("Accumulate gradients of %d batches" % accum_steps)
-        print(
-            "Optimize %d parameters"
-            % sum(parameter.numel() for parameter in trainable_parameters)
+        logger.info("Accumulate gradients of %d batches", accum_steps)
+        logger.info(
+            "Optimize %d parameters",
+            sum(parameter.numel() for parameter in trainable_parameters),
         )
 
     for batches in dataset:
@@ -255,17 +261,15 @@ def train(
                 elapsed_time = current_time - last_log_time
                 last_log_time = current_time
 
-                print(
+                logger.info(
                     "step = %d"
                     " ; tokens/s = %d"
                     " ; learning rate = %f"
-                    " ; loss = %f"
-                    % (
-                        step,
-                        int(num_tokens / elapsed_time),
-                        scheduler.get_last_lr()[0],
-                        total_loss,
-                    )
+                    " ; loss = %f",
+                    step,
+                    int(num_tokens / elapsed_time),
+                    scheduler.get_last_lr()[0],
+                    total_loss,
                 )
 
             num_tokens = 0
@@ -281,7 +285,7 @@ def train(
                 }
 
                 save_path = os.path.join(save_dir, "checkpoint-%d.pt" % step)
-                print("Saving checkpoint %s" % save_path)
+                logger.info("Saving checkpoint %s", save_path)
                 torch.save(checkpoint, save_path)
                 clean_checkpoint_directory(save_dir, keep_checkpoints)
 

@@ -1,6 +1,7 @@
 """Classes and functions to build and transform datasets."""
 
 import random
+import itertools
 import multiprocessing
 import time
 import threading
@@ -8,6 +9,7 @@ import queue
 import torch
 
 from data import encode_line
+from utils import init_logger, get_logger
 
 
 def create_training_dataset(
@@ -23,6 +25,7 @@ def create_training_dataset(
     maximum_target_length=150,
     num_accum_batches=None,
     device="cpu",
+    num_epochs=None,
     num_shards=1,
     shard_index=0,
     prefetch_size=None,
@@ -42,7 +45,10 @@ def create_training_dataset(
         dataset = ShardDataset(dataset, num_shards, shard_index)
 
     dataset = ShuffleDataset(dataset, shuffle_buffer_size)
-    dataset = RepeatDataset(dataset)
+
+    dataset = RepeatDataset(dataset, num_repeats=num_epochs)
+    repeat_dataset = dataset
+
     dataset = MapDataset(dataset, EncodeTokens(source_vocabulary, target_vocabulary))
     dataset = FilterDataset(
         dataset,
@@ -60,6 +66,11 @@ def create_training_dataset(
         )
     else:
         dataset = BatchDataset(dataset, batch_size, drop_remainder=True)
+
+    # If the dataset is repeated we should check that there is at least 1 batch
+    # per epoch otherwise the iterator can hang infinitely without generating anything.
+    dataset = CounterDataset(dataset)
+    repeat_dataset.set_counter_dataset(dataset)
 
     if prefetch_size is None:
         prefetch_size = num_accum_batches if num_accum_batches is not None else 1
@@ -190,15 +201,25 @@ class RepeatDataset:
     def __init__(self, dataset, num_repeats=None):
         self._dataset = dataset
         self._num_repeats = num_repeats
+        self._counter_dataset = None
+
+    def set_counter_dataset(self, counter_dataset):
+        self._counter_dataset = counter_dataset
 
     def __iter__(self):
-        if self._num_repeats is None:
-            while True:
-                yield from iter(self._dataset)
+        for epoch in itertools.count(start=1):
+            yield from iter(self._dataset)
 
-        else:
-            for _ in range(self._num_repeats):
-                yield from iter(self._dataset)
+            if self._num_repeats is not None and epoch == self._num_repeats:
+                break
+
+            # No batches produced in one epoch: do not repeat an empty dataset.
+            if self._counter_dataset is not None and self._counter_dataset.counter == 0:
+                get_logger().warning(
+                    "No batches were generated in one epoch. "
+                    "Stopping the dataset iterator."
+                )
+                break
 
 
 class GroupDataset:
@@ -241,7 +262,7 @@ class ShuffleDataset:
         self._buffer_size = buffer_size
 
     def _shuffle_and_yield(self, elements):
-        print("Shuffling %d elements" % len(elements))
+        get_logger().info("Shuffling %d elements", len(elements))
         random.shuffle(elements)
         while elements:
             yield elements.pop()
@@ -282,6 +303,23 @@ class FilterDataset:
         for element in self._dataset:
             if self._filter_fn(element):
                 yield element
+
+
+class CounterDataset:
+    """Count the number of generated elements."""
+
+    def __init__(self, dataset):
+        self._dataset = dataset
+        self._counter = 0
+
+    @property
+    def counter(self):
+        return self._counter
+
+    def __iter__(self):
+        for element in self._dataset:
+            yield element
+            self._counter += 1
 
 
 class BatchDataset:
@@ -373,8 +411,11 @@ class PrefetchDataset:
         self._seed = seed
 
     def _fetch_elements(self, queue):
-        if not self._use_threading and self._seed is not None:
-            random.seed(self._seed)
+        if not self._use_threading:
+            init_logger()
+
+            if self._seed is not None:
+                random.seed(self._seed)
 
         for element in self._dataset:
             queue.put(element)

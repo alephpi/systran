@@ -1,8 +1,7 @@
 import argparse
-import os
 import sys
 import time
-import timeit
+from tqdm import tqdm
 from typing import Dict
 
 import torch
@@ -11,8 +10,7 @@ from data import encode_line, load_vocabulary
 from dataset import TextFileDataset, MapDataset, BatchDataset, to_tensor
 from model import Transformer
 
-from tqdm import tqdm
-import spacy
+from utils import calc_mask
 
 batch_size = 16
 beam_size = 5
@@ -197,79 +195,6 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
         # how from_beam actually works?
 
     return finished_hypotheses
-
-
-def calc_mask(target_vocab: Dict[str, int], path='./penalty_mask.pt'):
-    if os.path.exists(path):
-        mask = torch.load(path)
-    else:
-        IS_CLOSE = ['ADP', 'AUX', 'CCONJ', 'DET',
-                    'NUM', 'PART', 'PRON', 'SCONJ']
-        IS_OTHER = ['PUNCT', 'SYM', 'X']
-        IGNORE_TAG = IS_CLOSE + IS_OTHER
-        print(IGNORE_TAG)
-        # the first four special tokens are ignorable
-        ignore_ids = [0, 1, 2, 3]
-        # remember to generalize for other target langs.
-        nlp = spacy.load('fr_core_news_lg')
-        for token in tqdm(list(target_vocab.keys())[4:]):
-            pos = nlp(token.strip('￭'))[0].pos_
-            if pos in IGNORE_TAG:
-                ignore_ids.append(target_vocab[token])
-        mask = torch.ones(len(target_vocab))
-        mask[ignore_ids] = 0
-        torch.save(mask, path)
-    return mask
-
-
-def calc_penalty(tgt_ids, log_probs, method, naive_penalty=None):
-    # torch.use_deterministic_algorithms(True)
-    # where to apply
-    seq_length = tgt_ids.shape[-1]
-    s = time.time()
-    penalty_matrix = torch.zeros_like(log_probs)
-    appeared_token_ids = tgt_ids.view(-1, seq_length)
-    # loop over position in sequence
-    for i in range(1, appeared_token_ids.size(-1)):
-        penalty_matrix.scatter_add_(1, appeared_token_ids[:, i].unsqueeze(-1), torch.ones_like(
-            appeared_token_ids[:, i].unsqueeze(-1), dtype=penalty_matrix.dtype))
-    e = time.time()
-    el = e - s
-    # # try parallelize
-    # s2 = time.time()
-    # penalty_broadcast = torch.zeros_like(
-    #     log_probs).unsqueeze(-1).expand(-1, -1, seq_length)
-    # idx = tgt_ids.view(-1, 1, seq_length)
-    # penalty_matrix2 = penalty_broadcast.scatter_add(
-    #     1, idx, torch.ones_like(idx, dtype=penalty_broadcast.dtype)).sum(dim=-1)
-    # e2 = time.time()
-    # el2 = e2 - s2
-    # print(el, el2, el < el2)
-    # assert penalty_matrix2.equal(penalty_matrix)
-    # turns out broadcast is slower than loop
-
-    # try cache
-
-    # how much to apply
-    if method == 'naive':
-        if naive_penalty is None:
-            raise ValueError("please specify naive_penalty for method='naive'")
-        return penalty_matrix
-    else:
-        return 0
-
-
-def update_penalty(p: torch.Tensor, x: torch.Tensor, beam_ids: torch.Tensor):
-    batch_size, beam_size = x.shape[:2]
-    batch_offset = torch.arange(batch_size, device=beam_ids.device) * beam_size
-    flat_beam_ids = (beam_ids + batch_offset.view(-1, 1)).view(-1)
-    p = p.index_select(0, flat_beam_ids)
-
-    seq_length = x.shape[-1]
-    ids = x.view(-1, seq_length, 1)[:, -1]
-    p.scatter_add_(1, ids, torch.ones_like(ids, dtype=p.dtype))
-    return p
-
 
 def cache_penalty(p: torch.Tensor, ids: torch.Tensor, beam_ids: torch.Tensor, batch_size, beam_size):
     batch_offset = torch.arange(batch_size, device=beam_ids.device) * beam_size

@@ -3,6 +3,11 @@ import os
 
 import matplotlib.pyplot as plt
 import torch
+from tqdm import tqdm
+import spacy
+import os
+from typing import Dict
+
 from data import load_vocabulary
 _, tgt_vocab_rev = load_vocabulary('../corpus/vocab_en_fr.txt')
 
@@ -37,3 +42,25 @@ def vis(tgt_ids: torch.Tensor, score: torch.Tensor):
 
 def diff(t1: torch.Tensor, t2: torch.Tensor):
     return set(tuple(idx.tolist()) for idx in t1.nonzero()).difference(set(tuple(idx.tolist()) for idx in t2.nonzero()))
+
+def calc_mask(target_vocab: Dict[str, int], path='./penalty_mask.pt'):
+    if os.path.exists(path):
+        mask = torch.load(path)
+    else:
+        IS_CLOSE = ['ADP', 'AUX', 'CCONJ', 'DET',
+                    'NUM', 'PART', 'PRON', 'SCONJ']
+        IS_OTHER = ['PUNCT', 'SYM', 'X']
+        IGNORE_TAG = IS_CLOSE + IS_OTHER
+        print(IGNORE_TAG)
+        # the first four special tokens are ignorable
+        ignore_ids = [0, 1, 2, 3]
+        # remember to generalize for other target langs.
+        nlp = spacy.load('fr_core_news_lg')
+        for token in tqdm(list(target_vocab.keys())[4:]):
+            pos = nlp(token.strip('￭'))[0].pos_
+            if pos in IGNORE_TAG:
+                ignore_ids.append(target_vocab[token])
+        mask = torch.ones(len(target_vocab))
+        mask[ignore_ids] = 0
+        torch.save(mask, path)
+    return mask

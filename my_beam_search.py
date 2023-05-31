@@ -125,22 +125,7 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
         if rep_penalty:
             if step == 0:  # initialize at step 0
                 penalty_matrix = torch.zeros(batch_size*beam_size, vocab_size)
-            # else:  # prevent undefined variables at the first step
-                # s = time.time()
-                # penalty_matrix = update_penalty(penalty_matrix, tgt_ids, from_beam)
-                # e = time.time()
-                # el2 = e - s
-                # print(el, el2, el < el2)
-                # if not penalty.equal(penalty_matrix):
-                #     return penalty, penalty_matrix
-            s = time.time()
-            penalty = calc_penalty(
-                tgt_ids, log_probs, method='naive', naive_penalty=naive_penalty)
-            # log_probs += - penalty * naive_penalty * mask
-            e = time.time()
-            el = e - s
-            assert penalty_matrix.equal(penalty)
-
+            log_probs -= penalty_matrix * naive_penalty * mask
         log_probs += cum_log_probs.reshape(-1, 1)
 
         # we need to keep beam_size active sentences, hence we need a candidate list of 2*beam_size
@@ -156,11 +141,8 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
         top_ids = top_ids % vocab_size
 
         tgt_ids = index_beam(tgt_ids, from_beam)
-        s = time.time()
-        penalty_matrix = cache_penalty(
-            penalty_matrix, top_ids.view(-1, 1), from_beam, batch_size, beam_size)
-        e = time.time()
-        el2 = e - s
+        if rep_penalty:
+            penalty_matrix = cache_penalty(penalty_matrix, top_ids.view(-1, 1), from_beam, batch_size, beam_size)
         tgt_ids = torch.cat([tgt_ids, top_ids.unsqueeze(-1)], dim=-1)
 
         for i in range(batch_size):
@@ -187,8 +169,8 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
                         tgt_ids[i, k] = tgt_ids[i, j]
                         cum_log_probs[i, k] = cum_log_probs[i, j]
                         from_beam[i, k] = from_beam[i, j]
-                        penalty_matrix.view(
-                            batch_size, 2*beam_size, -1)[i, k] = penalty_matrix.view(batch_size, 2*beam_size, -1)[i, j]
+                        if rep_penalty:
+                            penalty_matrix.view(batch_size, 2*beam_size, -1)[i, k] = penalty_matrix.view(batch_size, 2*beam_size, -1)[i, j]
                         top_ids[i, j] = eos
                         break
 
@@ -206,12 +188,9 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
         tgt_ids = tgt_ids[:, :beam_size].contiguous()
         cum_log_probs = cum_log_probs[:, :beam_size].contiguous()
         from_beam = from_beam[:, :beam_size].contiguous()
-        s = time.time()
-        penalty_matrix = penalty_matrix.view(
-            batch_size, 2*beam_size, -1)[:, :beam_size].reshape(-1, vocab_size).contiguous()
-        e = time.time()
-        el3 = e - s
-        print(el, el2+el3, el < (el2+el3))
+        if rep_penalty:
+            penalty_matrix = penalty_matrix.view(
+                batch_size, 2*beam_size, -1)[:, :beam_size].reshape(-1, vocab_size).contiguous()
 
         # what's the purpose?
         update_kv_cache(kv_cache, from_beam)

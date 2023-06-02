@@ -168,7 +168,7 @@ def beam_search(
                 # Replace the finished hypothesis by an active candidate.
                 for j in range(beam_size, beam_size * 2):
                     if top_ids[i, j] != eos:
-                        tgt_ids[i, k, -1] = top_ids[i, j]
+                        tgt_ids[i, k] = tgt_ids[i, j]
                         cum_log_probs[i, k] = cum_log_probs[i, j]
                         from_beam[i, k] = from_beam[i, j]
                         top_ids[i, j] = eos

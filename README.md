@@ -9,6 +9,7 @@ The code implements:
 * mixed precision training
 * multi-GPU training
 * checkpoint averaging
+* beam search decoding
 
 The default parameters are mostly copied from the [Scaling NMT](https://aclanthology.org/W18-6301/) paper.
 

@@ -1,3 +1,4 @@
+import re
 import logging
 import os
 
@@ -57,10 +58,19 @@ def calc_mask(target_vocab: Dict[str, int], path='./penalty_mask.pt'):
         # remember to generalize for other target langs.
         nlp = spacy.load('fr_core_news_lg')
         for token in tqdm(list(target_vocab.keys())[4:]):
-            pos = nlp(token.strip('￭'))[0].pos_
-            if pos in IGNORE_TAG:
-                ignore_ids.append(target_vocab[token])
+            # subtokens with joiner may be punctuation or a word piece, we ignore the punctuation
+            if '￭' in token:
+                if contains_only_punctuation(token.strip('￭')):
+                    ignore_ids.append(target_vocab[token])
+            else:
+                pos = nlp(token)[0].pos_
+                if pos in IGNORE_TAG:
+                    ignore_ids.append(target_vocab[token])
         mask = torch.ones(len(target_vocab))
         mask[ignore_ids] = 0
         torch.save(mask, path)
     return mask
+
+def contains_only_punctuation(text):
+    pattern = r'^[^\w\s]*$'
+    return re.match(pattern, text) is not None

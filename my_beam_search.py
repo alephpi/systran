@@ -53,7 +53,7 @@ def main():
 
     with torch.no_grad():
         for batch in dataset:
-            result = beam_search(model, batch, bos, eos, mask=mask)
+            result = beam_search(model, batch, bos, eos, penalty_mask=mask)
 
             # result = (batch_size, ), hypo = (score, sent)
             for hypotheses in result:
@@ -77,9 +77,9 @@ def create_dataset(path, source_vocabulary, device):
     return dataset
 
 
-def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty=True, naive_penalty=None, mask=1):
-    print("my beam search")
-    print(naive_penalty)
+def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty=True, naive_penalty=None, penalty_mask=1, penalty_decay=0.9):
+    # print("my beam search")
+    # print(naive_penalty)
     batch_size = src_ids.shape[0]
     vocab_size = model
     # encoder_output.shape = (batch, sent, embedding)
@@ -104,7 +104,7 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
                            for _ in range(batch_size)]  # inner list stores beam
     kv_cache = {}
 
-    for step in tqdm(range(max_length)):  # inference step, beam forward
+    for step in range(max_length):  # inference step, beam forward
         # the last output for next input, view it as a batch of 10
         tgt_inputs = tgt_ids[:, :, -1].view(-1, 1)
         decoder_output = model.decode(
@@ -123,7 +123,7 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
         if rep_penalty:
             if step == 0:  # initialize at step 0
                 penalty_matrix = torch.zeros(batch_size*beam_size, vocab_size)
-            log_probs -= penalty_matrix * naive_penalty * mask
+            log_probs -= penalty_matrix * naive_penalty * penalty_mask
         log_probs += cum_log_probs.reshape(-1, 1)
 
         # we need to keep beam_size active sentences, hence we need a candidate list of 2*beam_size
@@ -140,7 +140,7 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
 
         tgt_ids = index_beam(tgt_ids, from_beam)
         if rep_penalty:
-            penalty_matrix = cache_penalty(penalty_matrix, top_ids.view(-1, 1), from_beam, batch_size, beam_size)
+            penalty_matrix = update_penalty_cache(penalty_matrix, top_ids.view(-1, 1), from_beam, batch_size, beam_size)
         tgt_ids = torch.cat([tgt_ids, top_ids.unsqueeze(-1)], dim=-1)
 
         for i in range(batch_size):
@@ -196,7 +196,7 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
 
     return finished_hypotheses
 
-def cache_penalty(p: torch.Tensor, ids: torch.Tensor, beam_ids: torch.Tensor, batch_size, beam_size):
+def update_penalty_cache(p: torch.Tensor, ids: torch.Tensor, beam_ids: torch.Tensor, batch_size, beam_size):
     batch_offset = torch.arange(batch_size, device=beam_ids.device) * beam_size
     flat_beam_ids = (beam_ids + batch_offset.view(-1, 1)).view(-1)
     p = p.index_select(0, flat_beam_ids)

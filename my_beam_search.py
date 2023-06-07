@@ -77,7 +77,7 @@ def create_dataset(path, source_vocabulary, device):
     return dataset
 
 
-def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty=True, naive_penalty=None, penalty_mask=1, penalty_decay=0.9):
+def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty=True, naive_penalty=None, penalty_mask=1, penalty_decay=1):
     # print("my beam search")
     # print(naive_penalty)
     batch_size = src_ids.shape[0]
@@ -140,7 +140,7 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
 
         tgt_ids = index_beam(tgt_ids, from_beam)
         if rep_penalty:
-            penalty_matrix = update_penalty_cache(penalty_matrix, top_ids.view(-1, 1), from_beam, batch_size, beam_size)
+            penalty_matrix = update_penalty_cache(penalty_matrix, top_ids.view(-1, 1), from_beam, batch_size, beam_size, decay=penalty_decay)
         tgt_ids = torch.cat([tgt_ids, top_ids.unsqueeze(-1)], dim=-1)
 
         for i in range(batch_size):
@@ -189,18 +189,18 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
         if rep_penalty:
             penalty_matrix = penalty_matrix.view(
                 batch_size, 2*beam_size, -1)[:, :beam_size].reshape(-1, vocab_size).contiguous()
-
         # what's the purpose?
         update_kv_cache(kv_cache, from_beam)
         # how from_beam actually works?
 
     return finished_hypotheses
 
-def update_penalty_cache(p: torch.Tensor, ids: torch.Tensor, beam_ids: torch.Tensor, batch_size, beam_size):
+def update_penalty_cache(p: torch.Tensor, ids: torch.Tensor, beam_ids: torch.Tensor, batch_size, beam_size, decay):
     batch_offset = torch.arange(batch_size, device=beam_ids.device) * beam_size
     flat_beam_ids = (beam_ids + batch_offset.view(-1, 1)).view(-1)
     p = p.index_select(0, flat_beam_ids)
-
+    # penalty decay with distance by a factor at each timestep
+    p *= decay
     p.scatter_add_(1, ids, torch.ones_like(ids, dtype=p.dtype))
     return p
 

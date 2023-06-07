@@ -45,9 +45,18 @@ def diff(t1: torch.Tensor, t2: torch.Tensor):
     return set(tuple(idx.tolist()) for idx in t1.nonzero()).difference(set(tuple(idx.tolist()) for idx in t2.nonzero()))
 
 def calc_mask(target_vocab: Dict[str, int], penalty_mask_path='./penalty_mask.pt', leading_marker_path='./leading_marker.pt'):
-    if os.path.exists(penalty_mask_path) & os.path.exists(leading_marker_path):
-        penalty_mask = torch.load(penalty_mask_path)
+    if os.path.exists(leading_marker_path):
         leading_marker = torch.load(leading_marker_path)
+    else:
+        leading_ids = []
+        for token in tqdm(list(target_vocab.keys())):
+            if ('￭' in token) & ('￭' not in token[:-1]): 
+                leading_ids.append(target_vocab[token])
+        leading_marker = torch.zeros(len(target_vocab))
+        leading_marker[leading_ids] = 1
+        torch.save(leading_marker, leading_marker_path)
+    if os.path.exists(penalty_mask_path):
+        penalty_mask = torch.load(penalty_mask_path)
     else:
         IS_CLOSE = ['ADP', 'AUX', 'CCONJ', 'DET',
                     'NUM', 'PART', 'PRON', 'SCONJ']
@@ -55,7 +64,6 @@ def calc_mask(target_vocab: Dict[str, int], penalty_mask_path='./penalty_mask.pt
         IGNORE_TAG = IS_CLOSE + IS_OTHER
         # the first four special tokens are ignorable
         ignore_ids = [0, 1, 2, 3]
-        leading_ids = []
         # remember to generalize for other target langs.
         nlp = spacy.load('fr_core_news_lg')
         for token in tqdm(list(target_vocab.keys())[4:]):
@@ -66,16 +74,12 @@ def calc_mask(target_vocab: Dict[str, int], penalty_mask_path='./penalty_mask.pt
                 # ignore all joiner form including leading form
                 ignore_ids.append(target_vocab[token])
                 # if it is a leading form, i.e. joiner appears at right
-                if '￭' not in token[:-1]: 
-                    leading_ids.append(target_vocab[token])
             else:
                 pos = nlp(token)[0].pos_
                 if pos in IGNORE_TAG:
                     ignore_ids.append(target_vocab[token])
         penalty_mask = torch.ones(len(target_vocab))
         penalty_mask[ignore_ids] = 0
-        leading_marker = torch.ones(len(target_vocab))
-        leading_marker[leading_ids] = 1
         torch.save(penalty_mask, penalty_mask_path)
     return penalty_mask, leading_marker
 

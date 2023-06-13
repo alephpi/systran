@@ -44,7 +44,7 @@ def vis(tgt_ids: torch.Tensor, score: torch.Tensor):
 def diff(t1: torch.Tensor, t2: torch.Tensor):
     return set(tuple(idx.tolist()) for idx in t1.nonzero()).difference(set(tuple(idx.tolist()) for idx in t2.nonzero()))
 
-def calc_mask(target_vocab: Dict[str, int], penalty_mask_path='./penalty_mask.pt', leading_marker_path='./leading_marker.pt'):
+def calc_mask_marker(target_vocab: Dict[str, int], penalty_mask_path='./penalty_mask.pt', leading_marker_path='./leading_marker.pt'):
     if os.path.exists(leading_marker_path):
         leading_marker = torch.load(leading_marker_path)
     else:

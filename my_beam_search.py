@@ -1,16 +1,18 @@
 import argparse
+from collections import defaultdict
 import sys
 import time
 from tqdm import tqdm
 from typing import Dict
 
 import torch
+import numpy as np
 
 from data import encode_line, load_vocabulary
 from dataset import TextFileDataset, MapDataset, BatchDataset, to_tensor
 from model import Transformer
 
-from utils import calc_mask
+from utils import calc_mask_marker
 
 batch_size = 16
 beam_size = 5
@@ -36,7 +38,7 @@ def main():
     bos = target_vocabulary["<s>"]
     eos = target_vocabulary["</s>"]
 
-    mask = calc_mask(target_vocabulary)
+    mask = calc_mask_marker(target_vocabulary)
 
     model = Transformer(
         len(source_vocabulary),
@@ -77,7 +79,7 @@ def create_dataset(path, source_vocabulary, device):
     return dataset
 
 
-def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty=True, naive_penalty=None, penalty_mask=1, penalty_decay=1):
+def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty=True, naive_penalty=None, penalty_mask=1, penalty_decay=1, leading_marker=None):
     # print("my beam search")
     # print(naive_penalty)
     batch_size = src_ids.shape[0]
@@ -104,6 +106,16 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
                            for _ in range(batch_size)]  # inner list stores beam
     kv_cache = {}
 
+    if rep_penalty and leading_marker != None:
+        # cache continual words, np array of lists
+        continual_words_l = np.empty((batch_size, 2*beam_size), dtype=object)
+        # cache dictionary, np array of dicts
+        dicos_d = np.empty((batch_size, 2*beam_size), dtype=object)
+        for i in range(batch_size):
+            for j in range(2*beam_size):
+                continual_words_l[i, j] = []
+                dicos_d[i, j] = defaultdict(int)
+
     for step in range(max_length):  # inference step, beam forward
         # the last output for next input, view it as a batch of 10
         tgt_inputs = tgt_ids[:, :, -1].view(-1, 1)
@@ -123,6 +135,22 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
         if rep_penalty:
             if step == 0:  # initialize at step 0
                 penalty_matrix = torch.zeros(batch_size*beam_size, vocab_size)
+
+            # correct terminal subtoken penalty
+            elif leading_marker != None:
+                for i in range(batch_size):
+                    for k in range(beam_size):
+                        for token in range(vocab_size):
+                            # terminal subtoken
+                            if leading_marker[token] == 0 and continual_words_l[i][k] != []:
+                                # try to see if candidate already exists
+                                # if it occurs the first time, remove the penalty    
+                                if dicos_d[i][k]['_'.join(continual_words)+'_'+token] == 0:
+                                    penalty_matrix.view(batch_size, beam_size, -1)[i, k, token] = 0
+                                # if it repeats, the penalty already applied by its free form 
+                                # else:
+                                #     pass
+
             log_probs -= penalty_matrix * naive_penalty * penalty_mask
         log_probs += cum_log_probs.reshape(-1, 1)
 
@@ -141,7 +169,25 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
         tgt_ids = index_beam(tgt_ids, from_beam)
         if rep_penalty:
             penalty_matrix = update_penalty_cache(penalty_matrix, top_ids.view(-1, 1), from_beam, batch_size, beam_size, decay=penalty_decay)
+        # append new hypothesis
         tgt_ids = torch.cat([tgt_ids, top_ids.unsqueeze(-1)], dim=-1)
+        # update cache
+        if rep_penalty and leading_marker != None:
+            for i in range(batch_size):
+                for k in range(2*beam_size):
+                    continual_words = continual_words_l[i][k]
+                    token = top_ids[i][k]
+                    if leading_marker[token] == 1:
+                        continual_words.append(token)
+                    elif leading_marker[token] == 0 and continual_words == []:
+                        pass
+                    else: # leading_marker[token] == 0 and continual_words_l[i][k] != []
+                        continual_words.append(token)
+                        splited_word = '_'.join(continual_words)
+                        dicos_d[i][k][splited_word] += 1
+                        if dicos_d[i][k][splited_word] > 1:
+                            # TODO logic for penalize
+                            penalty_matrix.view(batch_size, 2*beam_size, -1)[i, k, token] += 1
 
         for i in range(batch_size):
             if finished[i]:

@@ -1,7 +1,9 @@
 import argparse
 from collections import defaultdict
+from copy import deepcopy
 import sys
 import time
+from sympy import trailing
 from tqdm import tqdm
 from typing import Dict
 
@@ -108,15 +110,15 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
 
     if rep_penalty and leading_marker != None:
         # cache continual words, np array of lists
-        continual_words_l = np.empty((batch_size, 2*beam_size), dtype=object)
+        continual_words_l = np.empty((batch_size, beam_size), dtype=object)
         # cache dictionary, np array of dicts
-        dicos_d = np.empty((batch_size, 2*beam_size), dtype=object)
+        dicos_d = np.empty((batch_size, beam_size), dtype=object)
         for i in range(batch_size):
-            for j in range(2*beam_size):
+            for j in range(beam_size):
                 continual_words_l[i, j] = []
                 dicos_d[i, j] = defaultdict(int)
 
-    for step in range(max_length):  # inference step, beam forward
+    for step in tqdm(range(max_length)):  # inference step, beam forward
         # the last output for next input, view it as a batch of 10
         tgt_inputs = tgt_ids[:, :, -1].view(-1, 1)
         decoder_output = model.decode(
@@ -141,15 +143,16 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
                 for i in range(batch_size):
                     for k in range(beam_size):
                         for token in range(vocab_size):
+                            continual_words = continual_words_l[i][k]
                             # terminal subtoken
-                            if leading_marker[token] == 0 and continual_words_l[i][k] != []:
+                            if leading_marker[token] == 0 and continual_words != []:
                                 # try to see if candidate already exists
                                 # if it occurs the first time, remove the penalty    
-                                if dicos_d[i][k]['_'.join(continual_words)+'_'+token] == 0:
+                                if dicos_d[i][k][tuple(continual_words)+(token,)] == 0:
                                     penalty_matrix.view(batch_size, beam_size, -1)[i, k, token] = 0
-                                # if it repeats, the penalty already applied by its free form 
-                                # else:
-                                #     pass
+                                # if it repeats, the penalty term should add up by 1
+                                else:
+                                    penalty_matrix.view(batch_size, beam_size, -1)[i, k, token] += 1
 
             log_probs -= penalty_matrix * naive_penalty * penalty_mask
         log_probs += cum_log_probs.reshape(-1, 1)
@@ -168,10 +171,16 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
 
         tgt_ids = index_beam(tgt_ids, from_beam)
         if rep_penalty:
-            penalty_matrix = update_penalty_cache(penalty_matrix, top_ids.view(-1, 1), from_beam, batch_size, beam_size, decay=penalty_decay)
+            if leading_marker != None:
+                continual_words_l,dicos_d = update_cache(continual_words_l, dicos_d, from_beam, batch_size, beam_size)
+                trailing_mask = leading_marker[tgt_ids[:,:,-1].view(-1)]
+                penalty_matrix = update_penalty_cache(penalty_matrix, top_ids.view(-1, 1), from_beam, batch_size, beam_size, decay=penalty_decay, trailing_mask=trailing_mask)
+            else:
+                penalty_matrix = update_penalty_cache(penalty_matrix, top_ids.view(-1, 1), from_beam, batch_size, beam_size, decay=penalty_decay)
         # append new hypothesis
         tgt_ids = torch.cat([tgt_ids, top_ids.unsqueeze(-1)], dim=-1)
-        # update cache
+
+        # update two caches
         if rep_penalty and leading_marker != None:
             for i in range(batch_size):
                 for k in range(2*beam_size):
@@ -183,11 +192,8 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
                         pass
                     else: # leading_marker[token] == 0 and continual_words_l[i][k] != []
                         continual_words.append(token)
-                        splited_word = '_'.join(continual_words)
+                        splited_word = tuple(continual_words)
                         dicos_d[i][k][splited_word] += 1
-                        if dicos_d[i][k][splited_word] > 1:
-                            # TODO logic for penalize
-                            penalty_matrix.view(batch_size, 2*beam_size, -1)[i, k, token] += 1
 
         for i in range(batch_size):
             if finished[i]:
@@ -215,6 +221,10 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
                         from_beam[i, k] = from_beam[i, j]
                         if rep_penalty:
                             penalty_matrix.view(batch_size, 2*beam_size, -1)[i, k] = penalty_matrix.view(batch_size, 2*beam_size, -1)[i, j]
+                            if leading_marker != None:
+                                # deep copy!
+                                continual_words_l[i, k] = deepcopy(continual_words_l[i, j])
+                                dicos_d[i, k] = deepcopy(dicos_d[i, j])
                         top_ids[i, j] = eos
                         break
 
@@ -235,19 +245,35 @@ def beam_search(model: Transformer, src_ids: torch.Tensor, bos, eos, rep_penalty
         if rep_penalty:
             penalty_matrix = penalty_matrix.view(
                 batch_size, 2*beam_size, -1)[:, :beam_size].reshape(-1, vocab_size).contiguous()
+            if leading_marker != None:
+                # NOTE should we use deepcopy also here?
+                continual_words_l = np.ascontiguousarray(continual_words_l[:, :beam_size])
+                dicos_d = np.ascontiguousarray(dicos_d[:, :beam_size])
         # what's the purpose?
         update_kv_cache(kv_cache, from_beam)
         # how from_beam actually works?
 
     return finished_hypotheses
 
-def update_penalty_cache(p: torch.Tensor, ids: torch.Tensor, beam_ids: torch.Tensor, batch_size, beam_size, decay):
+def update_cache(c: np.array, d: np.array, beam_ids: torch.Tensor, batch_size, beam_size):
+    new_c = np.empty_like(beam_ids, object)
+    new_d = np.empty_like(beam_ids, object)
+    for i in range(beam_ids.shape[0]):
+        for j in range(beam_ids.shape[1]):
+            new_c[i,j] = deepcopy(c[i,beam_ids[i,j]])
+            new_d[i,j] = deepcopy(d[i,beam_ids[i,j]])
+    return new_c, new_d
+
+
+
+def update_penalty_cache(p: torch.Tensor, ids: torch.Tensor, beam_ids: torch.Tensor, batch_size, beam_size, decay, trailing_mask: torch.Tensor = 1):
     batch_offset = torch.arange(batch_size, device=beam_ids.device) * beam_size
     flat_beam_ids = (beam_ids + batch_offset.view(-1, 1)).view(-1)
     p = p.index_select(0, flat_beam_ids)
     # penalty decay with distance by a factor at each timestep
     p *= decay
-    p.scatter_add_(1, ids, torch.ones_like(ids, dtype=p.dtype))
+    # mask the 1 vector by the trailing marker, i.e. the trailing form doesn't contribute to penalty matrix
+    p.scatter_add_(1, ids, torch.ones_like(ids, dtype=p.dtype) * trailing_mask)
     return p
 
 

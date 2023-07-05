@@ -27,7 +27,7 @@ class BaseRepDetector():
     def _tokenize(self, sent):
         return self.nlp(sent)
 
-    def _detect(self, tokens: List[Token], account) -> Dict[str, List[int]]:
+    def _detect(self, tokens: List[Token], account, account_lem) -> Dict[str, List[int]]:
         if account == 'open':
             acc = IS_OPEN
         if account == 'clopen':
@@ -39,8 +39,8 @@ class BaseRepDetector():
  
         for ix, tok in enumerate(tokens):
             if tok.pos_ in acc:
-                lem = tok.lemma_
-                d[lem].append(ix)
+                k = tok.lemma_ if account_lem else tok.text
+                d[k].append(ix)
 
         return {k: v for k, v in d.items() if  len(v) > 1}
 
@@ -57,22 +57,22 @@ class BaseRepDetector():
         else:
             print('[info]No reps')
 
-    def detect_corpus(self, corpus, idx=None, acc='open', vis=True):
+    def detect_corpus(self, corpus, idx=None, acc='open', acc_lem=False, vis=True):
         with open(corpus, encoding='utf-8') as f:
             reps = []
             lines = f.readlines()
-            iterable = enumerate(lines)
-            if idx != None:
-                lines = [lines[i] for i in idx]
-                iterable = zip(idx, lines)
-            for i, l in tqdm(iterable, total=len(lines)):
-                toks = self._tokenize(l)
-                rep = self._detect(toks, account=acc)
-                if rep:
-                    reps.append((i, rep))
-                    if vis:
-                        self._visualize(toks, rep)
-            return reps
+        iterable = enumerate(lines)
+        if idx != None:
+            lines = [lines[i] for i in idx]
+            iterable = zip(idx, lines)
+        for i, l in iterable:
+            toks = self._tokenize(l)
+            rep = self._detect(toks, account=acc, account_lem=acc_lem)
+            if rep:
+                reps.append((i, rep))
+                if vis:
+                    self._visualize(toks, rep)
+        return reps
 
 class AlignRepDetector():
     def __init__(self, src_lang: str, tgt_lang: str, align_method='i') -> None:

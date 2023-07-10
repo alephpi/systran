@@ -299,20 +299,26 @@ def train(
             break
 
 def ce_loss_with_rep_penalty(input: torch.Tensor, target: torch.Tensor, penalty_mask: torch.Tensor, eps: float, label_smoothing: float, device):
-    ce_loss = 0
     batch_size, timesteps, vocab_size = input.shape
     penalty_matrix = torch.zeros((batch_size, vocab_size), device=device)
-    weight = torch.ones_like(penalty_matrix, dtype=torch.float32, device=device)
+    weight = torch.ones((batch_size, timesteps, vocab_size), dtype=torch.float32, device=device)
     for t in range(timesteps):
-        current_ids = target[:,t]
-        for i in range(batch_size):
-            ce_loss += cross_entropy(input=input[i,t,:], target=current_ids[i], weight=weight[i], label_smoothing=label_smoothing)
+        current_ids = target[:,t].unsqueeze(1)
         # update penalty_matrix and weight
-        penalty_matrix.scatter_add_(1, current_ids.unsqueeze(1), torch.ones_like(current_ids.unsqueeze(-1), dtype=penalty_matrix.dtype))
+        penalty_matrix.scatter_add_(1, current_ids, torch.ones_like(current_ids, dtype=penalty_matrix.dtype))
         penalty_matrix *= penalty_mask
-        weight = (penalty_matrix * math.log(1-eps)).exp()
-        # normalization
-        weight = (weight / weight.mean(dim=1).view(-1,1))
+        weight[:,t,:] = (penalty_matrix * math.log(1-eps)).exp()
+
+    target_distribution =  torch.zeros((batch_size, timesteps, vocab_size), dtype=torch.float32, device=device)
+    # label smoothing
+    target_distribution.scatter_add_(-1, target.unsqueeze(-1), (1-label_smoothing)*torch.ones_like(target.unsqueeze(-1), dtype=target_distribution.dtype))
+    target_distribution += torch.ones_like(target_distribution) * label_smoothing / vocab_size
+    # normalization
+    weight[:,:,0] = 0 # ignore first id
+    weight = (weight / weight.mean(dim=-1).view(batch_size,timesteps,1))
+    # weight by repetition 
+    target_distribution *= weight
+    ce_loss = cross_entropy(input=input.view(-1,vocab_size), target=target_distribution.view(-1,vocab_size), reduction='sum')
     return ce_loss
 
 def inv_sqrt_decay(lr, warmup_steps, initial_lr):

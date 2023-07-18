@@ -35,6 +35,7 @@ batch_type = "tokens"
 batch_size = 16000
 effective_batch_size = 400000
 label_smoothing = 0.1
+eps=0.5
 
 # Learning rate schedule: inverse square root
 learning_rate = 0.001
@@ -49,7 +50,7 @@ keep_checkpoints = 10
 
 compile_model = False
 mixed_precision = True
-seed = None
+seed = 42
 
 
 def main():
@@ -230,7 +231,7 @@ def train(
             ):
                 logits = model(source, target_in)
                 # loss = ce_loss(logits.view(-1, logits.shape[-1]), target_out.view(-1))
-                loss = ce_loss_with_rep_penalty(logits, target_out, penalty_mask=penalty_mask, eps=0.1, label_smoothing=label_smoothing, device=device)
+                loss = ce_loss_with_rep_penalty(logits, target_out, penalty_mask=penalty_mask, eps=eps, label_smoothing=label_smoothing, ignore_idx=padding_idx, device=device)
 
                 # Multiply by world_size because DDP divides the gradients by world_size.
                 loss = loss * world_size / sample_size
@@ -298,27 +299,36 @@ def train(
         if step == max_step:
             break
 
-def ce_loss_with_rep_penalty(input: torch.Tensor, target: torch.Tensor, penalty_mask: torch.Tensor, eps: float, label_smoothing: float, device):
+def ce_loss_with_rep_penalty(input: torch.Tensor, target: torch.Tensor, penalty_mask: torch.Tensor, eps: float, label_smoothing: float, ignore_idx: int, device):
     batch_size, timesteps, vocab_size = input.shape
     penalty_matrix = torch.zeros((batch_size, vocab_size), device=device)
     weight = torch.ones((batch_size, timesteps, vocab_size), dtype=torch.float32, device=device)
     for t in range(timesteps):
         current_ids = target[:,t].unsqueeze(1)
         # update penalty_matrix and weight
-        penalty_matrix.scatter_add_(1, current_ids, torch.ones_like(current_ids, dtype=penalty_matrix.dtype))
+        # version 1: mark repetition or not
+        penalty_matrix.scatter_(1, current_ids, torch.ones_like(current_ids, dtype=penalty_matrix.dtype))
         penalty_matrix *= penalty_mask
-        weight[:,t,:] = (penalty_matrix * math.log(1-eps)).exp()
+        weight[:,t,:] -= penalty_matrix * eps
+        # version 2: multiplicity counts
+        # penalty_matrix.scatter_add_(1, current_ids, torch.ones_like(current_ids, dtype=penalty_matrix.dtype))
+        # penalty_matrix *= penalty_mask
+        # weight[:,t,:] = (penalty_matrix * math.log(1-eps)).exp()
 
     target_distribution =  torch.zeros((batch_size, timesteps, vocab_size), dtype=torch.float32, device=device)
     # label smoothing
-    target_distribution.scatter_add_(-1, target.unsqueeze(-1), (1-label_smoothing)*torch.ones_like(target.unsqueeze(-1), dtype=target_distribution.dtype))
+    target_distribution.scatter_(-1, target.unsqueeze(-1), (1-label_smoothing)*torch.ones_like(target.unsqueeze(-1), dtype=target_distribution.dtype))
     target_distribution += torch.ones_like(target_distribution) * label_smoothing / vocab_size
-    # normalization
-    weight[:,:,0] = 0 # ignore first id
-    weight = (weight / weight.mean(dim=-1).view(batch_size,timesteps,1))
-    # weight by repetition 
+    # ignore padding
+    # weight[:,:,0] = 0
+    # weight = (weight / weight.mean(dim=-1).view(batch_size,timesteps,1))
+    # weight by repetition weight
     target_distribution *= weight
-    ce_loss = cross_entropy(input=input.view(-1,vocab_size), target=target_distribution.view(-1,vocab_size), reduction='sum')
+    # normalization, ignore padding idx
+    target_distribution = target_distribution[:,:,1:]
+    target_distribution /= target_distribution.sum(dim=-1).view(batch_size, timesteps, 1)
+    # ignore padding tokens in sequence
+    ce_loss = cross_entropy(input=input[target != ignore_idx][:,1:], target=target_distribution[target != ignore_idx], reduction='sum')
     return ce_loss
 
 def inv_sqrt_decay(lr, warmup_steps, initial_lr):

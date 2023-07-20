@@ -32,8 +32,8 @@ max_source_len = 150
 max_target_len = 150
 
 batch_type = "tokens"
-batch_size = 16000
-effective_batch_size = 400000
+batch_size = 12800
+effective_batch_size = batch_size * 25
 label_smoothing = 0.1
 eps=0.5
 
@@ -305,11 +305,11 @@ def ce_loss_with_rep_penalty(input: torch.Tensor, target: torch.Tensor, penalty_
     weight = torch.ones((batch_size, timesteps, vocab_size), dtype=torch.float32, device=device)
     for t in range(timesteps):
         current_ids = target[:,t].unsqueeze(1)
-        # update penalty_matrix and weight
         # version 1: mark repetition or not
+        weight[:,t,:] -= penalty_matrix * eps
+        # update penalty_matrix and weight
         penalty_matrix.scatter_(1, current_ids, torch.ones_like(current_ids, dtype=penalty_matrix.dtype))
         penalty_matrix *= penalty_mask
-        weight[:,t,:] -= penalty_matrix * eps
         # version 2: multiplicity counts
         # penalty_matrix.scatter_add_(1, current_ids, torch.ones_like(current_ids, dtype=penalty_matrix.dtype))
         # penalty_matrix *= penalty_mask

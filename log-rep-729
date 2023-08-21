@@ -1,0 +1,779 @@
+/nfs/RESEARCH/mao/micromamba/envs/mini-trans/lib/python3.9/site-packages/torch/cuda/__init__.py:546: UserWarning: Can't initialize NVML
+  warnings.warn("Can't initialize NVML")
+/nfs/RESEARCH/mao/micromamba/envs/mini-trans/lib/python3.9/site-packages/torch/cuda/__init__.py:546: UserWarning: Can't initialize NVML
+  warnings.warn("Can't initialize NVML")
+2023-Jul-29 08:07:17.112000 UTC [distributed_c10d@SpawnProcess-1] INFO Added key: store_based_barrier_key:1 to store for rank: 0
+2023-Jul-29 08:07:17.112000 UTC [distributed_c10d@SpawnProcess-1] INFO Rank 0: Completed store-based barrier for key:store_based_barrier_key:1 with 1 nodes.
+2023-Jul-29 08:07:22.959000 UTC [my_train@SpawnProcess-1] INFO Accumulate gradients of 25 batches
+2023-Jul-29 08:07:22.960000 UTC [my_train@SpawnProcess-1] INFO Optimize 209129472 parameters
+/nfs/RESEARCH/mao/micromamba/envs/mini-trans/lib/python3.9/site-packages/torch/cuda/__init__.py:546: UserWarning: Can't initialize NVML
+  warnings.warn("Can't initialize NVML")
+2023-Jul-29 08:07:34.224000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-29 08:07:38.214000 UTC [distributed@SpawnProcess-1] INFO Reducer buckets have been rebuilt in this iteration.
+2023-Jul-29 08:10:56.361000 UTC [my_train@SpawnProcess-1] INFO step = 20 ; tokens/s = 54589 ; learning rate = 0.000005 ; loss = 9.983391
+2023-Jul-29 08:14:15.462000 UTC [my_train@SpawnProcess-1] INFO step = 40 ; tokens/s = 58474 ; learning rate = 0.000010 ; loss = 9.596691
+2023-Jul-29 08:17:34.378000 UTC [my_train@SpawnProcess-1] INFO step = 60 ; tokens/s = 58524 ; learning rate = 0.000015 ; loss = 9.276312
+2023-Jul-29 08:20:53.375000 UTC [my_train@SpawnProcess-1] INFO step = 80 ; tokens/s = 58482 ; learning rate = 0.000020 ; loss = 8.872478
+2023-Jul-29 08:24:12.216000 UTC [my_train@SpawnProcess-1] INFO step = 100 ; tokens/s = 58525 ; learning rate = 0.000025 ; loss = 8.387483
+2023-Jul-29 08:27:31.077000 UTC [my_train@SpawnProcess-1] INFO step = 120 ; tokens/s = 58500 ; learning rate = 0.000030 ; loss = 7.853725
+2023-Jul-29 08:30:50.045000 UTC [my_train@SpawnProcess-1] INFO step = 140 ; tokens/s = 58512 ; learning rate = 0.000035 ; loss = 7.420470
+2023-Jul-29 08:34:08.953000 UTC [my_train@SpawnProcess-1] INFO step = 160 ; tokens/s = 58492 ; learning rate = 0.000040 ; loss = 7.114808
+2023-Jul-29 08:37:27.953000 UTC [my_train@SpawnProcess-1] INFO step = 180 ; tokens/s = 58473 ; learning rate = 0.000045 ; loss = 6.926006
+2023-Jul-29 08:40:46.981000 UTC [my_train@SpawnProcess-1] INFO step = 200 ; tokens/s = 58496 ; learning rate = 0.000050 ; loss = 6.739086
+2023-Jul-29 08:44:06.285000 UTC [my_train@SpawnProcess-1] INFO step = 220 ; tokens/s = 58353 ; learning rate = 0.000055 ; loss = 6.599312
+2023-Jul-29 08:45:52.687000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-29 08:47:25.369000 UTC [my_train@SpawnProcess-1] INFO step = 240 ; tokens/s = 58485 ; learning rate = 0.000060 ; loss = 6.424747
+2023-Jul-29 08:50:44.391000 UTC [my_train@SpawnProcess-1] INFO step = 260 ; tokens/s = 58472 ; learning rate = 0.000065 ; loss = 6.265956
+2023-Jul-29 08:54:03.608000 UTC [my_train@SpawnProcess-1] INFO step = 280 ; tokens/s = 58406 ; learning rate = 0.000070 ; loss = 6.048668
+2023-Jul-29 08:57:22.733000 UTC [my_train@SpawnProcess-1] INFO step = 300 ; tokens/s = 58443 ; learning rate = 0.000075 ; loss = 5.904071
+2023-Jul-29 09:00:42.088000 UTC [my_train@SpawnProcess-1] INFO step = 320 ; tokens/s = 58385 ; learning rate = 0.000080 ; loss = 5.833140
+2023-Jul-29 09:04:01.333000 UTC [my_train@SpawnProcess-1] INFO step = 340 ; tokens/s = 58419 ; learning rate = 0.000085 ; loss = 5.629528
+2023-Jul-29 09:07:20.433000 UTC [my_train@SpawnProcess-1] INFO step = 360 ; tokens/s = 58443 ; learning rate = 0.000090 ; loss = 5.569138
+2023-Jul-29 09:10:39.738000 UTC [my_train@SpawnProcess-1] INFO step = 380 ; tokens/s = 58383 ; learning rate = 0.000095 ; loss = 5.455639
+2023-Jul-29 09:13:59.170000 UTC [my_train@SpawnProcess-1] INFO step = 400 ; tokens/s = 58339 ; learning rate = 0.000100 ; loss = 5.403692
+2023-Jul-29 09:17:18.526000 UTC [my_train@SpawnProcess-1] INFO step = 420 ; tokens/s = 58368 ; learning rate = 0.000105 ; loss = 5.375249
+2023-Jul-29 09:20:37.623000 UTC [my_train@SpawnProcess-1] INFO step = 440 ; tokens/s = 58435 ; learning rate = 0.000110 ; loss = 5.231963
+2023-Jul-29 09:23:56.675000 UTC [my_train@SpawnProcess-1] INFO step = 460 ; tokens/s = 58464 ; learning rate = 0.000115 ; loss = 5.171912
+2023-Jul-29 09:24:54.949000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-29 09:27:15.876000 UTC [my_train@SpawnProcess-1] INFO step = 480 ; tokens/s = 58449 ; learning rate = 0.000120 ; loss = 5.003532
+2023-Jul-29 09:30:35.426000 UTC [my_train@SpawnProcess-1] INFO step = 500 ; tokens/s = 58334 ; learning rate = 0.000125 ; loss = 4.886465
+2023-Jul-29 09:30:35.429000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-500.pt
+2023-Jul-29 09:34:16.824000 UTC [my_train@SpawnProcess-1] INFO step = 520 ; tokens/s = 52550 ; learning rate = 0.000130 ; loss = 4.849108
+2023-Jul-29 09:37:36.412000 UTC [my_train@SpawnProcess-1] INFO step = 540 ; tokens/s = 58337 ; learning rate = 0.000135 ; loss = 4.682175
+2023-Jul-29 09:40:56.124000 UTC [my_train@SpawnProcess-1] INFO step = 560 ; tokens/s = 58272 ; learning rate = 0.000140 ; loss = 4.528247
+2023-Jul-29 09:44:15.863000 UTC [my_train@SpawnProcess-1] INFO step = 580 ; tokens/s = 58258 ; learning rate = 0.000145 ; loss = 4.474088
+2023-Jul-29 09:47:35.361000 UTC [my_train@SpawnProcess-1] INFO step = 600 ; tokens/s = 58349 ; learning rate = 0.000150 ; loss = 4.324930
+2023-Jul-29 09:50:54.964000 UTC [my_train@SpawnProcess-1] INFO step = 620 ; tokens/s = 58280 ; learning rate = 0.000155 ; loss = 4.235473
+2023-Jul-29 09:54:14.664000 UTC [my_train@SpawnProcess-1] INFO step = 640 ; tokens/s = 58249 ; learning rate = 0.000160 ; loss = 4.108674
+2023-Jul-29 09:57:34.330000 UTC [my_train@SpawnProcess-1] INFO step = 660 ; tokens/s = 58267 ; learning rate = 0.000165 ; loss = 4.071313
+2023-Jul-29 10:00:53.945000 UTC [my_train@SpawnProcess-1] INFO step = 680 ; tokens/s = 58299 ; learning rate = 0.000170 ; loss = 3.985141
+2023-Jul-29 10:04:13.554000 UTC [my_train@SpawnProcess-1] INFO step = 700 ; tokens/s = 58308 ; learning rate = 0.000175 ; loss = 3.804520
+2023-Jul-29 10:04:22.158000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-29 10:07:32.978000 UTC [my_train@SpawnProcess-1] INFO step = 720 ; tokens/s = 58355 ; learning rate = 0.000180 ; loss = 3.729248
+2023-Jul-29 10:10:52.448000 UTC [my_train@SpawnProcess-1] INFO step = 740 ; tokens/s = 58318 ; learning rate = 0.000185 ; loss = 3.736300
+2023-Jul-29 10:14:12.056000 UTC [my_train@SpawnProcess-1] INFO step = 760 ; tokens/s = 58315 ; learning rate = 0.000190 ; loss = 3.624445
+2023-Jul-29 10:17:31.547000 UTC [my_train@SpawnProcess-1] INFO step = 780 ; tokens/s = 58316 ; learning rate = 0.000195 ; loss = 3.573450
+2023-Jul-29 10:20:51.167000 UTC [my_train@SpawnProcess-1] INFO step = 800 ; tokens/s = 58311 ; learning rate = 0.000200 ; loss = 3.459069
+2023-Jul-29 10:24:10.798000 UTC [my_train@SpawnProcess-1] INFO step = 820 ; tokens/s = 58323 ; learning rate = 0.000205 ; loss = 3.360858
+2023-Jul-29 10:27:30.263000 UTC [my_train@SpawnProcess-1] INFO step = 840 ; tokens/s = 58315 ; learning rate = 0.000210 ; loss = 3.318162
+2023-Jul-29 10:30:50.052000 UTC [my_train@SpawnProcess-1] INFO step = 860 ; tokens/s = 58271 ; learning rate = 0.000215 ; loss = 3.273226
+2023-Jul-29 10:34:09.596000 UTC [my_train@SpawnProcess-1] INFO step = 880 ; tokens/s = 58327 ; learning rate = 0.000220 ; loss = 3.314794
+2023-Jul-29 10:37:29.069000 UTC [my_train@SpawnProcess-1] INFO step = 900 ; tokens/s = 58305 ; learning rate = 0.000225 ; loss = 3.158454
+2023-Jul-29 10:40:48.533000 UTC [my_train@SpawnProcess-1] INFO step = 920 ; tokens/s = 58346 ; learning rate = 0.000230 ; loss = 3.255295
+2023-Jul-29 10:43:36.316000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-29 10:44:08.236000 UTC [my_train@SpawnProcess-1] INFO step = 940 ; tokens/s = 58291 ; learning rate = 0.000235 ; loss = 3.123066
+2023-Jul-29 10:47:28.075000 UTC [my_train@SpawnProcess-1] INFO step = 960 ; tokens/s = 58269 ; learning rate = 0.000240 ; loss = 3.068984
+2023-Jul-29 10:50:47.594000 UTC [my_train@SpawnProcess-1] INFO step = 980 ; tokens/s = 58311 ; learning rate = 0.000245 ; loss = 3.066188
+2023-Jul-29 10:54:07.373000 UTC [my_train@SpawnProcess-1] INFO step = 1000 ; tokens/s = 58277 ; learning rate = 0.000250 ; loss = 3.016502
+2023-Jul-29 10:54:07.376000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-1000.pt
+2023-Jul-29 10:57:44.214000 UTC [my_train@SpawnProcess-1] INFO step = 1020 ; tokens/s = 53676 ; learning rate = 0.000255 ; loss = 2.993360
+2023-Jul-29 11:01:03.498000 UTC [my_train@SpawnProcess-1] INFO step = 1040 ; tokens/s = 58371 ; learning rate = 0.000260 ; loss = 2.983809
+2023-Jul-29 11:04:23.033000 UTC [my_train@SpawnProcess-1] INFO step = 1060 ; tokens/s = 58293 ; learning rate = 0.000265 ; loss = 2.948785
+2023-Jul-29 11:07:42.524000 UTC [my_train@SpawnProcess-1] INFO step = 1080 ; tokens/s = 58332 ; learning rate = 0.000270 ; loss = 2.950490
+2023-Jul-29 11:11:01.796000 UTC [my_train@SpawnProcess-1] INFO step = 1100 ; tokens/s = 58396 ; learning rate = 0.000275 ; loss = 2.852566
+2023-Jul-29 11:14:20.908000 UTC [my_train@SpawnProcess-1] INFO step = 1120 ; tokens/s = 58464 ; learning rate = 0.000280 ; loss = 2.856159
+2023-Jul-29 11:17:40.101000 UTC [my_train@SpawnProcess-1] INFO step = 1140 ; tokens/s = 58413 ; learning rate = 0.000285 ; loss = 2.867988
+2023-Jul-29 11:20:59.451000 UTC [my_train@SpawnProcess-1] INFO step = 1160 ; tokens/s = 58381 ; learning rate = 0.000290 ; loss = 2.839698
+2023-Jul-29 11:22:57.450000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-29 11:24:18.857000 UTC [my_train@SpawnProcess-1] INFO step = 1180 ; tokens/s = 58359 ; learning rate = 0.000295 ; loss = 2.792154
+2023-Jul-29 11:27:38.318000 UTC [my_train@SpawnProcess-1] INFO step = 1200 ; tokens/s = 58345 ; learning rate = 0.000300 ; loss = 2.788924
+2023-Jul-29 11:30:57.694000 UTC [my_train@SpawnProcess-1] INFO step = 1220 ; tokens/s = 58377 ; learning rate = 0.000305 ; loss = 2.764939
+2023-Jul-29 11:34:16.855000 UTC [my_train@SpawnProcess-1] INFO step = 1240 ; tokens/s = 58447 ; learning rate = 0.000310 ; loss = 2.724613
+2023-Jul-29 11:37:36.105000 UTC [my_train@SpawnProcess-1] INFO step = 1260 ; tokens/s = 58393 ; learning rate = 0.000315 ; loss = 2.773078
+2023-Jul-30 07:48:36.875000 UTC [distributed_c10d@SpawnProcess-1] INFO Added key: store_based_barrier_key:1 to store for rank: 0
+2023-Jul-30 07:48:36.876000 UTC [distributed_c10d@SpawnProcess-1] INFO Rank 0: Completed store-based barrier for key:store_based_barrier_key:1 with 1 nodes.
+2023-Jul-30 07:49:09.236000 UTC [my_train@SpawnProcess-1] INFO Restoring checkpoint checkpoints/rep_penalty_729/checkpoint-1000.pt
+2023-Jul-30 07:50:36.303000 UTC [my_train@SpawnProcess-1] INFO Accumulate gradients of 25 batches
+2023-Jul-30 07:50:36.304000 UTC [my_train@SpawnProcess-1] INFO Optimize 209129472 parameters
+2023-Jul-30 07:51:08.580000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 07:51:24.227000 UTC [distributed@SpawnProcess-1] INFO Reducer buckets have been rebuilt in this iteration.
+2023-Jul-30 07:54:42.754000 UTC [my_train@SpawnProcess-1] INFO step = 1020 ; tokens/s = 47269 ; learning rate = 0.000255 ; loss = 2.974714
+2023-Jul-30 07:58:02.218000 UTC [my_train@SpawnProcess-1] INFO step = 1040 ; tokens/s = 58368 ; learning rate = 0.000260 ; loss = 2.911172
+2023-Jul-30 08:01:22.110000 UTC [my_train@SpawnProcess-1] INFO step = 1060 ; tokens/s = 58238 ; learning rate = 0.000265 ; loss = 2.937588
+2023-Jul-30 08:04:41.873000 UTC [my_train@SpawnProcess-1] INFO step = 1080 ; tokens/s = 58257 ; learning rate = 0.000270 ; loss = 2.959696
+2023-Jul-30 08:08:01.036000 UTC [my_train@SpawnProcess-1] INFO step = 1100 ; tokens/s = 58430 ; learning rate = 0.000275 ; loss = 2.924583
+2023-Jul-30 08:11:20.588000 UTC [my_train@SpawnProcess-1] INFO step = 1120 ; tokens/s = 58298 ; learning rate = 0.000280 ; loss = 2.890749
+2023-Jul-30 08:14:40.667000 UTC [my_train@SpawnProcess-1] INFO step = 1140 ; tokens/s = 58187 ; learning rate = 0.000285 ; loss = 2.845965
+2023-Jul-30 08:17:59.499000 UTC [my_train@SpawnProcess-1] INFO step = 1160 ; tokens/s = 58514 ; learning rate = 0.000290 ; loss = 2.861301
+2023-Jul-30 08:21:18.873000 UTC [my_train@SpawnProcess-1] INFO step = 1180 ; tokens/s = 58364 ; learning rate = 0.000295 ; loss = 2.872136
+2023-Jul-30 08:24:38.758000 UTC [my_train@SpawnProcess-1] INFO step = 1200 ; tokens/s = 58245 ; learning rate = 0.000300 ; loss = 2.772542
+2023-Jul-30 08:27:58.229000 UTC [my_train@SpawnProcess-1] INFO step = 1220 ; tokens/s = 58304 ; learning rate = 0.000305 ; loss = 2.863905
+2023-Jul-30 08:29:45.020000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 08:31:18.258000 UTC [my_train@SpawnProcess-1] INFO step = 1240 ; tokens/s = 58209 ; learning rate = 0.000310 ; loss = 2.800052
+2023-Jul-30 08:34:37.283000 UTC [my_train@SpawnProcess-1] INFO step = 1260 ; tokens/s = 58472 ; learning rate = 0.000315 ; loss = 2.808095
+2023-Jul-30 08:37:56.074000 UTC [my_train@SpawnProcess-1] INFO step = 1280 ; tokens/s = 58531 ; learning rate = 0.000320 ; loss = 2.717865
+2023-Jul-30 08:41:16.127000 UTC [my_train@SpawnProcess-1] INFO step = 1300 ; tokens/s = 58172 ; learning rate = 0.000325 ; loss = 2.692772
+2023-Jul-30 08:44:35.837000 UTC [my_train@SpawnProcess-1] INFO step = 1320 ; tokens/s = 58281 ; learning rate = 0.000330 ; loss = 2.762467
+2023-Jul-30 08:47:55.414000 UTC [my_train@SpawnProcess-1] INFO step = 1340 ; tokens/s = 58322 ; learning rate = 0.000335 ; loss = 2.660314
+2023-Jul-30 08:51:14.807000 UTC [my_train@SpawnProcess-1] INFO step = 1360 ; tokens/s = 58358 ; learning rate = 0.000340 ; loss = 2.715021
+2023-Jul-30 08:54:34.832000 UTC [my_train@SpawnProcess-1] INFO step = 1380 ; tokens/s = 58172 ; learning rate = 0.000345 ; loss = 2.655018
+2023-Jul-30 08:57:54.153000 UTC [my_train@SpawnProcess-1] INFO step = 1400 ; tokens/s = 58372 ; learning rate = 0.000350 ; loss = 2.674734
+2023-Jul-30 09:01:14.080000 UTC [my_train@SpawnProcess-1] INFO step = 1420 ; tokens/s = 58202 ; learning rate = 0.000355 ; loss = 2.708023
+2023-Jul-30 09:04:33.783000 UTC [my_train@SpawnProcess-1] INFO step = 1440 ; tokens/s = 58258 ; learning rate = 0.000360 ; loss = 2.662571
+2023-Jul-30 09:07:53.744000 UTC [my_train@SpawnProcess-1] INFO step = 1460 ; tokens/s = 58198 ; learning rate = 0.000365 ; loss = 2.643319
+2023-Jul-30 09:08:50.797000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 09:11:13.201000 UTC [my_train@SpawnProcess-1] INFO step = 1480 ; tokens/s = 58374 ; learning rate = 0.000370 ; loss = 2.566355
+2023-Jul-30 09:14:32.603000 UTC [my_train@SpawnProcess-1] INFO step = 1500 ; tokens/s = 58377 ; learning rate = 0.000375 ; loss = 2.573389
+2023-Jul-30 09:14:32.612000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-1500.pt
+2023-Jul-30 09:18:16.666000 UTC [my_train@SpawnProcess-1] INFO step = 1520 ; tokens/s = 51925 ; learning rate = 0.000380 ; loss = 2.618375
+2023-Jul-30 09:21:35.981000 UTC [my_train@SpawnProcess-1] INFO step = 1540 ; tokens/s = 58417 ; learning rate = 0.000385 ; loss = 2.596635
+2023-Jul-30 09:24:55.866000 UTC [my_train@SpawnProcess-1] INFO step = 1560 ; tokens/s = 58222 ; learning rate = 0.000390 ; loss = 2.572357
+2023-Jul-30 09:28:15.494000 UTC [my_train@SpawnProcess-1] INFO step = 1580 ; tokens/s = 58291 ; learning rate = 0.000395 ; loss = 2.613310
+2023-Jul-30 09:31:35.911000 UTC [my_train@SpawnProcess-1] INFO step = 1600 ; tokens/s = 58082 ; learning rate = 0.000400 ; loss = 2.569678
+2023-Jul-30 09:34:55.111000 UTC [my_train@SpawnProcess-1] INFO step = 1620 ; tokens/s = 58398 ; learning rate = 0.000405 ; loss = 2.582027
+2023-Jul-30 09:38:14.768000 UTC [my_train@SpawnProcess-1] INFO step = 1640 ; tokens/s = 58262 ; learning rate = 0.000410 ; loss = 2.576505
+2023-Jul-30 09:41:34.385000 UTC [my_train@SpawnProcess-1] INFO step = 1660 ; tokens/s = 58281 ; learning rate = 0.000415 ; loss = 2.576382
+2023-Jul-30 09:44:53.659000 UTC [my_train@SpawnProcess-1] INFO step = 1680 ; tokens/s = 58399 ; learning rate = 0.000420 ; loss = 2.578825
+2023-Jul-30 09:48:13.459000 UTC [my_train@SpawnProcess-1] INFO step = 1700 ; tokens/s = 58252 ; learning rate = 0.000425 ; loss = 2.538824
+2023-Jul-30 09:48:20.976000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 09:51:32.559000 UTC [my_train@SpawnProcess-1] INFO step = 1720 ; tokens/s = 58450 ; learning rate = 0.000430 ; loss = 2.494538
+2023-Jul-30 09:54:51.756000 UTC [my_train@SpawnProcess-1] INFO step = 1740 ; tokens/s = 58398 ; learning rate = 0.000435 ; loss = 2.547519
+2023-Jul-30 09:58:11.588000 UTC [my_train@SpawnProcess-1] INFO step = 1760 ; tokens/s = 58250 ; learning rate = 0.000440 ; loss = 2.504429
+2023-Jul-30 10:01:30.755000 UTC [my_train@SpawnProcess-1] INFO step = 1780 ; tokens/s = 58410 ; learning rate = 0.000445 ; loss = 2.535682
+2023-Jul-30 10:04:50.061000 UTC [my_train@SpawnProcess-1] INFO step = 1800 ; tokens/s = 58403 ; learning rate = 0.000450 ; loss = 2.495671
+2023-Jul-30 10:08:09.862000 UTC [my_train@SpawnProcess-1] INFO step = 1820 ; tokens/s = 58273 ; learning rate = 0.000455 ; loss = 2.478420
+2023-Jul-30 10:11:29.110000 UTC [my_train@SpawnProcess-1] INFO step = 1840 ; tokens/s = 58379 ; learning rate = 0.000460 ; loss = 2.494915
+2023-Jul-30 10:14:48.728000 UTC [my_train@SpawnProcess-1] INFO step = 1860 ; tokens/s = 58321 ; learning rate = 0.000465 ; loss = 2.481369
+2023-Jul-30 10:18:08.818000 UTC [my_train@SpawnProcess-1] INFO step = 1880 ; tokens/s = 58168 ; learning rate = 0.000470 ; loss = 2.521196
+2023-Jul-30 10:21:28.200000 UTC [my_train@SpawnProcess-1] INFO step = 1900 ; tokens/s = 58331 ; learning rate = 0.000475 ; loss = 2.461899
+2023-Jul-30 10:24:47.329000 UTC [my_train@SpawnProcess-1] INFO step = 1920 ; tokens/s = 58445 ; learning rate = 0.000480 ; loss = 2.540154
+2023-Jul-30 10:27:34.597000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 10:28:07.482000 UTC [my_train@SpawnProcess-1] INFO step = 1940 ; tokens/s = 58160 ; learning rate = 0.000485 ; loss = 2.468422
+2023-Jul-30 10:31:26.573000 UTC [my_train@SpawnProcess-1] INFO step = 1960 ; tokens/s = 58488 ; learning rate = 0.000490 ; loss = 2.438085
+2023-Jul-30 10:34:45.513000 UTC [my_train@SpawnProcess-1] INFO step = 1980 ; tokens/s = 58480 ; learning rate = 0.000495 ; loss = 2.455664
+2023-Jul-30 10:38:05.086000 UTC [my_train@SpawnProcess-1] INFO step = 2000 ; tokens/s = 58337 ; learning rate = 0.000500 ; loss = 2.472516
+2023-Jul-30 10:38:05.089000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-2000.pt
+2023-Jul-30 10:41:52.156000 UTC [my_train@SpawnProcess-1] INFO step = 2020 ; tokens/s = 51258 ; learning rate = 0.000505 ; loss = 2.457882
+2023-Jul-30 10:45:11.909000 UTC [my_train@SpawnProcess-1] INFO step = 2040 ; tokens/s = 58234 ; learning rate = 0.000510 ; loss = 2.459830
+2023-Jul-30 10:48:31.849000 UTC [my_train@SpawnProcess-1] INFO step = 2060 ; tokens/s = 58175 ; learning rate = 0.000515 ; loss = 2.454006
+2023-Jul-30 10:51:51.671000 UTC [my_train@SpawnProcess-1] INFO step = 2080 ; tokens/s = 58235 ; learning rate = 0.000520 ; loss = 2.477299
+2023-Jul-30 10:55:11.709000 UTC [my_train@SpawnProcess-1] INFO step = 2100 ; tokens/s = 58173 ; learning rate = 0.000525 ; loss = 2.416662
+2023-Jul-30 10:58:31.152000 UTC [my_train@SpawnProcess-1] INFO step = 2120 ; tokens/s = 58366 ; learning rate = 0.000530 ; loss = 2.432153
+2023-Jul-30 11:01:50.770000 UTC [my_train@SpawnProcess-1] INFO step = 2140 ; tokens/s = 58288 ; learning rate = 0.000535 ; loss = 2.457319
+2023-Jul-30 11:05:10.619000 UTC [my_train@SpawnProcess-1] INFO step = 2160 ; tokens/s = 58235 ; learning rate = 0.000540 ; loss = 2.436475
+2023-Jul-30 11:07:07.288000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 11:08:29.820000 UTC [my_train@SpawnProcess-1] INFO step = 2180 ; tokens/s = 58419 ; learning rate = 0.000545 ; loss = 2.395996
+2023-Jul-30 11:11:49.092000 UTC [my_train@SpawnProcess-1] INFO step = 2200 ; tokens/s = 58401 ; learning rate = 0.000550 ; loss = 2.404690
+2023-Jul-30 11:15:08.926000 UTC [my_train@SpawnProcess-1] INFO step = 2220 ; tokens/s = 58243 ; learning rate = 0.000555 ; loss = 2.402644
+2023-Jul-30 11:18:28.263000 UTC [my_train@SpawnProcess-1] INFO step = 2240 ; tokens/s = 58396 ; learning rate = 0.000560 ; loss = 2.389552
+2023-Jul-30 11:21:47.715000 UTC [my_train@SpawnProcess-1] INFO step = 2260 ; tokens/s = 58334 ; learning rate = 0.000565 ; loss = 2.429253
+2023-Jul-30 11:25:07.082000 UTC [my_train@SpawnProcess-1] INFO step = 2280 ; tokens/s = 58353 ; learning rate = 0.000570 ; loss = 2.396097
+2023-Jul-30 11:28:26.225000 UTC [my_train@SpawnProcess-1] INFO step = 2300 ; tokens/s = 58410 ; learning rate = 0.000575 ; loss = 2.424708
+2023-Jul-30 11:31:45.086000 UTC [my_train@SpawnProcess-1] INFO step = 2320 ; tokens/s = 58542 ; learning rate = 0.000580 ; loss = 2.398875
+2023-Jul-30 11:35:04.611000 UTC [my_train@SpawnProcess-1] INFO step = 2340 ; tokens/s = 58325 ; learning rate = 0.000585 ; loss = 2.388256
+2023-Jul-30 11:38:23.983000 UTC [my_train@SpawnProcess-1] INFO step = 2360 ; tokens/s = 58376 ; learning rate = 0.000590 ; loss = 2.375971
+2023-Jul-30 11:41:43.244000 UTC [my_train@SpawnProcess-1] INFO step = 2380 ; tokens/s = 58382 ; learning rate = 0.000595 ; loss = 2.446076
+2023-Jul-30 11:45:02.993000 UTC [my_train@SpawnProcess-1] INFO step = 2400 ; tokens/s = 58283 ; learning rate = 0.000600 ; loss = 2.415440
+2023-Jul-30 11:46:09.474000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 11:48:21.831000 UTC [my_train@SpawnProcess-1] INFO step = 2420 ; tokens/s = 58530 ; learning rate = 0.000605 ; loss = 2.375057
+2023-Jul-30 11:51:40.889000 UTC [my_train@SpawnProcess-1] INFO step = 2440 ; tokens/s = 58476 ; learning rate = 0.000610 ; loss = 2.359148
+2023-Jul-30 11:55:00.464000 UTC [my_train@SpawnProcess-1] INFO step = 2460 ; tokens/s = 58292 ; learning rate = 0.000615 ; loss = 2.416625
+2023-Jul-30 11:58:19.757000 UTC [my_train@SpawnProcess-1] INFO step = 2480 ; tokens/s = 58392 ; learning rate = 0.000620 ; loss = 2.392322
+2023-Jul-30 12:01:38.910000 UTC [my_train@SpawnProcess-1] INFO step = 2500 ; tokens/s = 58450 ; learning rate = 0.000625 ; loss = 2.372925
+2023-Jul-30 12:01:38.913000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-2500.pt
+2023-Jul-30 12:05:23.878000 UTC [my_train@SpawnProcess-1] INFO step = 2520 ; tokens/s = 51720 ; learning rate = 0.000630 ; loss = 2.368840
+2023-Jul-30 12:08:43.245000 UTC [my_train@SpawnProcess-1] INFO step = 2540 ; tokens/s = 58372 ; learning rate = 0.000635 ; loss = 2.337210
+2023-Jul-30 12:12:02.194000 UTC [my_train@SpawnProcess-1] INFO step = 2560 ; tokens/s = 58495 ; learning rate = 0.000640 ; loss = 2.371418
+2023-Jul-30 12:15:22.204000 UTC [my_train@SpawnProcess-1] INFO step = 2580 ; tokens/s = 58189 ; learning rate = 0.000645 ; loss = 2.431876
+2023-Jul-30 12:18:41.707000 UTC [my_train@SpawnProcess-1] INFO step = 2600 ; tokens/s = 58338 ; learning rate = 0.000650 ; loss = 2.380453
+2023-Jul-30 12:22:01.271000 UTC [my_train@SpawnProcess-1] INFO step = 2620 ; tokens/s = 58296 ; learning rate = 0.000655 ; loss = 2.387423
+2023-Jul-30 12:25:20.374000 UTC [my_train@SpawnProcess-1] INFO step = 2640 ; tokens/s = 58464 ; learning rate = 0.000660 ; loss = 2.387060
+2023-Jul-30 12:25:46.998000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 12:28:39.621000 UTC [my_train@SpawnProcess-1] INFO step = 2660 ; tokens/s = 58403 ; learning rate = 0.000665 ; loss = 2.358950
+2023-Jul-30 12:31:58.975000 UTC [my_train@SpawnProcess-1] INFO step = 2680 ; tokens/s = 58361 ; learning rate = 0.000670 ; loss = 2.341488
+2023-Jul-30 12:35:17.870000 UTC [my_train@SpawnProcess-1] INFO step = 2700 ; tokens/s = 58536 ; learning rate = 0.000675 ; loss = 2.332126
+2023-Jul-30 12:38:37.249000 UTC [my_train@SpawnProcess-1] INFO step = 2720 ; tokens/s = 58366 ; learning rate = 0.000680 ; loss = 2.356622
+2023-Jul-30 12:41:56.497000 UTC [my_train@SpawnProcess-1] INFO step = 2740 ; tokens/s = 58366 ; learning rate = 0.000685 ; loss = 2.353496
+2023-Jul-30 12:45:15.941000 UTC [my_train@SpawnProcess-1] INFO step = 2760 ; tokens/s = 58358 ; learning rate = 0.000690 ; loss = 2.369940
+2023-Jul-30 12:48:34.950000 UTC [my_train@SpawnProcess-1] INFO step = 2780 ; tokens/s = 58497 ; learning rate = 0.000695 ; loss = 2.348713
+2023-Jul-30 12:51:53.995000 UTC [my_train@SpawnProcess-1] INFO step = 2800 ; tokens/s = 58449 ; learning rate = 0.000700 ; loss = 2.350415
+2023-Jul-30 12:55:13.611000 UTC [my_train@SpawnProcess-1] INFO step = 2820 ; tokens/s = 58325 ; learning rate = 0.000705 ; loss = 2.361511
+2023-Jul-30 12:58:32.856000 UTC [my_train@SpawnProcess-1] INFO step = 2840 ; tokens/s = 58399 ; learning rate = 0.000710 ; loss = 2.354034
+2023-Jul-30 13:01:51.866000 UTC [my_train@SpawnProcess-1] INFO step = 2860 ; tokens/s = 58476 ; learning rate = 0.000715 ; loss = 2.358184
+2023-Jul-30 13:04:48.982000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 13:05:11.466000 UTC [my_train@SpawnProcess-1] INFO step = 2880 ; tokens/s = 58285 ; learning rate = 0.000720 ; loss = 2.370756
+2023-Jul-30 13:08:30.665000 UTC [my_train@SpawnProcess-1] INFO step = 2900 ; tokens/s = 58421 ; learning rate = 0.000725 ; loss = 2.306650
+2023-Jul-30 13:11:49.524000 UTC [my_train@SpawnProcess-1] INFO step = 2920 ; tokens/s = 58520 ; learning rate = 0.000730 ; loss = 2.309365
+2023-Jul-30 13:15:09.031000 UTC [my_train@SpawnProcess-1] INFO step = 2940 ; tokens/s = 58337 ; learning rate = 0.000735 ; loss = 2.348151
+2023-Jul-30 13:18:27.944000 UTC [my_train@SpawnProcess-1] INFO step = 2960 ; tokens/s = 58493 ; learning rate = 0.000740 ; loss = 2.344396
+2023-Jul-30 13:21:47.458000 UTC [my_train@SpawnProcess-1] INFO step = 2980 ; tokens/s = 58346 ; learning rate = 0.000745 ; loss = 2.290214
+2023-Jul-30 13:25:06.147000 UTC [my_train@SpawnProcess-1] INFO step = 3000 ; tokens/s = 58555 ; learning rate = 0.000750 ; loss = 2.342362
+2023-Jul-30 13:25:06.149000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-3000.pt
+2023-Jul-30 13:28:49.149000 UTC [my_train@SpawnProcess-1] INFO step = 3020 ; tokens/s = 52205 ; learning rate = 0.000755 ; loss = 2.335473
+2023-Jul-30 13:32:08.488000 UTC [my_train@SpawnProcess-1] INFO step = 3040 ; tokens/s = 58377 ; learning rate = 0.000760 ; loss = 2.316559
+2023-Jul-30 13:35:27.617000 UTC [my_train@SpawnProcess-1] INFO step = 3060 ; tokens/s = 58432 ; learning rate = 0.000765 ; loss = 2.325848
+2023-Jul-30 13:38:46.716000 UTC [my_train@SpawnProcess-1] INFO step = 3080 ; tokens/s = 58463 ; learning rate = 0.000770 ; loss = 2.318660
+2023-Jul-30 13:42:05.861000 UTC [my_train@SpawnProcess-1] INFO step = 3100 ; tokens/s = 58423 ; learning rate = 0.000775 ; loss = 2.360338
+2023-Jul-30 13:44:13.357000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 13:45:25.377000 UTC [my_train@SpawnProcess-1] INFO step = 3120 ; tokens/s = 58302 ; learning rate = 0.000780 ; loss = 2.283047
+2023-Jul-30 13:48:44.501000 UTC [my_train@SpawnProcess-1] INFO step = 3140 ; tokens/s = 58477 ; learning rate = 0.000785 ; loss = 2.274691
+2023-Jul-30 13:52:03.524000 UTC [my_train@SpawnProcess-1] INFO step = 3160 ; tokens/s = 58470 ; learning rate = 0.000790 ; loss = 2.300013
+2023-Jul-30 13:55:22.862000 UTC [my_train@SpawnProcess-1] INFO step = 3180 ; tokens/s = 58377 ; learning rate = 0.000795 ; loss = 2.299984
+2023-Jul-30 13:58:42.296000 UTC [my_train@SpawnProcess-1] INFO step = 3200 ; tokens/s = 58361 ; learning rate = 0.000800 ; loss = 2.296845
+2023-Jul-30 14:02:02.204000 UTC [my_train@SpawnProcess-1] INFO step = 3220 ; tokens/s = 58230 ; learning rate = 0.000805 ; loss = 2.302752
+2023-Jul-30 14:05:21.633000 UTC [my_train@SpawnProcess-1] INFO step = 3240 ; tokens/s = 58338 ; learning rate = 0.000810 ; loss = 2.306765
+2023-Jul-30 14:08:40.690000 UTC [my_train@SpawnProcess-1] INFO step = 3260 ; tokens/s = 58461 ; learning rate = 0.000815 ; loss = 2.317235
+2023-Jul-30 14:12:00.227000 UTC [my_train@SpawnProcess-1] INFO step = 3280 ; tokens/s = 58318 ; learning rate = 0.000820 ; loss = 2.289863
+2023-Jul-30 14:15:19.618000 UTC [my_train@SpawnProcess-1] INFO step = 3300 ; tokens/s = 58348 ; learning rate = 0.000825 ; loss = 2.347295
+2023-Jul-30 14:18:39.039000 UTC [my_train@SpawnProcess-1] INFO step = 3320 ; tokens/s = 58352 ; learning rate = 0.000830 ; loss = 2.270686
+2023-Jul-30 14:21:58.646000 UTC [my_train@SpawnProcess-1] INFO step = 3340 ; tokens/s = 58295 ; learning rate = 0.000835 ; loss = 2.295705
+2023-Jul-30 14:23:24.961000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 14:25:17.626000 UTC [my_train@SpawnProcess-1] INFO step = 3360 ; tokens/s = 58500 ; learning rate = 0.000840 ; loss = 2.275551
+2023-Jul-30 14:28:36.765000 UTC [my_train@SpawnProcess-1] INFO step = 3380 ; tokens/s = 58399 ; learning rate = 0.000845 ; loss = 2.266416
+2023-Jul-30 14:31:55.669000 UTC [my_train@SpawnProcess-1] INFO step = 3400 ; tokens/s = 58528 ; learning rate = 0.000850 ; loss = 2.291178
+2023-Jul-30 14:35:14.104000 UTC [my_train@SpawnProcess-1] INFO step = 3420 ; tokens/s = 58645 ; learning rate = 0.000855 ; loss = 2.264020
+2023-Jul-30 14:38:33.149000 UTC [my_train@SpawnProcess-1] INFO step = 3440 ; tokens/s = 58486 ; learning rate = 0.000860 ; loss = 2.265834
+2023-Jul-30 14:41:52.128000 UTC [my_train@SpawnProcess-1] INFO step = 3460 ; tokens/s = 58465 ; learning rate = 0.000865 ; loss = 2.309463
+2023-Jul-30 14:45:11.244000 UTC [my_train@SpawnProcess-1] INFO step = 3480 ; tokens/s = 58455 ; learning rate = 0.000870 ; loss = 2.281984
+2023-Jul-30 14:48:29.883000 UTC [my_train@SpawnProcess-1] INFO step = 3500 ; tokens/s = 58569 ; learning rate = 0.000875 ; loss = 2.283088
+2023-Jul-30 14:48:29.886000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-3500.pt
+2023-Jul-30 14:52:17.726000 UTC [my_train@SpawnProcess-1] INFO step = 3520 ; tokens/s = 51091 ; learning rate = 0.000880 ; loss = 2.299154
+2023-Jul-30 14:55:36.919000 UTC [my_train@SpawnProcess-1] INFO step = 3540 ; tokens/s = 58454 ; learning rate = 0.000885 ; loss = 2.298357
+2023-Jul-30 14:58:55.708000 UTC [my_train@SpawnProcess-1] INFO step = 3560 ; tokens/s = 58514 ; learning rate = 0.000890 ; loss = 2.296079
+2023-Jul-30 15:02:14.906000 UTC [my_train@SpawnProcess-1] INFO step = 3580 ; tokens/s = 58438 ; learning rate = 0.000895 ; loss = 2.315569
+2023-Jul-30 15:02:51.667000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 15:05:33.472000 UTC [my_train@SpawnProcess-1] INFO step = 3600 ; tokens/s = 58577 ; learning rate = 0.000900 ; loss = 2.236656
+2023-Jul-30 15:08:52.265000 UTC [my_train@SpawnProcess-1] INFO step = 3620 ; tokens/s = 58518 ; learning rate = 0.000905 ; loss = 2.285670
+2023-Jul-30 15:12:11.396000 UTC [my_train@SpawnProcess-1] INFO step = 3640 ; tokens/s = 58445 ; learning rate = 0.000910 ; loss = 2.279637
+2023-Jul-30 15:15:30.747000 UTC [my_train@SpawnProcess-1] INFO step = 3660 ; tokens/s = 58396 ; learning rate = 0.000915 ; loss = 2.267358
+2023-Jul-30 15:18:49.357000 UTC [my_train@SpawnProcess-1] INFO step = 3680 ; tokens/s = 58601 ; learning rate = 0.000920 ; loss = 2.253371
+2023-Jul-30 15:22:07.958000 UTC [my_train@SpawnProcess-1] INFO step = 3700 ; tokens/s = 58602 ; learning rate = 0.000925 ; loss = 2.305116
+2023-Jul-30 15:25:27.284000 UTC [my_train@SpawnProcess-1] INFO step = 3720 ; tokens/s = 58385 ; learning rate = 0.000930 ; loss = 2.278581
+2023-Jul-30 15:28:45.928000 UTC [my_train@SpawnProcess-1] INFO step = 3740 ; tokens/s = 58584 ; learning rate = 0.000935 ; loss = 2.263888
+2023-Jul-30 15:32:04.519000 UTC [my_train@SpawnProcess-1] INFO step = 3760 ; tokens/s = 58606 ; learning rate = 0.000940 ; loss = 2.274056
+2023-Jul-30 15:35:24.013000 UTC [my_train@SpawnProcess-1] INFO step = 3780 ; tokens/s = 58337 ; learning rate = 0.000945 ; loss = 2.270418
+2023-Jul-30 15:38:42.583000 UTC [my_train@SpawnProcess-1] INFO step = 3800 ; tokens/s = 58604 ; learning rate = 0.000950 ; loss = 2.280266
+2023-Jul-30 15:41:48.415000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 15:42:01.394000 UTC [my_train@SpawnProcess-1] INFO step = 3820 ; tokens/s = 58543 ; learning rate = 0.000955 ; loss = 2.262326
+2023-Jul-30 15:45:20.549000 UTC [my_train@SpawnProcess-1] INFO step = 3840 ; tokens/s = 58420 ; learning rate = 0.000960 ; loss = 2.241449
+2023-Jul-30 15:48:39.287000 UTC [my_train@SpawnProcess-1] INFO step = 3860 ; tokens/s = 58551 ; learning rate = 0.000965 ; loss = 2.262207
+2023-Jul-30 15:51:57.653000 UTC [my_train@SpawnProcess-1] INFO step = 3880 ; tokens/s = 58662 ; learning rate = 0.000970 ; loss = 2.250414
+2023-Jul-30 15:55:16.310000 UTC [my_train@SpawnProcess-1] INFO step = 3900 ; tokens/s = 58590 ; learning rate = 0.000975 ; loss = 2.279003
+2023-Jul-30 15:58:34.820000 UTC [my_train@SpawnProcess-1] INFO step = 3920 ; tokens/s = 58626 ; learning rate = 0.000980 ; loss = 2.283242
+2023-Jul-30 16:01:54.431000 UTC [my_train@SpawnProcess-1] INFO step = 3940 ; tokens/s = 58320 ; learning rate = 0.000985 ; loss = 2.273334
+2023-Jul-30 16:05:12.780000 UTC [my_train@SpawnProcess-1] INFO step = 3960 ; tokens/s = 58662 ; learning rate = 0.000990 ; loss = 2.260617
+2023-Jul-30 16:08:31.767000 UTC [my_train@SpawnProcess-1] INFO step = 3980 ; tokens/s = 58468 ; learning rate = 0.000995 ; loss = 2.242650
+2023-Jul-30 16:11:50.675000 UTC [my_train@SpawnProcess-1] INFO step = 4000 ; tokens/s = 58507 ; learning rate = 0.001000 ; loss = 2.285203
+2023-Jul-30 16:11:50.682000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-4000.pt
+2023-Jul-30 16:15:35.216000 UTC [my_train@SpawnProcess-1] INFO step = 4020 ; tokens/s = 51815 ; learning rate = 0.000998 ; loss = 2.280739
+2023-Jul-30 16:18:54.312000 UTC [my_train@SpawnProcess-1] INFO step = 4040 ; tokens/s = 58454 ; learning rate = 0.000995 ; loss = 2.271120
+2023-Jul-30 16:21:11.454000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 16:22:13.402000 UTC [my_train@SpawnProcess-1] INFO step = 4060 ; tokens/s = 58456 ; learning rate = 0.000993 ; loss = 2.237694
+2023-Jul-30 16:25:32.480000 UTC [my_train@SpawnProcess-1] INFO step = 4080 ; tokens/s = 58454 ; learning rate = 0.000990 ; loss = 2.207656
+2023-Jul-30 16:28:50.961000 UTC [my_train@SpawnProcess-1] INFO step = 4100 ; tokens/s = 58650 ; learning rate = 0.000988 ; loss = 2.241085
+2023-Jul-30 16:32:09.835000 UTC [my_train@SpawnProcess-1] INFO step = 4120 ; tokens/s = 58516 ; learning rate = 0.000985 ; loss = 2.219483
+2023-Jul-30 16:35:28.628000 UTC [my_train@SpawnProcess-1] INFO step = 4140 ; tokens/s = 58549 ; learning rate = 0.000983 ; loss = 2.255247
+2023-Jul-30 16:38:47.992000 UTC [my_train@SpawnProcess-1] INFO step = 4160 ; tokens/s = 58367 ; learning rate = 0.000981 ; loss = 2.232671
+2023-Jul-30 16:42:06.748000 UTC [my_train@SpawnProcess-1] INFO step = 4180 ; tokens/s = 58562 ; learning rate = 0.000978 ; loss = 2.264083
+2023-Jul-30 16:45:25.824000 UTC [my_train@SpawnProcess-1] INFO step = 4200 ; tokens/s = 58461 ; learning rate = 0.000976 ; loss = 2.220198
+2023-Jul-30 16:48:44.872000 UTC [my_train@SpawnProcess-1] INFO step = 4220 ; tokens/s = 58447 ; learning rate = 0.000974 ; loss = 2.250268
+2023-Jul-30 16:52:03.523000 UTC [my_train@SpawnProcess-1] INFO step = 4240 ; tokens/s = 58571 ; learning rate = 0.000971 ; loss = 2.280804
+2023-Jul-30 16:55:22.269000 UTC [my_train@SpawnProcess-1] INFO step = 4260 ; tokens/s = 58530 ; learning rate = 0.000969 ; loss = 2.235358
+2023-Jul-30 16:58:41.780000 UTC [my_train@SpawnProcess-1] INFO step = 4280 ; tokens/s = 58324 ; learning rate = 0.000967 ; loss = 2.259108
+2023-Jul-30 17:00:18.046000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 17:02:00.842000 UTC [my_train@SpawnProcess-1] INFO step = 4300 ; tokens/s = 58498 ; learning rate = 0.000964 ; loss = 2.198140
+2023-Jul-30 17:05:19.575000 UTC [my_train@SpawnProcess-1] INFO step = 4320 ; tokens/s = 58514 ; learning rate = 0.000962 ; loss = 2.206308
+2023-Jul-30 17:08:38.501000 UTC [my_train@SpawnProcess-1] INFO step = 4340 ; tokens/s = 58500 ; learning rate = 0.000960 ; loss = 2.190914
+2023-Jul-30 17:11:57.251000 UTC [my_train@SpawnProcess-1] INFO step = 4360 ; tokens/s = 58555 ; learning rate = 0.000958 ; loss = 2.226937
+2023-Jul-30 17:15:16.472000 UTC [my_train@SpawnProcess-1] INFO step = 4380 ; tokens/s = 58445 ; learning rate = 0.000956 ; loss = 2.204151
+2023-Jul-30 17:18:35.271000 UTC [my_train@SpawnProcess-1] INFO step = 4400 ; tokens/s = 58502 ; learning rate = 0.000953 ; loss = 2.242464
+2023-Jul-30 17:21:53.950000 UTC [my_train@SpawnProcess-1] INFO step = 4420 ; tokens/s = 58598 ; learning rate = 0.000951 ; loss = 2.212862
+2023-Jul-30 17:25:13.128000 UTC [my_train@SpawnProcess-1] INFO step = 4440 ; tokens/s = 58433 ; learning rate = 0.000949 ; loss = 2.186219
+2023-Jul-30 17:28:31.645000 UTC [my_train@SpawnProcess-1] INFO step = 4460 ; tokens/s = 58634 ; learning rate = 0.000947 ; loss = 2.213613
+2023-Jul-30 17:31:50.355000 UTC [my_train@SpawnProcess-1] INFO step = 4480 ; tokens/s = 58520 ; learning rate = 0.000945 ; loss = 2.232517
+2023-Jul-30 17:35:09.609000 UTC [my_train@SpawnProcess-1] INFO step = 4500 ; tokens/s = 58424 ; learning rate = 0.000943 ; loss = 2.260842
+2023-Jul-30 17:35:09.613000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-4500.pt
+2023-Jul-30 17:38:52.659000 UTC [my_train@SpawnProcess-1] INFO step = 4520 ; tokens/s = 52194 ; learning rate = 0.000941 ; loss = 2.249159
+2023-Jul-30 17:39:39.206000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 17:42:11.560000 UTC [my_train@SpawnProcess-1] INFO step = 4540 ; tokens/s = 58517 ; learning rate = 0.000939 ; loss = 2.169162
+2023-Jul-30 17:45:30.730000 UTC [my_train@SpawnProcess-1] INFO step = 4560 ; tokens/s = 58404 ; learning rate = 0.000937 ; loss = 2.184842
+2023-Jul-30 17:48:49.758000 UTC [my_train@SpawnProcess-1] INFO step = 4580 ; tokens/s = 58481 ; learning rate = 0.000935 ; loss = 2.203579
+2023-Jul-30 17:52:08.428000 UTC [my_train@SpawnProcess-1] INFO step = 4600 ; tokens/s = 58573 ; learning rate = 0.000933 ; loss = 2.220027
+2023-Jul-30 17:55:27.588000 UTC [my_train@SpawnProcess-1] INFO step = 4620 ; tokens/s = 58439 ; learning rate = 0.000930 ; loss = 2.210437
+2023-Jul-30 17:58:46.760000 UTC [my_train@SpawnProcess-1] INFO step = 4640 ; tokens/s = 58416 ; learning rate = 0.000928 ; loss = 2.208674
+2023-Jul-30 18:02:05.525000 UTC [my_train@SpawnProcess-1] INFO step = 4660 ; tokens/s = 58552 ; learning rate = 0.000926 ; loss = 2.193356
+2023-Jul-30 18:05:24.204000 UTC [my_train@SpawnProcess-1] INFO step = 4680 ; tokens/s = 58576 ; learning rate = 0.000925 ; loss = 2.242533
+2023-Jul-30 18:08:43.412000 UTC [my_train@SpawnProcess-1] INFO step = 4700 ; tokens/s = 58400 ; learning rate = 0.000923 ; loss = 2.199745
+2023-Jul-30 18:12:01.859000 UTC [my_train@SpawnProcess-1] INFO step = 4720 ; tokens/s = 58664 ; learning rate = 0.000921 ; loss = 2.195613
+2023-Jul-30 18:15:21.302000 UTC [my_train@SpawnProcess-1] INFO step = 4740 ; tokens/s = 58347 ; learning rate = 0.000919 ; loss = 2.235541
+2023-Jul-30 18:18:37.692000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 18:18:40.539000 UTC [my_train@SpawnProcess-1] INFO step = 4760 ; tokens/s = 58414 ; learning rate = 0.000917 ; loss = 2.220167
+2023-Jul-30 18:21:58.690000 UTC [my_train@SpawnProcess-1] INFO step = 4780 ; tokens/s = 58698 ; learning rate = 0.000915 ; loss = 2.177971
+2023-Jul-30 18:25:17.074000 UTC [my_train@SpawnProcess-1] INFO step = 4800 ; tokens/s = 58658 ; learning rate = 0.000913 ; loss = 2.195102
+2023-Jul-30 18:28:35.857000 UTC [my_train@SpawnProcess-1] INFO step = 4820 ; tokens/s = 58558 ; learning rate = 0.000911 ; loss = 2.164862
+2023-Jul-30 18:31:54.824000 UTC [my_train@SpawnProcess-1] INFO step = 4840 ; tokens/s = 58475 ; learning rate = 0.000909 ; loss = 2.211705
+2023-Jul-30 18:35:13.433000 UTC [my_train@SpawnProcess-1] INFO step = 4860 ; tokens/s = 58594 ; learning rate = 0.000907 ; loss = 2.184931
+2023-Jul-30 18:38:32.571000 UTC [my_train@SpawnProcess-1] INFO step = 4880 ; tokens/s = 58476 ; learning rate = 0.000905 ; loss = 2.186164
+2023-Jul-30 18:41:51.544000 UTC [my_train@SpawnProcess-1] INFO step = 4900 ; tokens/s = 58495 ; learning rate = 0.000904 ; loss = 2.153173
+2023-Jul-30 18:45:10.075000 UTC [my_train@SpawnProcess-1] INFO step = 4920 ; tokens/s = 58593 ; learning rate = 0.000902 ; loss = 2.204751
+2023-Jul-30 18:48:29.227000 UTC [my_train@SpawnProcess-1] INFO step = 4940 ; tokens/s = 58446 ; learning rate = 0.000900 ; loss = 2.220599
+2023-Jul-30 18:51:48.028000 UTC [my_train@SpawnProcess-1] INFO step = 4960 ; tokens/s = 58552 ; learning rate = 0.000898 ; loss = 2.181729
+2023-Jul-30 18:55:06.499000 UTC [my_train@SpawnProcess-1] INFO step = 4980 ; tokens/s = 58610 ; learning rate = 0.000896 ; loss = 2.220372
+2023-Jul-30 18:57:33.064000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 18:58:25.679000 UTC [my_train@SpawnProcess-1] INFO step = 5000 ; tokens/s = 58449 ; learning rate = 0.000894 ; loss = 2.164119
+2023-Jul-30 18:58:25.682000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-5000.pt
+2023-Jul-30 19:02:09.857000 UTC [my_train@SpawnProcess-1] INFO step = 5020 ; tokens/s = 51890 ; learning rate = 0.000893 ; loss = 2.158498
+2023-Jul-30 19:05:28.435000 UTC [my_train@SpawnProcess-1] INFO step = 5040 ; tokens/s = 58575 ; learning rate = 0.000891 ; loss = 2.182658
+2023-Jul-30 19:08:47.337000 UTC [my_train@SpawnProcess-1] INFO step = 5060 ; tokens/s = 58530 ; learning rate = 0.000889 ; loss = 2.151911
+2023-Jul-30 19:12:06.001000 UTC [my_train@SpawnProcess-1] INFO step = 5080 ; tokens/s = 58576 ; learning rate = 0.000887 ; loss = 2.186708
+2023-Jul-30 19:15:24.612000 UTC [my_train@SpawnProcess-1] INFO step = 5100 ; tokens/s = 58599 ; learning rate = 0.000886 ; loss = 2.162492
+2023-Jul-30 19:18:43.733000 UTC [my_train@SpawnProcess-1] INFO step = 5120 ; tokens/s = 58451 ; learning rate = 0.000884 ; loss = 2.185637
+2023-Jul-30 19:22:02.310000 UTC [my_train@SpawnProcess-1] INFO step = 5140 ; tokens/s = 58634 ; learning rate = 0.000882 ; loss = 2.173824
+2023-Jul-30 19:25:20.812000 UTC [my_train@SpawnProcess-1] INFO step = 5160 ; tokens/s = 58613 ; learning rate = 0.000880 ; loss = 2.183720
+2023-Jul-30 19:28:40.262000 UTC [my_train@SpawnProcess-1] INFO step = 5180 ; tokens/s = 58345 ; learning rate = 0.000879 ; loss = 2.186637
+2023-Jul-30 19:31:58.824000 UTC [my_train@SpawnProcess-1] INFO step = 5200 ; tokens/s = 58612 ; learning rate = 0.000877 ; loss = 2.198553
+2023-Jul-30 19:35:17.651000 UTC [my_train@SpawnProcess-1] INFO step = 5220 ; tokens/s = 58508 ; learning rate = 0.000875 ; loss = 2.184800
+2023-Jul-30 19:37:03.882000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 19:38:36.629000 UTC [my_train@SpawnProcess-1] INFO step = 5240 ; tokens/s = 58474 ; learning rate = 0.000874 ; loss = 2.165527
+2023-Jul-30 19:41:55.205000 UTC [my_train@SpawnProcess-1] INFO step = 5260 ; tokens/s = 58663 ; learning rate = 0.000872 ; loss = 2.133530
+2023-Jul-30 19:45:13.644000 UTC [my_train@SpawnProcess-1] INFO step = 5280 ; tokens/s = 58634 ; learning rate = 0.000870 ; loss = 2.155823
+2023-Jul-30 19:48:32.200000 UTC [my_train@SpawnProcess-1] INFO step = 5300 ; tokens/s = 58600 ; learning rate = 0.000869 ; loss = 2.180337
+2023-Jul-30 19:51:50.806000 UTC [my_train@SpawnProcess-1] INFO step = 5320 ; tokens/s = 58602 ; learning rate = 0.000867 ; loss = 2.116270
+2023-Jul-30 19:55:09.898000 UTC [my_train@SpawnProcess-1] INFO step = 5340 ; tokens/s = 58456 ; learning rate = 0.000865 ; loss = 2.192277
+2023-Jul-30 19:58:28.419000 UTC [my_train@SpawnProcess-1] INFO step = 5360 ; tokens/s = 58613 ; learning rate = 0.000864 ; loss = 2.161424
+2023-Jul-30 20:01:46.716000 UTC [my_train@SpawnProcess-1] INFO step = 5380 ; tokens/s = 58688 ; learning rate = 0.000862 ; loss = 2.152569
+2023-Jul-30 20:05:05.029000 UTC [my_train@SpawnProcess-1] INFO step = 5400 ; tokens/s = 58667 ; learning rate = 0.000861 ; loss = 2.181227
+2023-Jul-30 20:08:23.601000 UTC [my_train@SpawnProcess-1] INFO step = 5420 ; tokens/s = 58591 ; learning rate = 0.000859 ; loss = 2.180373
+2023-Jul-30 20:11:42.834000 UTC [my_train@SpawnProcess-1] INFO step = 5440 ; tokens/s = 58423 ; learning rate = 0.000857 ; loss = 2.170465
+2023-Jul-30 20:15:01.274000 UTC [my_train@SpawnProcess-1] INFO step = 5460 ; tokens/s = 58634 ; learning rate = 0.000856 ; loss = 2.166622
+2023-Jul-30 20:15:57.937000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 20:18:19.533000 UTC [my_train@SpawnProcess-1] INFO step = 5480 ; tokens/s = 58682 ; learning rate = 0.000854 ; loss = 2.146250
+2023-Jul-30 20:21:37.822000 UTC [my_train@SpawnProcess-1] INFO step = 5500 ; tokens/s = 58703 ; learning rate = 0.000853 ; loss = 2.125803
+2023-Jul-30 20:21:37.825000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-5500.pt
+2023-Jul-30 20:25:20.956000 UTC [my_train@SpawnProcess-1] INFO step = 5520 ; tokens/s = 52167 ; learning rate = 0.000851 ; loss = 2.132847
+2023-Jul-30 20:28:39.775000 UTC [my_train@SpawnProcess-1] INFO step = 5540 ; tokens/s = 58536 ; learning rate = 0.000850 ; loss = 2.130430
+2023-Jul-30 20:31:58.380000 UTC [my_train@SpawnProcess-1] INFO step = 5560 ; tokens/s = 58603 ; learning rate = 0.000848 ; loss = 2.121743
+2023-Jul-30 20:35:17.792000 UTC [my_train@SpawnProcess-1] INFO step = 5580 ; tokens/s = 58370 ; learning rate = 0.000847 ; loss = 2.132075
+2023-Jul-30 20:38:36.256000 UTC [my_train@SpawnProcess-1] INFO step = 5600 ; tokens/s = 58614 ; learning rate = 0.000845 ; loss = 2.132711
+2023-Jul-30 20:41:54.870000 UTC [my_train@SpawnProcess-1] INFO step = 5620 ; tokens/s = 58594 ; learning rate = 0.000844 ; loss = 2.154824
+2023-Jul-30 20:45:14.150000 UTC [my_train@SpawnProcess-1] INFO step = 5640 ; tokens/s = 58378 ; learning rate = 0.000842 ; loss = 2.115203
+2023-Jul-30 20:48:32.819000 UTC [my_train@SpawnProcess-1] INFO step = 5660 ; tokens/s = 58572 ; learning rate = 0.000841 ; loss = 2.163616
+2023-Jul-30 20:51:52.032000 UTC [my_train@SpawnProcess-1] INFO step = 5680 ; tokens/s = 58418 ; learning rate = 0.000839 ; loss = 2.168598
+2023-Jul-30 20:55:10.499000 UTC [my_train@SpawnProcess-1] INFO step = 5700 ; tokens/s = 58657 ; learning rate = 0.000838 ; loss = 2.156800
+2023-Jul-30 20:55:17.925000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 20:58:29.274000 UTC [my_train@SpawnProcess-1] INFO step = 5720 ; tokens/s = 58535 ; learning rate = 0.000836 ; loss = 2.101990
+2023-Jul-30 21:01:48.167000 UTC [my_train@SpawnProcess-1] INFO step = 5740 ; tokens/s = 58521 ; learning rate = 0.000835 ; loss = 2.129546
+2023-Jul-30 21:05:06.806000 UTC [my_train@SpawnProcess-1] INFO step = 5760 ; tokens/s = 58603 ; learning rate = 0.000833 ; loss = 2.141694
+2023-Jul-30 21:08:25.401000 UTC [my_train@SpawnProcess-1] INFO step = 5780 ; tokens/s = 58585 ; learning rate = 0.000832 ; loss = 2.133394
+2023-Jul-30 21:11:44.406000 UTC [my_train@SpawnProcess-1] INFO step = 5800 ; tokens/s = 58469 ; learning rate = 0.000830 ; loss = 2.129550
+2023-Jul-30 21:15:03.054000 UTC [my_train@SpawnProcess-1] INFO step = 5820 ; tokens/s = 58602 ; learning rate = 0.000829 ; loss = 2.136207
+2023-Jul-30 21:18:22.506000 UTC [my_train@SpawnProcess-1] INFO step = 5840 ; tokens/s = 58333 ; learning rate = 0.000828 ; loss = 2.115807
+2023-Jul-30 21:21:41.013000 UTC [my_train@SpawnProcess-1] INFO step = 5860 ; tokens/s = 58596 ; learning rate = 0.000826 ; loss = 2.143042
+2023-Jul-30 21:25:00.134000 UTC [my_train@SpawnProcess-1] INFO step = 5880 ; tokens/s = 58468 ; learning rate = 0.000825 ; loss = 2.136151
+2023-Jul-30 21:28:18.868000 UTC [my_train@SpawnProcess-1] INFO step = 5900 ; tokens/s = 58539 ; learning rate = 0.000823 ; loss = 2.156191
+2023-Jul-30 21:31:37.435000 UTC [my_train@SpawnProcess-1] INFO step = 5920 ; tokens/s = 58604 ; learning rate = 0.000822 ; loss = 2.166760
+2023-Jul-30 21:34:13.838000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 21:34:56.417000 UTC [my_train@SpawnProcess-1] INFO step = 5940 ; tokens/s = 58492 ; learning rate = 0.000821 ; loss = 2.133414
+2023-Jul-30 21:38:14.998000 UTC [my_train@SpawnProcess-1] INFO step = 5960 ; tokens/s = 58603 ; learning rate = 0.000819 ; loss = 2.090965
+2023-Jul-30 21:41:33.569000 UTC [my_train@SpawnProcess-1] INFO step = 5980 ; tokens/s = 58620 ; learning rate = 0.000818 ; loss = 2.124910
+2023-Jul-30 21:44:52.359000 UTC [my_train@SpawnProcess-1] INFO step = 6000 ; tokens/s = 58543 ; learning rate = 0.000816 ; loss = 2.109379
+2023-Jul-30 21:44:52.361000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-6000.pt
+2023-Jul-30 21:48:36.920000 UTC [my_train@SpawnProcess-1] INFO step = 6020 ; tokens/s = 51811 ; learning rate = 0.000815 ; loss = 2.142246
+2023-Jul-30 21:51:55.303000 UTC [my_train@SpawnProcess-1] INFO step = 6040 ; tokens/s = 58663 ; learning rate = 0.000814 ; loss = 2.127429
+2023-Jul-30 21:55:14.124000 UTC [my_train@SpawnProcess-1] INFO step = 6060 ; tokens/s = 58563 ; learning rate = 0.000812 ; loss = 2.128731
+2023-Jul-30 21:58:33.128000 UTC [my_train@SpawnProcess-1] INFO step = 6080 ; tokens/s = 58442 ; learning rate = 0.000811 ; loss = 2.136436
+2023-Jul-30 22:01:52.299000 UTC [my_train@SpawnProcess-1] INFO step = 6100 ; tokens/s = 58437 ; learning rate = 0.000810 ; loss = 2.135074
+2023-Jul-30 22:05:11.412000 UTC [my_train@SpawnProcess-1] INFO step = 6120 ; tokens/s = 58450 ; learning rate = 0.000808 ; loss = 2.144691
+2023-Jul-30 22:08:30.699000 UTC [my_train@SpawnProcess-1] INFO step = 6140 ; tokens/s = 58387 ; learning rate = 0.000807 ; loss = 2.135395
+2023-Jul-30 22:11:49.548000 UTC [my_train@SpawnProcess-1] INFO step = 6160 ; tokens/s = 58553 ; learning rate = 0.000806 ; loss = 2.143531
+2023-Jul-30 22:13:45.765000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 22:15:07.899000 UTC [my_train@SpawnProcess-1] INFO step = 6180 ; tokens/s = 58629 ; learning rate = 0.000805 ; loss = 2.084914
+2023-Jul-30 22:18:26.876000 UTC [my_train@SpawnProcess-1] INFO step = 6200 ; tokens/s = 58481 ; learning rate = 0.000803 ; loss = 2.097330
+2023-Jul-30 22:21:45.524000 UTC [my_train@SpawnProcess-1] INFO step = 6220 ; tokens/s = 58552 ; learning rate = 0.000802 ; loss = 2.099386
+2023-Jul-30 22:25:04.298000 UTC [my_train@SpawnProcess-1] INFO step = 6240 ; tokens/s = 58539 ; learning rate = 0.000801 ; loss = 2.096712
+2023-Jul-30 22:28:23.098000 UTC [my_train@SpawnProcess-1] INFO step = 6260 ; tokens/s = 58533 ; learning rate = 0.000799 ; loss = 2.118881
+2023-Jul-30 22:31:42.305000 UTC [my_train@SpawnProcess-1] INFO step = 6280 ; tokens/s = 58429 ; learning rate = 0.000798 ; loss = 2.105235
+2023-Jul-30 22:35:01.100000 UTC [my_train@SpawnProcess-1] INFO step = 6300 ; tokens/s = 58524 ; learning rate = 0.000797 ; loss = 2.126374
+2023-Jul-30 22:38:20.140000 UTC [my_train@SpawnProcess-1] INFO step = 6320 ; tokens/s = 58453 ; learning rate = 0.000796 ; loss = 2.137300
+2023-Jul-30 22:41:38.897000 UTC [my_train@SpawnProcess-1] INFO step = 6340 ; tokens/s = 58597 ; learning rate = 0.000794 ; loss = 2.102093
+2023-Jul-30 22:44:58.423000 UTC [my_train@SpawnProcess-1] INFO step = 6360 ; tokens/s = 58323 ; learning rate = 0.000793 ; loss = 2.126511
+2023-Jul-30 22:48:17.046000 UTC [my_train@SpawnProcess-1] INFO step = 6380 ; tokens/s = 58606 ; learning rate = 0.000792 ; loss = 2.137611
+2023-Jul-30 22:51:35.754000 UTC [my_train@SpawnProcess-1] INFO step = 6400 ; tokens/s = 58585 ; learning rate = 0.000791 ; loss = 2.109063
+2023-Jul-30 22:52:42.682000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 22:54:55.238000 UTC [my_train@SpawnProcess-1] INFO step = 6420 ; tokens/s = 58332 ; learning rate = 0.000789 ; loss = 2.082920
+2023-Jul-30 22:58:13.932000 UTC [my_train@SpawnProcess-1] INFO step = 6440 ; tokens/s = 58542 ; learning rate = 0.000788 ; loss = 2.088531
+2023-Jul-30 23:01:32.920000 UTC [my_train@SpawnProcess-1] INFO step = 6460 ; tokens/s = 58494 ; learning rate = 0.000787 ; loss = 2.095260
+2023-Jul-30 23:04:52.188000 UTC [my_train@SpawnProcess-1] INFO step = 6480 ; tokens/s = 58427 ; learning rate = 0.000786 ; loss = 2.097967
+2023-Jul-30 23:08:10.685000 UTC [my_train@SpawnProcess-1] INFO step = 6500 ; tokens/s = 58612 ; learning rate = 0.000784 ; loss = 2.100995
+2023-Jul-30 23:08:10.688000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-6500.pt
+2023-Jul-30 23:11:55.418000 UTC [my_train@SpawnProcess-1] INFO step = 6520 ; tokens/s = 51778 ; learning rate = 0.000783 ; loss = 2.088734
+2023-Jul-30 23:15:14.310000 UTC [my_train@SpawnProcess-1] INFO step = 6540 ; tokens/s = 58515 ; learning rate = 0.000782 ; loss = 2.103946
+2023-Jul-30 23:18:33.496000 UTC [my_train@SpawnProcess-1] INFO step = 6560 ; tokens/s = 58423 ; learning rate = 0.000781 ; loss = 2.120630
+2023-Jul-30 23:21:52.301000 UTC [my_train@SpawnProcess-1] INFO step = 6580 ; tokens/s = 58570 ; learning rate = 0.000780 ; loss = 2.073859
+2023-Jul-30 23:25:10.937000 UTC [my_train@SpawnProcess-1] INFO step = 6600 ; tokens/s = 58580 ; learning rate = 0.000778 ; loss = 2.104202
+2023-Jul-30 23:28:30.456000 UTC [my_train@SpawnProcess-1] INFO step = 6620 ; tokens/s = 58317 ; learning rate = 0.000777 ; loss = 2.110965
+2023-Jul-30 23:31:49.364000 UTC [my_train@SpawnProcess-1] INFO step = 6640 ; tokens/s = 58489 ; learning rate = 0.000776 ; loss = 2.145945
+2023-Jul-30 23:32:16.057000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-30 23:35:08.025000 UTC [my_train@SpawnProcess-1] INFO step = 6660 ; tokens/s = 58565 ; learning rate = 0.000775 ; loss = 2.070449
+2023-Jul-30 23:38:27.214000 UTC [my_train@SpawnProcess-1] INFO step = 6680 ; tokens/s = 58446 ; learning rate = 0.000774 ; loss = 2.072893
+2023-Jul-30 23:41:46.426000 UTC [my_train@SpawnProcess-1] INFO step = 6700 ; tokens/s = 58410 ; learning rate = 0.000773 ; loss = 2.061250
+2023-Jul-30 23:45:05.354000 UTC [my_train@SpawnProcess-1] INFO step = 6720 ; tokens/s = 58484 ; learning rate = 0.000772 ; loss = 2.087548
+2023-Jul-30 23:48:24.445000 UTC [my_train@SpawnProcess-1] INFO step = 6740 ; tokens/s = 58459 ; learning rate = 0.000770 ; loss = 2.061695
+2023-Jul-30 23:51:44.068000 UTC [my_train@SpawnProcess-1] INFO step = 6760 ; tokens/s = 58289 ; learning rate = 0.000769 ; loss = 2.102495
+2023-Jul-30 23:55:03.172000 UTC [my_train@SpawnProcess-1] INFO step = 6780 ; tokens/s = 58481 ; learning rate = 0.000768 ; loss = 2.120713
+2023-Jul-30 23:58:22.162000 UTC [my_train@SpawnProcess-1] INFO step = 6800 ; tokens/s = 58510 ; learning rate = 0.000767 ; loss = 2.092708
+2023-Jul-31 00:01:40.904000 UTC [my_train@SpawnProcess-1] INFO step = 6820 ; tokens/s = 58537 ; learning rate = 0.000766 ; loss = 2.109245
+2023-Jul-31 00:05:00.062000 UTC [my_train@SpawnProcess-1] INFO step = 6840 ; tokens/s = 58443 ; learning rate = 0.000765 ; loss = 2.090008
+2023-Jul-31 00:08:19.118000 UTC [my_train@SpawnProcess-1] INFO step = 6860 ; tokens/s = 58430 ; learning rate = 0.000764 ; loss = 2.131537
+2023-Jul-31 00:11:14.753000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 00:11:37.568000 UTC [my_train@SpawnProcess-1] INFO step = 6880 ; tokens/s = 58637 ; learning rate = 0.000762 ; loss = 2.124600
+2023-Jul-31 00:14:55.955000 UTC [my_train@SpawnProcess-1] INFO step = 6900 ; tokens/s = 58662 ; learning rate = 0.000761 ; loss = 2.092506
+2023-Jul-31 00:18:15.129000 UTC [my_train@SpawnProcess-1] INFO step = 6920 ; tokens/s = 58428 ; learning rate = 0.000760 ; loss = 2.068347
+2023-Jul-31 00:21:33.985000 UTC [my_train@SpawnProcess-1] INFO step = 6940 ; tokens/s = 58547 ; learning rate = 0.000759 ; loss = 2.064314
+2023-Jul-31 00:24:52.717000 UTC [my_train@SpawnProcess-1] INFO step = 6960 ; tokens/s = 58512 ; learning rate = 0.000758 ; loss = 2.071734
+2023-Jul-31 00:28:11.669000 UTC [my_train@SpawnProcess-1] INFO step = 6980 ; tokens/s = 58513 ; learning rate = 0.000757 ; loss = 2.078266
+2023-Jul-31 00:31:30.361000 UTC [my_train@SpawnProcess-1] INFO step = 7000 ; tokens/s = 58582 ; learning rate = 0.000756 ; loss = 2.072554
+2023-Jul-31 00:31:30.364000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-7000.pt
+2023-Jul-31 00:35:47.012000 UTC [my_train@SpawnProcess-1] INFO step = 7020 ; tokens/s = 45339 ; learning rate = 0.000755 ; loss = 2.084924
+2023-Jul-31 00:39:05.778000 UTC [my_train@SpawnProcess-1] INFO step = 7040 ; tokens/s = 58558 ; learning rate = 0.000754 ; loss = 2.095561
+2023-Jul-31 00:42:24.528000 UTC [my_train@SpawnProcess-1] INFO step = 7060 ; tokens/s = 58534 ; learning rate = 0.000753 ; loss = 2.100053
+2023-Jul-31 00:45:43.451000 UTC [my_train@SpawnProcess-1] INFO step = 7080 ; tokens/s = 58491 ; learning rate = 0.000752 ; loss = 2.112602
+2023-Jul-31 00:49:01.891000 UTC [my_train@SpawnProcess-1] INFO step = 7100 ; tokens/s = 58653 ; learning rate = 0.000751 ; loss = 2.079693
+2023-Jul-31 00:51:07.978000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 00:52:20.377000 UTC [my_train@SpawnProcess-1] INFO step = 7120 ; tokens/s = 58614 ; learning rate = 0.000750 ; loss = 2.057938
+2023-Jul-31 00:55:39.142000 UTC [my_train@SpawnProcess-1] INFO step = 7140 ; tokens/s = 58550 ; learning rate = 0.000748 ; loss = 2.066001
+2023-Jul-31 00:58:57.820000 UTC [my_train@SpawnProcess-1] INFO step = 7160 ; tokens/s = 58581 ; learning rate = 0.000747 ; loss = 2.044285
+2023-Jul-31 01:02:16.573000 UTC [my_train@SpawnProcess-1] INFO step = 7180 ; tokens/s = 58565 ; learning rate = 0.000746 ; loss = 2.043399
+2023-Jul-31 01:05:35.856000 UTC [my_train@SpawnProcess-1] INFO step = 7200 ; tokens/s = 58407 ; learning rate = 0.000745 ; loss = 2.078798
+2023-Jul-31 01:08:54.760000 UTC [my_train@SpawnProcess-1] INFO step = 7220 ; tokens/s = 58495 ; learning rate = 0.000744 ; loss = 2.072567
+2023-Jul-31 01:12:13.741000 UTC [my_train@SpawnProcess-1] INFO step = 7240 ; tokens/s = 58481 ; learning rate = 0.000743 ; loss = 2.095838
+2023-Jul-31 01:15:33.006000 UTC [my_train@SpawnProcess-1] INFO step = 7260 ; tokens/s = 58402 ; learning rate = 0.000742 ; loss = 2.079632
+2023-Jul-31 01:18:52.193000 UTC [my_train@SpawnProcess-1] INFO step = 7280 ; tokens/s = 58400 ; learning rate = 0.000741 ; loss = 2.064528
+2023-Jul-31 01:22:11.750000 UTC [my_train@SpawnProcess-1] INFO step = 7300 ; tokens/s = 58362 ; learning rate = 0.000740 ; loss = 2.050416
+2023-Jul-31 01:25:30.585000 UTC [my_train@SpawnProcess-1] INFO step = 7320 ; tokens/s = 58518 ; learning rate = 0.000739 ; loss = 2.066277
+2023-Jul-31 01:28:49.820000 UTC [my_train@SpawnProcess-1] INFO step = 7340 ; tokens/s = 58378 ; learning rate = 0.000738 ; loss = 2.110508
+2023-Jul-31 01:30:06.870000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 01:32:09.634000 UTC [my_train@SpawnProcess-1] INFO step = 7360 ; tokens/s = 58249 ; learning rate = 0.000737 ; loss = 2.049570
+2023-Jul-31 01:35:28.738000 UTC [my_train@SpawnProcess-1] INFO step = 7380 ; tokens/s = 58472 ; learning rate = 0.000736 ; loss = 2.063221
+2023-Jul-31 01:38:47.925000 UTC [my_train@SpawnProcess-1] INFO step = 7400 ; tokens/s = 58416 ; learning rate = 0.000735 ; loss = 2.075940
+2023-Jul-31 01:42:07.509000 UTC [my_train@SpawnProcess-1] INFO step = 7420 ; tokens/s = 58298 ; learning rate = 0.000734 ; loss = 2.085652
+2023-Jul-31 01:45:26.692000 UTC [my_train@SpawnProcess-1] INFO step = 7440 ; tokens/s = 58441 ; learning rate = 0.000733 ; loss = 2.047490
+2023-Jul-31 01:48:45.895000 UTC [my_train@SpawnProcess-1] INFO step = 7460 ; tokens/s = 58413 ; learning rate = 0.000732 ; loss = 2.066748
+2023-Jul-31 01:52:05.288000 UTC [my_train@SpawnProcess-1] INFO step = 7480 ; tokens/s = 58395 ; learning rate = 0.000731 ; loss = 2.049854
+2023-Jul-31 01:55:24.368000 UTC [my_train@SpawnProcess-1] INFO step = 7500 ; tokens/s = 58402 ; learning rate = 0.000730 ; loss = 2.091539
+2023-Jul-31 01:55:24.371000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-7500.pt
+2023-Jul-31 01:59:07.972000 UTC [my_train@SpawnProcess-1] INFO step = 7520 ; tokens/s = 52051 ; learning rate = 0.000729 ; loss = 2.044557
+2023-Jul-31 02:02:26.930000 UTC [my_train@SpawnProcess-1] INFO step = 7540 ; tokens/s = 58476 ; learning rate = 0.000728 ; loss = 2.104385
+2023-Jul-31 02:05:45.942000 UTC [my_train@SpawnProcess-1] INFO step = 7560 ; tokens/s = 58481 ; learning rate = 0.000727 ; loss = 2.100782
+2023-Jul-31 02:09:04.806000 UTC [my_train@SpawnProcess-1] INFO step = 7580 ; tokens/s = 58524 ; learning rate = 0.000726 ; loss = 2.081479
+2023-Jul-31 02:09:41.488000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 02:12:23.981000 UTC [my_train@SpawnProcess-1] INFO step = 7600 ; tokens/s = 58443 ; learning rate = 0.000725 ; loss = 2.038164
+2023-Jul-31 02:15:43.018000 UTC [my_train@SpawnProcess-1] INFO step = 7620 ; tokens/s = 58483 ; learning rate = 0.000725 ; loss = 2.032092
+2023-Jul-31 02:19:02.143000 UTC [my_train@SpawnProcess-1] INFO step = 7640 ; tokens/s = 58458 ; learning rate = 0.000724 ; loss = 2.057336
+2023-Jul-31 02:22:21.080000 UTC [my_train@SpawnProcess-1] INFO step = 7660 ; tokens/s = 58474 ; learning rate = 0.000723 ; loss = 2.051775
+2023-Jul-31 02:25:40.091000 UTC [my_train@SpawnProcess-1] INFO step = 7680 ; tokens/s = 58502 ; learning rate = 0.000722 ; loss = 2.061772
+2023-Jul-31 02:28:59.071000 UTC [my_train@SpawnProcess-1] INFO step = 7700 ; tokens/s = 58458 ; learning rate = 0.000721 ; loss = 2.076503
+2023-Jul-31 02:32:19.049000 UTC [my_train@SpawnProcess-1] INFO step = 7720 ; tokens/s = 58196 ; learning rate = 0.000720 ; loss = 2.043768
+2023-Jul-31 02:35:38.303000 UTC [my_train@SpawnProcess-1] INFO step = 7740 ; tokens/s = 58397 ; learning rate = 0.000719 ; loss = 2.068471
+2023-Jul-31 02:38:57.469000 UTC [my_train@SpawnProcess-1] INFO step = 7760 ; tokens/s = 58420 ; learning rate = 0.000718 ; loss = 2.055282
+2023-Jul-31 02:42:16.413000 UTC [my_train@SpawnProcess-1] INFO step = 7780 ; tokens/s = 58473 ; learning rate = 0.000717 ; loss = 2.090764
+2023-Jul-31 02:45:35.799000 UTC [my_train@SpawnProcess-1] INFO step = 7800 ; tokens/s = 58350 ; learning rate = 0.000716 ; loss = 2.107967
+2023-Jul-31 02:48:42.666000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 02:48:55.519000 UTC [my_train@SpawnProcess-1] INFO step = 7820 ; tokens/s = 58314 ; learning rate = 0.000715 ; loss = 2.074534
+2023-Jul-31 02:52:14.279000 UTC [my_train@SpawnProcess-1] INFO step = 7840 ; tokens/s = 58562 ; learning rate = 0.000714 ; loss = 2.049211
+2023-Jul-31 02:55:33.339000 UTC [my_train@SpawnProcess-1] INFO step = 7860 ; tokens/s = 58473 ; learning rate = 0.000713 ; loss = 2.037225
+2023-Jul-31 02:58:52.168000 UTC [my_train@SpawnProcess-1] INFO step = 7880 ; tokens/s = 58521 ; learning rate = 0.000712 ; loss = 2.044803
+2023-Jul-31 03:02:12.044000 UTC [my_train@SpawnProcess-1] INFO step = 7900 ; tokens/s = 58230 ; learning rate = 0.000712 ; loss = 2.058905
+2023-Jul-31 03:05:31.164000 UTC [my_train@SpawnProcess-1] INFO step = 7920 ; tokens/s = 58425 ; learning rate = 0.000711 ; loss = 2.032003
+2023-Jul-31 03:08:50.649000 UTC [my_train@SpawnProcess-1] INFO step = 7940 ; tokens/s = 58346 ; learning rate = 0.000710 ; loss = 2.053686
+2023-Jul-31 03:12:09.812000 UTC [my_train@SpawnProcess-1] INFO step = 7960 ; tokens/s = 58414 ; learning rate = 0.000709 ; loss = 2.058489
+2023-Jul-31 03:15:29.342000 UTC [my_train@SpawnProcess-1] INFO step = 7980 ; tokens/s = 58317 ; learning rate = 0.000708 ; loss = 2.053860
+2023-Jul-31 03:18:48.880000 UTC [my_train@SpawnProcess-1] INFO step = 8000 ; tokens/s = 58338 ; learning rate = 0.000707 ; loss = 2.073424
+2023-Jul-31 03:18:48.883000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-8000.pt
+2023-Jul-31 03:22:33.131000 UTC [my_train@SpawnProcess-1] INFO step = 8020 ; tokens/s = 51902 ; learning rate = 0.000706 ; loss = 2.086219
+2023-Jul-31 03:25:52.559000 UTC [my_train@SpawnProcess-1] INFO step = 8040 ; tokens/s = 58354 ; learning rate = 0.000705 ; loss = 2.065175
+2023-Jul-31 03:28:10.416000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 03:29:12.346000 UTC [my_train@SpawnProcess-1] INFO step = 8060 ; tokens/s = 58240 ; learning rate = 0.000704 ; loss = 1.999760
+2023-Jul-31 03:32:31.592000 UTC [my_train@SpawnProcess-1] INFO step = 8080 ; tokens/s = 58412 ; learning rate = 0.000704 ; loss = 2.013474
+2023-Jul-31 03:35:50.737000 UTC [my_train@SpawnProcess-1] INFO step = 8100 ; tokens/s = 58436 ; learning rate = 0.000703 ; loss = 2.042333
+2023-Jul-31 03:39:09.929000 UTC [my_train@SpawnProcess-1] INFO step = 8120 ; tokens/s = 58386 ; learning rate = 0.000702 ; loss = 2.035494
+2023-Jul-31 03:42:28.953000 UTC [my_train@SpawnProcess-1] INFO step = 8140 ; tokens/s = 58450 ; learning rate = 0.000701 ; loss = 2.058592
+2023-Jul-31 03:45:48.125000 UTC [my_train@SpawnProcess-1] INFO step = 8160 ; tokens/s = 58458 ; learning rate = 0.000700 ; loss = 2.025888
+2023-Jul-31 03:49:07.448000 UTC [my_train@SpawnProcess-1] INFO step = 8180 ; tokens/s = 58376 ; learning rate = 0.000699 ; loss = 2.024482
+2023-Jul-31 03:52:26.256000 UTC [my_train@SpawnProcess-1] INFO step = 8200 ; tokens/s = 58555 ; learning rate = 0.000698 ; loss = 2.065705
+2023-Jul-31 03:55:45.034000 UTC [my_train@SpawnProcess-1] INFO step = 8220 ; tokens/s = 58545 ; learning rate = 0.000698 ; loss = 2.076275
+2023-Jul-31 03:59:04.343000 UTC [my_train@SpawnProcess-1] INFO step = 8240 ; tokens/s = 58385 ; learning rate = 0.000697 ; loss = 2.058387
+2023-Jul-31 04:02:23.002000 UTC [my_train@SpawnProcess-1] INFO step = 8260 ; tokens/s = 58595 ; learning rate = 0.000696 ; loss = 2.058204
+2023-Jul-31 04:05:41.510000 UTC [my_train@SpawnProcess-1] INFO step = 8280 ; tokens/s = 58634 ; learning rate = 0.000695 ; loss = 2.047084
+2023-Jul-31 04:07:08.311000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 04:09:00.236000 UTC [my_train@SpawnProcess-1] INFO step = 8300 ; tokens/s = 58537 ; learning rate = 0.000694 ; loss = 2.018804
+2023-Jul-31 04:12:19.617000 UTC [my_train@SpawnProcess-1] INFO step = 8320 ; tokens/s = 58378 ; learning rate = 0.000693 ; loss = 2.018992
+2023-Jul-31 04:15:38.333000 UTC [my_train@SpawnProcess-1] INFO step = 8340 ; tokens/s = 58560 ; learning rate = 0.000693 ; loss = 2.036215
+2023-Jul-31 04:18:57.201000 UTC [my_train@SpawnProcess-1] INFO step = 8360 ; tokens/s = 58537 ; learning rate = 0.000692 ; loss = 2.008291
+2023-Jul-31 04:22:15.812000 UTC [my_train@SpawnProcess-1] INFO step = 8380 ; tokens/s = 58577 ; learning rate = 0.000691 ; loss = 2.053957
+2023-Jul-31 04:25:34.946000 UTC [my_train@SpawnProcess-1] INFO step = 8400 ; tokens/s = 58453 ; learning rate = 0.000690 ; loss = 2.027038
+2023-Jul-31 04:28:53.573000 UTC [my_train@SpawnProcess-1] INFO step = 8420 ; tokens/s = 58579 ; learning rate = 0.000689 ; loss = 2.027185
+2023-Jul-31 04:32:12.268000 UTC [my_train@SpawnProcess-1] INFO step = 8440 ; tokens/s = 58559 ; learning rate = 0.000688 ; loss = 2.056248
+2023-Jul-31 04:35:30.875000 UTC [my_train@SpawnProcess-1] INFO step = 8460 ; tokens/s = 58624 ; learning rate = 0.000688 ; loss = 2.050586
+2023-Jul-31 04:38:49.605000 UTC [my_train@SpawnProcess-1] INFO step = 8480 ; tokens/s = 58559 ; learning rate = 0.000687 ; loss = 2.052032
+2023-Jul-31 04:42:08.185000 UTC [my_train@SpawnProcess-1] INFO step = 8500 ; tokens/s = 58572 ; learning rate = 0.000686 ; loss = 2.079275
+2023-Jul-31 04:42:08.188000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-8500.pt
+2023-Jul-31 04:45:52.200000 UTC [my_train@SpawnProcess-1] INFO step = 8520 ; tokens/s = 51970 ; learning rate = 0.000685 ; loss = 2.033559
+2023-Jul-31 04:46:39.032000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 04:49:10.929000 UTC [my_train@SpawnProcess-1] INFO step = 8540 ; tokens/s = 58527 ; learning rate = 0.000684 ; loss = 2.014063
+2023-Jul-31 04:52:29.526000 UTC [my_train@SpawnProcess-1] INFO step = 8560 ; tokens/s = 58594 ; learning rate = 0.000684 ; loss = 2.014884
+2023-Jul-31 04:55:48.960000 UTC [my_train@SpawnProcess-1] INFO step = 8580 ; tokens/s = 58352 ; learning rate = 0.000683 ; loss = 2.033469
+2023-Jul-31 04:59:07.742000 UTC [my_train@SpawnProcess-1] INFO step = 8600 ; tokens/s = 58534 ; learning rate = 0.000682 ; loss = 2.019531
+2023-Jul-31 05:02:26.494000 UTC [my_train@SpawnProcess-1] INFO step = 8620 ; tokens/s = 58575 ; learning rate = 0.000681 ; loss = 2.011377
+2023-Jul-31 05:05:45.360000 UTC [my_train@SpawnProcess-1] INFO step = 8640 ; tokens/s = 58491 ; learning rate = 0.000680 ; loss = 2.030001
+2023-Jul-31 05:09:04.087000 UTC [my_train@SpawnProcess-1] INFO step = 8660 ; tokens/s = 58584 ; learning rate = 0.000680 ; loss = 2.008086
+2023-Jul-31 05:12:23.144000 UTC [my_train@SpawnProcess-1] INFO step = 8680 ; tokens/s = 58453 ; learning rate = 0.000679 ; loss = 2.061402
+2023-Jul-31 05:15:42.045000 UTC [my_train@SpawnProcess-1] INFO step = 8700 ; tokens/s = 58497 ; learning rate = 0.000678 ; loss = 2.055870
+2023-Jul-31 05:19:00.974000 UTC [my_train@SpawnProcess-1] INFO step = 8720 ; tokens/s = 58523 ; learning rate = 0.000677 ; loss = 2.046944
+2023-Jul-31 05:22:19.731000 UTC [my_train@SpawnProcess-1] INFO step = 8740 ; tokens/s = 58557 ; learning rate = 0.000677 ; loss = 2.030680
+2023-Jul-31 05:25:36.060000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 05:25:39.182000 UTC [my_train@SpawnProcess-1] INFO step = 8760 ; tokens/s = 58358 ; learning rate = 0.000676 ; loss = 2.046728
+2023-Jul-31 05:28:57.960000 UTC [my_train@SpawnProcess-1] INFO step = 8780 ; tokens/s = 58531 ; learning rate = 0.000675 ; loss = 1.998908
+2023-Jul-31 05:32:17.354000 UTC [my_train@SpawnProcess-1] INFO step = 8800 ; tokens/s = 58367 ; learning rate = 0.000674 ; loss = 1.993520
+2023-Jul-31 05:35:36.223000 UTC [my_train@SpawnProcess-1] INFO step = 8820 ; tokens/s = 58501 ; learning rate = 0.000673 ; loss = 1.998831
+2023-Jul-31 05:38:54.998000 UTC [my_train@SpawnProcess-1] INFO step = 8840 ; tokens/s = 58572 ; learning rate = 0.000673 ; loss = 2.002725
+2023-Jul-31 05:42:14.560000 UTC [my_train@SpawnProcess-1] INFO step = 8860 ; tokens/s = 58322 ; learning rate = 0.000672 ; loss = 2.026718
+2023-Jul-31 05:45:33.113000 UTC [my_train@SpawnProcess-1] INFO step = 8880 ; tokens/s = 58589 ; learning rate = 0.000671 ; loss = 2.029770
+2023-Jul-31 05:48:51.990000 UTC [my_train@SpawnProcess-1] INFO step = 8900 ; tokens/s = 58525 ; learning rate = 0.000670 ; loss = 2.005205
+2023-Jul-31 05:52:11.382000 UTC [my_train@SpawnProcess-1] INFO step = 8920 ; tokens/s = 58356 ; learning rate = 0.000670 ; loss = 2.031785
+2023-Jul-31 05:55:29.968000 UTC [my_train@SpawnProcess-1] INFO step = 8940 ; tokens/s = 58554 ; learning rate = 0.000669 ; loss = 2.077021
+2023-Jul-31 05:58:48.603000 UTC [my_train@SpawnProcess-1] INFO step = 8960 ; tokens/s = 58580 ; learning rate = 0.000668 ; loss = 2.038201
+2023-Jul-31 06:02:07.811000 UTC [my_train@SpawnProcess-1] INFO step = 8980 ; tokens/s = 58446 ; learning rate = 0.000667 ; loss = 2.025435
+2023-Jul-31 06:04:34.100000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 06:05:26.393000 UTC [my_train@SpawnProcess-1] INFO step = 9000 ; tokens/s = 58627 ; learning rate = 0.000667 ; loss = 1.995710
+2023-Jul-31 06:05:26.396000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-9000.pt
+2023-Jul-31 06:09:10.551000 UTC [my_train@SpawnProcess-1] INFO step = 9020 ; tokens/s = 51917 ; learning rate = 0.000666 ; loss = 2.010907
+2023-Jul-31 06:12:29.395000 UTC [my_train@SpawnProcess-1] INFO step = 9040 ; tokens/s = 58517 ; learning rate = 0.000665 ; loss = 2.010006
+2023-Jul-31 06:15:48.699000 UTC [my_train@SpawnProcess-1] INFO step = 9060 ; tokens/s = 58389 ; learning rate = 0.000664 ; loss = 2.003901
+2023-Jul-31 06:19:07.502000 UTC [my_train@SpawnProcess-1] INFO step = 9080 ; tokens/s = 58543 ; learning rate = 0.000664 ; loss = 1.999628
+2023-Jul-31 06:22:26.176000 UTC [my_train@SpawnProcess-1] INFO step = 9100 ; tokens/s = 58562 ; learning rate = 0.000663 ; loss = 1.999896
+2023-Jul-31 06:25:45.616000 UTC [my_train@SpawnProcess-1] INFO step = 9120 ; tokens/s = 58348 ; learning rate = 0.000662 ; loss = 2.029233
+2023-Jul-31 06:29:04.004000 UTC [my_train@SpawnProcess-1] INFO step = 9140 ; tokens/s = 58638 ; learning rate = 0.000662 ; loss = 2.018956
+2023-Jul-31 06:32:22.649000 UTC [my_train@SpawnProcess-1] INFO step = 9160 ; tokens/s = 58587 ; learning rate = 0.000661 ; loss = 2.034890
+2023-Jul-31 06:35:41.371000 UTC [my_train@SpawnProcess-1] INFO step = 9180 ; tokens/s = 58547 ; learning rate = 0.000660 ; loss = 2.016925
+2023-Jul-31 06:39:00.098000 UTC [my_train@SpawnProcess-1] INFO step = 9200 ; tokens/s = 58596 ; learning rate = 0.000659 ; loss = 2.035596
+2023-Jul-31 06:42:19.494000 UTC [my_train@SpawnProcess-1] INFO step = 9220 ; tokens/s = 58380 ; learning rate = 0.000659 ; loss = 2.037705
+2023-Jul-31 06:44:05.833000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 06:45:38.877000 UTC [my_train@SpawnProcess-1] INFO step = 9240 ; tokens/s = 58372 ; learning rate = 0.000658 ; loss = 1.994824
+2023-Jul-31 06:48:57.580000 UTC [my_train@SpawnProcess-1] INFO step = 9260 ; tokens/s = 58535 ; learning rate = 0.000657 ; loss = 2.002693
+2023-Jul-31 06:52:16.799000 UTC [my_train@SpawnProcess-1] INFO step = 9280 ; tokens/s = 58423 ; learning rate = 0.000657 ; loss = 2.005978
+2023-Jul-31 06:55:35.501000 UTC [my_train@SpawnProcess-1] INFO step = 9300 ; tokens/s = 58583 ; learning rate = 0.000656 ; loss = 1.994199
+2023-Jul-31 06:58:54.284000 UTC [my_train@SpawnProcess-1] INFO step = 9320 ; tokens/s = 58538 ; learning rate = 0.000655 ; loss = 2.035395
+2023-Jul-31 07:02:13.194000 UTC [my_train@SpawnProcess-1] INFO step = 9340 ; tokens/s = 58483 ; learning rate = 0.000654 ; loss = 2.021813
+2023-Jul-31 07:05:32.449000 UTC [my_train@SpawnProcess-1] INFO step = 9360 ; tokens/s = 58438 ; learning rate = 0.000654 ; loss = 2.002192
+2023-Jul-31 07:08:51.084000 UTC [my_train@SpawnProcess-1] INFO step = 9380 ; tokens/s = 58591 ; learning rate = 0.000653 ; loss = 2.026209
+2023-Jul-31 07:12:10.044000 UTC [my_train@SpawnProcess-1] INFO step = 9400 ; tokens/s = 58478 ; learning rate = 0.000652 ; loss = 2.025887
+2023-Jul-31 07:15:28.855000 UTC [my_train@SpawnProcess-1] INFO step = 9420 ; tokens/s = 58525 ; learning rate = 0.000652 ; loss = 2.035483
+2023-Jul-31 07:18:47.961000 UTC [my_train@SpawnProcess-1] INFO step = 9440 ; tokens/s = 58434 ; learning rate = 0.000651 ; loss = 2.029926
+2023-Jul-31 07:22:07.062000 UTC [my_train@SpawnProcess-1] INFO step = 9460 ; tokens/s = 58442 ; learning rate = 0.000650 ; loss = 2.040267
+2023-Jul-31 07:23:03.893000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 07:25:25.779000 UTC [my_train@SpawnProcess-1] INFO step = 9480 ; tokens/s = 58581 ; learning rate = 0.000650 ; loss = 1.992616
+2023-Jul-31 07:28:44.626000 UTC [my_train@SpawnProcess-1] INFO step = 9500 ; tokens/s = 58515 ; learning rate = 0.000649 ; loss = 2.006351
+2023-Jul-31 07:28:44.629000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-9500.pt
+2023-Jul-31 07:32:29.180000 UTC [my_train@SpawnProcess-1] INFO step = 9520 ; tokens/s = 51848 ; learning rate = 0.000648 ; loss = 1.992882
+2023-Jul-31 07:35:47.945000 UTC [my_train@SpawnProcess-1] INFO step = 9540 ; tokens/s = 58528 ; learning rate = 0.000648 ; loss = 1.998758
+2023-Jul-31 07:39:06.774000 UTC [my_train@SpawnProcess-1] INFO step = 9560 ; tokens/s = 58527 ; learning rate = 0.000647 ; loss = 1.981070
+2023-Jul-31 07:42:25.757000 UTC [my_train@SpawnProcess-1] INFO step = 9580 ; tokens/s = 58475 ; learning rate = 0.000646 ; loss = 2.038861
+2023-Jul-31 07:45:45.556000 UTC [my_train@SpawnProcess-1] INFO step = 9600 ; tokens/s = 58263 ; learning rate = 0.000645 ; loss = 1.993978
+2023-Jul-31 07:49:04.499000 UTC [my_train@SpawnProcess-1] INFO step = 9620 ; tokens/s = 58472 ; learning rate = 0.000645 ; loss = 2.020161
+2023-Jul-31 07:52:23.338000 UTC [my_train@SpawnProcess-1] INFO step = 9640 ; tokens/s = 58535 ; learning rate = 0.000644 ; loss = 2.022422
+2023-Jul-31 07:55:42.311000 UTC [my_train@SpawnProcess-1] INFO step = 9660 ; tokens/s = 58516 ; learning rate = 0.000643 ; loss = 1.992705
+2023-Jul-31 07:59:00.637000 UTC [my_train@SpawnProcess-1] INFO step = 9680 ; tokens/s = 58671 ; learning rate = 0.000643 ; loss = 2.000155
+2023-Jul-31 08:02:19.267000 UTC [my_train@SpawnProcess-1] INFO step = 9700 ; tokens/s = 58562 ; learning rate = 0.000642 ; loss = 2.040435
+2023-Jul-31 08:02:35.997000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 08:05:38.600000 UTC [my_train@SpawnProcess-1] INFO step = 9720 ; tokens/s = 58399 ; learning rate = 0.000642 ; loss = 1.981978
+2023-Jul-31 08:08:57.705000 UTC [my_train@SpawnProcess-1] INFO step = 9740 ; tokens/s = 58453 ; learning rate = 0.000641 ; loss = 1.980283
+2023-Jul-31 08:12:16.407000 UTC [my_train@SpawnProcess-1] INFO step = 9760 ; tokens/s = 58575 ; learning rate = 0.000640 ; loss = 1.993708
+2023-Jul-31 08:15:35.381000 UTC [my_train@SpawnProcess-1] INFO step = 9780 ; tokens/s = 58503 ; learning rate = 0.000640 ; loss = 2.007264
+2023-Jul-31 08:18:54.748000 UTC [my_train@SpawnProcess-1] INFO step = 9800 ; tokens/s = 58355 ; learning rate = 0.000639 ; loss = 1.986230
+2023-Jul-31 08:22:13.705000 UTC [my_train@SpawnProcess-1] INFO step = 9820 ; tokens/s = 58488 ; learning rate = 0.000638 ; loss = 2.012577
+2023-Jul-31 08:25:32.664000 UTC [my_train@SpawnProcess-1] INFO step = 9840 ; tokens/s = 58493 ; learning rate = 0.000638 ; loss = 2.011650
+2023-Jul-31 08:28:52.173000 UTC [my_train@SpawnProcess-1] INFO step = 9860 ; tokens/s = 58337 ; learning rate = 0.000637 ; loss = 1.994525
+2023-Jul-31 08:32:10.897000 UTC [my_train@SpawnProcess-1] INFO step = 9880 ; tokens/s = 58558 ; learning rate = 0.000636 ; loss = 2.035325
+2023-Jul-31 08:35:29.822000 UTC [my_train@SpawnProcess-1] INFO step = 9900 ; tokens/s = 58494 ; learning rate = 0.000636 ; loss = 2.016203
+2023-Jul-31 08:38:48.596000 UTC [my_train@SpawnProcess-1] INFO step = 9920 ; tokens/s = 58538 ; learning rate = 0.000635 ; loss = 2.006185
+2023-Jul-31 08:41:26.006000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 08:42:07.742000 UTC [my_train@SpawnProcess-1] INFO step = 9940 ; tokens/s = 58419 ; learning rate = 0.000634 ; loss = 1.978279
+2023-Jul-31 08:45:26.014000 UTC [my_train@SpawnProcess-1] INFO step = 9960 ; tokens/s = 58702 ; learning rate = 0.000634 ; loss = 1.975537
+2023-Jul-31 08:48:44.304000 UTC [my_train@SpawnProcess-1] INFO step = 9980 ; tokens/s = 58703 ; learning rate = 0.000633 ; loss = 1.971715
+2023-Jul-31 08:52:03.238000 UTC [my_train@SpawnProcess-1] INFO step = 10000 ; tokens/s = 58519 ; learning rate = 0.000632 ; loss = 1.985130
+2023-Jul-31 08:52:03.241000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-10000.pt
+2023-Jul-31 08:55:45.987000 UTC [my_train@SpawnProcess-1] INFO step = 10020 ; tokens/s = 52229 ; learning rate = 0.000632 ; loss = 1.979583
+2023-Jul-31 08:59:04.194000 UTC [my_train@SpawnProcess-1] INFO step = 10040 ; tokens/s = 58711 ; learning rate = 0.000631 ; loss = 1.988204
+2023-Jul-31 09:02:22.570000 UTC [my_train@SpawnProcess-1] INFO step = 10060 ; tokens/s = 58681 ; learning rate = 0.000631 ; loss = 1.992483
+2023-Jul-31 09:05:41.379000 UTC [my_train@SpawnProcess-1] INFO step = 10080 ; tokens/s = 58528 ; learning rate = 0.000630 ; loss = 1.978679
+2023-Jul-31 09:09:00.186000 UTC [my_train@SpawnProcess-1] INFO step = 10100 ; tokens/s = 58531 ; learning rate = 0.000629 ; loss = 2.008526
+2023-Jul-31 09:12:18.591000 UTC [my_train@SpawnProcess-1] INFO step = 10120 ; tokens/s = 58683 ; learning rate = 0.000629 ; loss = 2.003139
+2023-Jul-31 09:15:36.811000 UTC [my_train@SpawnProcess-1] INFO step = 10140 ; tokens/s = 58684 ; learning rate = 0.000628 ; loss = 2.019785
+2023-Jul-31 09:18:55.593000 UTC [my_train@SpawnProcess-1] INFO step = 10160 ; tokens/s = 58525 ; learning rate = 0.000627 ; loss = 2.048158
+2023-Jul-31 09:20:51.547000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 09:22:13.836000 UTC [my_train@SpawnProcess-1] INFO step = 10180 ; tokens/s = 58698 ; learning rate = 0.000627 ; loss = 1.961020
+2023-Jul-31 09:25:32.490000 UTC [my_train@SpawnProcess-1] INFO step = 10200 ; tokens/s = 58562 ; learning rate = 0.000626 ; loss = 1.990320
+2023-Jul-31 09:28:50.712000 UTC [my_train@SpawnProcess-1] INFO step = 10220 ; tokens/s = 58710 ; learning rate = 0.000626 ; loss = 1.982950
+2023-Jul-31 09:32:09.164000 UTC [my_train@SpawnProcess-1] INFO step = 10240 ; tokens/s = 58630 ; learning rate = 0.000625 ; loss = 1.988406
+2023-Jul-31 09:35:27.783000 UTC [my_train@SpawnProcess-1] INFO step = 10260 ; tokens/s = 58608 ; learning rate = 0.000624 ; loss = 2.001793
+2023-Jul-31 09:38:46.245000 UTC [my_train@SpawnProcess-1] INFO step = 10280 ; tokens/s = 58655 ; learning rate = 0.000624 ; loss = 2.002040
+2023-Jul-31 09:42:05.310000 UTC [my_train@SpawnProcess-1] INFO step = 10300 ; tokens/s = 58449 ; learning rate = 0.000623 ; loss = 1.985255
+2023-Jul-31 09:45:23.871000 UTC [my_train@SpawnProcess-1] INFO step = 10320 ; tokens/s = 58589 ; learning rate = 0.000623 ; loss = 2.010549
+2023-Jul-31 09:48:42.246000 UTC [my_train@SpawnProcess-1] INFO step = 10340 ; tokens/s = 58655 ; learning rate = 0.000622 ; loss = 2.040857
+2023-Jul-31 09:52:00.580000 UTC [my_train@SpawnProcess-1] INFO step = 10360 ; tokens/s = 58707 ; learning rate = 0.000621 ; loss = 1.966512
+2023-Jul-31 09:55:19.267000 UTC [my_train@SpawnProcess-1] INFO step = 10380 ; tokens/s = 58576 ; learning rate = 0.000621 ; loss = 1.990689
+2023-Jul-31 09:58:38.181000 UTC [my_train@SpawnProcess-1] INFO step = 10400 ; tokens/s = 58522 ; learning rate = 0.000620 ; loss = 2.014750
+2023-Jul-31 09:59:45.186000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 10:01:56.385000 UTC [my_train@SpawnProcess-1] INFO step = 10420 ; tokens/s = 58676 ; learning rate = 0.000620 ; loss = 1.989684
+2023-Jul-31 10:05:14.886000 UTC [my_train@SpawnProcess-1] INFO step = 10440 ; tokens/s = 58645 ; learning rate = 0.000619 ; loss = 1.962026
+2023-Jul-31 10:08:32.937000 UTC [my_train@SpawnProcess-1] INFO step = 10460 ; tokens/s = 58753 ; learning rate = 0.000618 ; loss = 1.976728
+2023-Jul-31 10:11:51.380000 UTC [my_train@SpawnProcess-1] INFO step = 10480 ; tokens/s = 58650 ; learning rate = 0.000618 ; loss = 1.961494
+2023-Jul-31 10:15:10.158000 UTC [my_train@SpawnProcess-1] INFO step = 10500 ; tokens/s = 58545 ; learning rate = 0.000617 ; loss = 1.956527
+2023-Jul-31 10:15:10.162000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-10500.pt
+2023-Jul-31 10:19:00.846000 UTC [my_train@SpawnProcess-1] INFO step = 10520 ; tokens/s = 50428 ; learning rate = 0.000617 ; loss = 2.009900
+2023-Jul-31 10:22:19.537000 UTC [my_train@SpawnProcess-1] INFO step = 10540 ; tokens/s = 58569 ; learning rate = 0.000616 ; loss = 1.987867
+2023-Jul-31 10:25:38.145000 UTC [my_train@SpawnProcess-1] INFO step = 10560 ; tokens/s = 58602 ; learning rate = 0.000615 ; loss = 2.006352
+2023-Jul-31 10:28:56.330000 UTC [my_train@SpawnProcess-1] INFO step = 10580 ; tokens/s = 58751 ; learning rate = 0.000615 ; loss = 1.960191
+2023-Jul-31 10:32:14.724000 UTC [my_train@SpawnProcess-1] INFO step = 10600 ; tokens/s = 58639 ; learning rate = 0.000614 ; loss = 1.969844
+2023-Jul-31 10:35:33.936000 UTC [my_train@SpawnProcess-1] INFO step = 10620 ; tokens/s = 58400 ; learning rate = 0.000614 ; loss = 2.027629
+2023-Jul-31 10:38:52.815000 UTC [my_train@SpawnProcess-1] INFO step = 10640 ; tokens/s = 58531 ; learning rate = 0.000613 ; loss = 2.002082
+2023-Jul-31 10:39:10.173000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 10:42:11.263000 UTC [my_train@SpawnProcess-1] INFO step = 10660 ; tokens/s = 58648 ; learning rate = 0.000613 ; loss = 1.961466
+2023-Jul-31 10:45:29.902000 UTC [my_train@SpawnProcess-1] INFO step = 10680 ; tokens/s = 58591 ; learning rate = 0.000612 ; loss = 1.961772
+2023-Jul-31 10:48:48.173000 UTC [my_train@SpawnProcess-1] INFO step = 10700 ; tokens/s = 58693 ; learning rate = 0.000611 ; loss = 1.977309
+2023-Jul-31 10:52:06.595000 UTC [my_train@SpawnProcess-1] INFO step = 10720 ; tokens/s = 58636 ; learning rate = 0.000611 ; loss = 1.977639
+2023-Jul-31 10:55:25.394000 UTC [my_train@SpawnProcess-1] INFO step = 10740 ; tokens/s = 58551 ; learning rate = 0.000610 ; loss = 1.992003
+2023-Jul-31 10:58:43.529000 UTC [my_train@SpawnProcess-1] INFO step = 10760 ; tokens/s = 58729 ; learning rate = 0.000610 ; loss = 1.990539
+2023-Jul-31 11:02:02.446000 UTC [my_train@SpawnProcess-1] INFO step = 10780 ; tokens/s = 58529 ; learning rate = 0.000609 ; loss = 1.976075
+2023-Jul-31 11:05:20.919000 UTC [my_train@SpawnProcess-1] INFO step = 10800 ; tokens/s = 58657 ; learning rate = 0.000609 ; loss = 1.975148
+2023-Jul-31 11:08:39.206000 UTC [my_train@SpawnProcess-1] INFO step = 10820 ; tokens/s = 58632 ; learning rate = 0.000608 ; loss = 2.010787
+2023-Jul-31 11:11:57.947000 UTC [my_train@SpawnProcess-1] INFO step = 10840 ; tokens/s = 58545 ; learning rate = 0.000607 ; loss = 1.985971
+2023-Jul-31 11:15:16.464000 UTC [my_train@SpawnProcess-1] INFO step = 10860 ; tokens/s = 58646 ; learning rate = 0.000607 ; loss = 1.987328
+2023-Jul-31 11:18:03.389000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 11:18:35.355000 UTC [my_train@SpawnProcess-1] INFO step = 10880 ; tokens/s = 58506 ; learning rate = 0.000606 ; loss = 2.016241
+2023-Jul-31 11:21:53.791000 UTC [my_train@SpawnProcess-1] INFO step = 10900 ; tokens/s = 58662 ; learning rate = 0.000606 ; loss = 1.951176
+2023-Jul-31 11:25:12.489000 UTC [my_train@SpawnProcess-1] INFO step = 10920 ; tokens/s = 58580 ; learning rate = 0.000605 ; loss = 1.982004
+2023-Jul-31 11:28:30.867000 UTC [my_train@SpawnProcess-1] INFO step = 10940 ; tokens/s = 58672 ; learning rate = 0.000605 ; loss = 1.950252
+2023-Jul-31 11:31:48.928000 UTC [my_train@SpawnProcess-1] INFO step = 10960 ; tokens/s = 58736 ; learning rate = 0.000604 ; loss = 1.991474
+2023-Jul-31 11:35:07.830000 UTC [my_train@SpawnProcess-1] INFO step = 10980 ; tokens/s = 58496 ; learning rate = 0.000604 ; loss = 1.983464
+2023-Jul-31 11:38:26.057000 UTC [my_train@SpawnProcess-1] INFO step = 11000 ; tokens/s = 58728 ; learning rate = 0.000603 ; loss = 1.964058
+2023-Jul-31 11:38:26.060000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-11000.pt
+2023-Jul-31 11:42:09.641000 UTC [my_train@SpawnProcess-1] INFO step = 11020 ; tokens/s = 52040 ; learning rate = 0.000602 ; loss = 1.977256
+2023-Jul-31 11:45:28.034000 UTC [my_train@SpawnProcess-1] INFO step = 11040 ; tokens/s = 58674 ; learning rate = 0.000602 ; loss = 2.003350
+2023-Jul-31 11:48:46.700000 UTC [my_train@SpawnProcess-1] INFO step = 11060 ; tokens/s = 58556 ; learning rate = 0.000601 ; loss = 1.990322
+2023-Jul-31 11:52:04.921000 UTC [my_train@SpawnProcess-1] INFO step = 11080 ; tokens/s = 58691 ; learning rate = 0.000601 ; loss = 1.993666
+2023-Jul-31 11:55:23.139000 UTC [my_train@SpawnProcess-1] INFO step = 11100 ; tokens/s = 58696 ; learning rate = 0.000600 ; loss = 2.013389
+2023-Jul-31 11:57:29.138000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 11:58:42.071000 UTC [my_train@SpawnProcess-1] INFO step = 11120 ; tokens/s = 58526 ; learning rate = 0.000600 ; loss = 1.940479
+2023-Jul-31 12:02:00.736000 UTC [my_train@SpawnProcess-1] INFO step = 11140 ; tokens/s = 58592 ; learning rate = 0.000599 ; loss = 1.963722
+2023-Jul-31 12:05:19.081000 UTC [my_train@SpawnProcess-1] INFO step = 11160 ; tokens/s = 58672 ; learning rate = 0.000599 ; loss = 1.951906
+2023-Jul-31 12:08:37.968000 UTC [my_train@SpawnProcess-1] INFO step = 11180 ; tokens/s = 58503 ; learning rate = 0.000598 ; loss = 1.972388
+2023-Jul-31 12:11:56.478000 UTC [my_train@SpawnProcess-1] INFO step = 11200 ; tokens/s = 58632 ; learning rate = 0.000598 ; loss = 1.956699
+2023-Jul-31 12:15:14.856000 UTC [my_train@SpawnProcess-1] INFO step = 11220 ; tokens/s = 58650 ; learning rate = 0.000597 ; loss = 1.981833
+2023-Jul-31 12:18:33.272000 UTC [my_train@SpawnProcess-1] INFO step = 11240 ; tokens/s = 58662 ; learning rate = 0.000597 ; loss = 1.977338
+2023-Jul-31 12:21:52.310000 UTC [my_train@SpawnProcess-1] INFO step = 11260 ; tokens/s = 58477 ; learning rate = 0.000596 ; loss = 1.961450
+2023-Jul-31 12:25:10.826000 UTC [my_train@SpawnProcess-1] INFO step = 11280 ; tokens/s = 58611 ; learning rate = 0.000595 ; loss = 1.974568
+2023-Jul-31 12:28:29.115000 UTC [my_train@SpawnProcess-1] INFO step = 11300 ; tokens/s = 58706 ; learning rate = 0.000595 ; loss = 1.976786
+2023-Jul-31 12:31:47.981000 UTC [my_train@SpawnProcess-1] INFO step = 11320 ; tokens/s = 58510 ; learning rate = 0.000594 ; loss = 1.998195
+2023-Jul-31 12:35:06.222000 UTC [my_train@SpawnProcess-1] INFO step = 11340 ; tokens/s = 58703 ; learning rate = 0.000594 ; loss = 2.008623
+2023-Jul-31 12:36:23.153000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 12:38:24.923000 UTC [my_train@SpawnProcess-1] INFO step = 11360 ; tokens/s = 58544 ; learning rate = 0.000593 ; loss = 1.938935
+2023-Jul-31 12:41:44.243000 UTC [my_train@SpawnProcess-1] INFO step = 11380 ; tokens/s = 58378 ; learning rate = 0.000593 ; loss = 1.958957
+2023-Jul-31 12:45:02.701000 UTC [my_train@SpawnProcess-1] INFO step = 11400 ; tokens/s = 58649 ; learning rate = 0.000592 ; loss = 1.970097
+2023-Jul-31 12:48:21.748000 UTC [my_train@SpawnProcess-1] INFO step = 11420 ; tokens/s = 58460 ; learning rate = 0.000592 ; loss = 1.965628
+2023-Jul-31 12:51:39.972000 UTC [my_train@SpawnProcess-1] INFO step = 11440 ; tokens/s = 58703 ; learning rate = 0.000591 ; loss = 1.942215
+2023-Jul-31 12:54:58.104000 UTC [my_train@SpawnProcess-1] INFO step = 11460 ; tokens/s = 58725 ; learning rate = 0.000591 ; loss = 1.942171
+2023-Jul-31 12:58:16.346000 UTC [my_train@SpawnProcess-1] INFO step = 11480 ; tokens/s = 58675 ; learning rate = 0.000590 ; loss = 2.007669
+2023-Jul-31 13:01:34.812000 UTC [my_train@SpawnProcess-1] INFO step = 11500 ; tokens/s = 58653 ; learning rate = 0.000590 ; loss = 1.974310
+2023-Jul-31 13:01:34.815000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-11500.pt
+2023-Jul-31 13:05:14.445000 UTC [my_train@SpawnProcess-1] INFO step = 11520 ; tokens/s = 52996 ; learning rate = 0.000589 ; loss = 1.953039
+2023-Jul-31 13:08:32.511000 UTC [my_train@SpawnProcess-1] INFO step = 11540 ; tokens/s = 58751 ; learning rate = 0.000589 ; loss = 1.962195
+2023-Jul-31 13:11:51.114000 UTC [my_train@SpawnProcess-1] INFO step = 11560 ; tokens/s = 58580 ; learning rate = 0.000588 ; loss = 1.988237
+2023-Jul-31 13:15:10.176000 UTC [my_train@SpawnProcess-1] INFO step = 11580 ; tokens/s = 58496 ; learning rate = 0.000588 ; loss = 2.000829
+2023-Jul-31 13:15:46.741000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 13:18:28.867000 UTC [my_train@SpawnProcess-1] INFO step = 11600 ; tokens/s = 58566 ; learning rate = 0.000587 ; loss = 1.961800
+2023-Jul-31 13:21:47.345000 UTC [my_train@SpawnProcess-1] INFO step = 11620 ; tokens/s = 58639 ; learning rate = 0.000587 ; loss = 1.938174
+2023-Jul-31 13:25:06.274000 UTC [my_train@SpawnProcess-1] INFO step = 11640 ; tokens/s = 58484 ; learning rate = 0.000586 ; loss = 1.950437
+2023-Jul-31 13:28:24.544000 UTC [my_train@SpawnProcess-1] INFO step = 11660 ; tokens/s = 58687 ; learning rate = 0.000586 ; loss = 1.934760
+2023-Jul-31 13:31:43.589000 UTC [my_train@SpawnProcess-1] INFO step = 11680 ; tokens/s = 58456 ; learning rate = 0.000585 ; loss = 1.984213
+2023-Jul-31 13:35:02.224000 UTC [my_train@SpawnProcess-1] INFO step = 11700 ; tokens/s = 58603 ; learning rate = 0.000585 ; loss = 1.986928
+2023-Jul-31 13:38:20.703000 UTC [my_train@SpawnProcess-1] INFO step = 11720 ; tokens/s = 58642 ; learning rate = 0.000584 ; loss = 1.965675
+2023-Jul-31 13:41:39.513000 UTC [my_train@SpawnProcess-1] INFO step = 11740 ; tokens/s = 58537 ; learning rate = 0.000584 ; loss = 1.968523
+2023-Jul-31 13:44:57.706000 UTC [my_train@SpawnProcess-1] INFO step = 11760 ; tokens/s = 58681 ; learning rate = 0.000583 ; loss = 1.970287
+2023-Jul-31 13:48:16.165000 UTC [my_train@SpawnProcess-1] INFO step = 11780 ; tokens/s = 58692 ; learning rate = 0.000583 ; loss = 1.959865
+2023-Jul-31 13:51:34.477000 UTC [my_train@SpawnProcess-1] INFO step = 11800 ; tokens/s = 58664 ; learning rate = 0.000582 ; loss = 1.988501
+2023-Jul-31 13:54:39.498000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 13:54:52.786000 UTC [my_train@SpawnProcess-1] INFO step = 11820 ; tokens/s = 58684 ; learning rate = 0.000582 ; loss = 1.973430
+2023-Jul-31 13:58:11.364000 UTC [my_train@SpawnProcess-1] INFO step = 11840 ; tokens/s = 58624 ; learning rate = 0.000581 ; loss = 1.962050
+2023-Jul-31 14:01:29.706000 UTC [my_train@SpawnProcess-1] INFO step = 11860 ; tokens/s = 58639 ; learning rate = 0.000581 ; loss = 1.952429
+2023-Jul-31 14:04:47.995000 UTC [my_train@SpawnProcess-1] INFO step = 11880 ; tokens/s = 58662 ; learning rate = 0.000580 ; loss = 1.942851
+2023-Jul-31 14:08:06.359000 UTC [my_train@SpawnProcess-1] INFO step = 11900 ; tokens/s = 58673 ; learning rate = 0.000580 ; loss = 1.959530
+2023-Jul-31 14:11:25.212000 UTC [my_train@SpawnProcess-1] INFO step = 11920 ; tokens/s = 58545 ; learning rate = 0.000579 ; loss = 1.956438
+2023-Jul-31 14:14:43.599000 UTC [my_train@SpawnProcess-1] INFO step = 11940 ; tokens/s = 58664 ; learning rate = 0.000579 ; loss = 1.950454
+2023-Jul-31 14:18:02.344000 UTC [my_train@SpawnProcess-1] INFO step = 11960 ; tokens/s = 58557 ; learning rate = 0.000578 ; loss = 1.953326
+2023-Jul-31 14:21:20.644000 UTC [my_train@SpawnProcess-1] INFO step = 11980 ; tokens/s = 58667 ; learning rate = 0.000578 ; loss = 1.982038
+2023-Jul-31 14:24:38.998000 UTC [my_train@SpawnProcess-1] INFO step = 12000 ; tokens/s = 58683 ; learning rate = 0.000577 ; loss = 1.990568
+2023-Jul-31 14:24:39.001000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-12000.pt
+2023-Jul-31 14:28:27.256000 UTC [my_train@SpawnProcess-1] INFO step = 12020 ; tokens/s = 50965 ; learning rate = 0.000577 ; loss = 1.960134
+2023-Jul-31 14:31:45.911000 UTC [my_train@SpawnProcess-1] INFO step = 12040 ; tokens/s = 58604 ; learning rate = 0.000576 ; loss = 1.971941
+2023-Jul-31 14:34:02.039000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 14:35:04.637000 UTC [my_train@SpawnProcess-1] INFO step = 12060 ; tokens/s = 58562 ; learning rate = 0.000576 ; loss = 1.948764
+2023-Jul-31 14:38:23.422000 UTC [my_train@SpawnProcess-1] INFO step = 12080 ; tokens/s = 58546 ; learning rate = 0.000575 ; loss = 1.947110
+2023-Jul-31 14:41:42.137000 UTC [my_train@SpawnProcess-1] INFO step = 12100 ; tokens/s = 58531 ; learning rate = 0.000575 ; loss = 1.948640
+2023-Jul-31 14:45:00.845000 UTC [my_train@SpawnProcess-1] INFO step = 12120 ; tokens/s = 58585 ; learning rate = 0.000574 ; loss = 1.944107
+2023-Jul-31 14:48:19.620000 UTC [my_train@SpawnProcess-1] INFO step = 12140 ; tokens/s = 58574 ; learning rate = 0.000574 ; loss = 1.932799
+2023-Jul-31 14:51:38.613000 UTC [my_train@SpawnProcess-1] INFO step = 12160 ; tokens/s = 58461 ; learning rate = 0.000574 ; loss = 1.967680
+2023-Jul-31 14:54:57.095000 UTC [my_train@SpawnProcess-1] INFO step = 12180 ; tokens/s = 58631 ; learning rate = 0.000573 ; loss = 1.971601
+2023-Jul-31 14:58:16.370000 UTC [my_train@SpawnProcess-1] INFO step = 12200 ; tokens/s = 58403 ; learning rate = 0.000573 ; loss = 1.974472
+2023-Jul-31 15:01:35.124000 UTC [my_train@SpawnProcess-1] INFO step = 12220 ; tokens/s = 58576 ; learning rate = 0.000572 ; loss = 1.953436
+2023-Jul-31 15:04:54.149000 UTC [my_train@SpawnProcess-1] INFO step = 12240 ; tokens/s = 58475 ; learning rate = 0.000572 ; loss = 1.963369
+2023-Jul-31 15:08:12.890000 UTC [my_train@SpawnProcess-1] INFO step = 12260 ; tokens/s = 58509 ; learning rate = 0.000571 ; loss = 1.975691
+2023-Jul-31 15:11:32.087000 UTC [my_train@SpawnProcess-1] INFO step = 12280 ; tokens/s = 58453 ; learning rate = 0.000571 ; loss = 1.966413
+2023-Jul-31 15:13:08.082000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 15:14:50.636000 UTC [my_train@SpawnProcess-1] INFO step = 12300 ; tokens/s = 58574 ; learning rate = 0.000570 ; loss = 1.946254
+2023-Jul-31 15:18:09.719000 UTC [my_train@SpawnProcess-1] INFO step = 12320 ; tokens/s = 58455 ; learning rate = 0.000570 ; loss = 1.939839
+2023-Jul-31 15:21:28.336000 UTC [my_train@SpawnProcess-1] INFO step = 12340 ; tokens/s = 58577 ; learning rate = 0.000569 ; loss = 1.935927
+2023-Jul-31 15:24:47.394000 UTC [my_train@SpawnProcess-1] INFO step = 12360 ; tokens/s = 58480 ; learning rate = 0.000569 ; loss = 1.961178
+2023-Jul-31 15:28:05.854000 UTC [my_train@SpawnProcess-1] INFO step = 12380 ; tokens/s = 58663 ; learning rate = 0.000568 ; loss = 1.967270
+2023-Jul-31 15:31:24.381000 UTC [my_train@SpawnProcess-1] INFO step = 12400 ; tokens/s = 58607 ; learning rate = 0.000568 ; loss = 1.956078
+2023-Jul-31 15:34:43.510000 UTC [my_train@SpawnProcess-1] INFO step = 12420 ; tokens/s = 58442 ; learning rate = 0.000568 ; loss = 1.965908
+2023-Jul-31 15:38:01.965000 UTC [my_train@SpawnProcess-1] INFO step = 12440 ; tokens/s = 58648 ; learning rate = 0.000567 ; loss = 1.954872
+2023-Jul-31 15:41:20.469000 UTC [my_train@SpawnProcess-1] INFO step = 12460 ; tokens/s = 58613 ; learning rate = 0.000567 ; loss = 1.960769
+2023-Jul-31 15:44:39.088000 UTC [my_train@SpawnProcess-1] INFO step = 12480 ; tokens/s = 58611 ; learning rate = 0.000566 ; loss = 1.963319
+2023-Jul-31 15:47:58.078000 UTC [my_train@SpawnProcess-1] INFO step = 12500 ; tokens/s = 58478 ; learning rate = 0.000566 ; loss = 1.971490
+2023-Jul-31 15:47:58.082000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-12500.pt
+2023-Jul-31 15:51:35.868000 UTC [my_train@SpawnProcess-1] INFO step = 12520 ; tokens/s = 53417 ; learning rate = 0.000565 ; loss = 1.964476
+2023-Jul-31 15:52:22.637000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 15:54:54.797000 UTC [my_train@SpawnProcess-1] INFO step = 12540 ; tokens/s = 58510 ; learning rate = 0.000565 ; loss = 1.935193
+2023-Jul-31 15:58:13.233000 UTC [my_train@SpawnProcess-1] INFO step = 12560 ; tokens/s = 58626 ; learning rate = 0.000564 ; loss = 1.969804
+2023-Jul-31 16:01:31.824000 UTC [my_train@SpawnProcess-1] INFO step = 12580 ; tokens/s = 58629 ; learning rate = 0.000564 ; loss = 1.930615
+2023-Jul-31 16:04:51.128000 UTC [my_train@SpawnProcess-1] INFO step = 12600 ; tokens/s = 58397 ; learning rate = 0.000563 ; loss = 1.942676
+2023-Jul-31 16:08:09.988000 UTC [my_train@SpawnProcess-1] INFO step = 12620 ; tokens/s = 58521 ; learning rate = 0.000563 ; loss = 1.943914
+2023-Jul-31 16:11:28.725000 UTC [my_train@SpawnProcess-1] INFO step = 12640 ; tokens/s = 58548 ; learning rate = 0.000563 ; loss = 1.934583
+2023-Jul-31 16:14:47.738000 UTC [my_train@SpawnProcess-1] INFO step = 12660 ; tokens/s = 58455 ; learning rate = 0.000562 ; loss = 1.971266
+2023-Jul-31 16:18:06.913000 UTC [my_train@SpawnProcess-1] INFO step = 12680 ; tokens/s = 58435 ; learning rate = 0.000562 ; loss = 1.973845
+2023-Jul-31 16:21:25.479000 UTC [my_train@SpawnProcess-1] INFO step = 12700 ; tokens/s = 58617 ; learning rate = 0.000561 ; loss = 1.966989
+2023-Jul-31 16:24:44.225000 UTC [my_train@SpawnProcess-1] INFO step = 12720 ; tokens/s = 58542 ; learning rate = 0.000561 ; loss = 1.953088
+2023-Jul-31 16:28:02.726000 UTC [my_train@SpawnProcess-1] INFO step = 12740 ; tokens/s = 58642 ; learning rate = 0.000560 ; loss = 1.981195
+2023-Jul-31 16:31:18.495000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 16:31:21.292000 UTC [my_train@SpawnProcess-1] INFO step = 12760 ; tokens/s = 58587 ; learning rate = 0.000560 ; loss = 1.983099
+2023-Jul-31 16:34:39.853000 UTC [my_train@SpawnProcess-1] INFO step = 12780 ; tokens/s = 58605 ; learning rate = 0.000559 ; loss = 1.933919
+2023-Jul-31 16:37:58.690000 UTC [my_train@SpawnProcess-1] INFO step = 12800 ; tokens/s = 58490 ; learning rate = 0.000559 ; loss = 1.963645
+2023-Jul-31 16:41:17.275000 UTC [my_train@SpawnProcess-1] INFO step = 12820 ; tokens/s = 58626 ; learning rate = 0.000559 ; loss = 1.947299
+2023-Jul-31 16:44:35.800000 UTC [my_train@SpawnProcess-1] INFO step = 12840 ; tokens/s = 58653 ; learning rate = 0.000558 ; loss = 1.940367
+2023-Jul-31 16:47:54.607000 UTC [my_train@SpawnProcess-1] INFO step = 12860 ; tokens/s = 58553 ; learning rate = 0.000558 ; loss = 1.942107
+2023-Jul-31 16:51:13.033000 UTC [my_train@SpawnProcess-1] INFO step = 12880 ; tokens/s = 58642 ; learning rate = 0.000557 ; loss = 1.953337
+2023-Jul-31 16:54:31.434000 UTC [my_train@SpawnProcess-1] INFO step = 12900 ; tokens/s = 58618 ; learning rate = 0.000557 ; loss = 1.976061
+2023-Jul-31 16:57:49.860000 UTC [my_train@SpawnProcess-1] INFO step = 12920 ; tokens/s = 58642 ; learning rate = 0.000556 ; loss = 1.963379
+2023-Jul-31 17:01:08.547000 UTC [my_train@SpawnProcess-1] INFO step = 12940 ; tokens/s = 58602 ; learning rate = 0.000556 ; loss = 1.948297
+2023-Jul-31 17:04:27.135000 UTC [my_train@SpawnProcess-1] INFO step = 12960 ; tokens/s = 58600 ; learning rate = 0.000556 ; loss = 1.953023
+2023-Jul-31 17:07:45.737000 UTC [my_train@SpawnProcess-1] INFO step = 12980 ; tokens/s = 58590 ; learning rate = 0.000555 ; loss = 1.963874
+2023-Jul-31 17:10:12.694000 UTC [dataset@SpawnProcess-1:1] INFO Shuffling 2072279 elements
+2023-Jul-31 17:11:04.908000 UTC [my_train@SpawnProcess-1] INFO step = 13000 ; tokens/s = 58439 ; learning rate = 0.000555 ; loss = 1.932959
+2023-Jul-31 17:11:04.911000 UTC [my_train@SpawnProcess-1] INFO Saving checkpoint checkpoints/rep_penalty_729/checkpoint-13000.pt
+2023-Jul-31 17:14:44.160000 UTC [my_train@SpawnProcess-1] INFO step = 13020 ; tokens/s = 53074 ; learning rate = 0.000554 ; loss = 1.932833
+2023-Jul-31 17:18:03.136000 UTC [my_train@SpawnProcess-1] INFO step = 13040 ; tokens/s = 58475 ; learning rate = 0.000554 ; loss = 1.916381
+2023-Jul-31 17:21:21.930000 UTC [my_train@SpawnProcess-1] INFO step = 13060 ; tokens/s = 58542 ; learning rate = 0.000553 ; loss = 1.942718
+Traceback (most recent call last):
+  File "/nfs/RESEARCH/mao/pytorch-transformer/my_train.py", line 401, in <module>
+    main()
+  File "/nfs/RESEARCH/mao/pytorch-transformer/my_train.py", line 74, in main
+    torch.multiprocessing.spawn(
+  File "/nfs/RESEARCH/mao/micromamba/envs/mini-trans/lib/python3.9/site-packages/torch/multiprocessing/spawn.py", line 239, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method='spawn')
+  File "/nfs/RESEARCH/mao/micromamba/envs/mini-trans/lib/python3.9/site-packages/torch/multiprocessing/spawn.py", line 197, in start_processes
+    while not context.join():
+  File "/nfs/RESEARCH/mao/micromamba/envs/mini-trans/lib/python3.9/site-packages/torch/multiprocessing/spawn.py", line 140, in join
+    raise ProcessExitedException(
+torch.multiprocessing.spawn.ProcessExitedException: process 0 terminated with signal SIGKILL

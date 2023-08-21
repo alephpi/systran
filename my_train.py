@@ -35,7 +35,7 @@ batch_type = "tokens"
 batch_size = 12800
 effective_batch_size = batch_size * 25
 label_smoothing = 0.1
-eps=0.5
+eps=1
 
 # Learning rate schedule: inverse square root
 learning_rate = 0.001

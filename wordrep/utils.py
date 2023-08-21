@@ -65,7 +65,7 @@ class BaseRepDetector():
         if idx != None:
             lines = [lines[i] for i in idx]
             iterable = zip(idx, lines)
-        for i, l in iterable:
+        for i, l in tqdm(iterable, total=len(lines)):
             toks = self._tokenize(l)
             rep = self._detect(toks, account=acc, account_lem=acc_lem)
             if rep:

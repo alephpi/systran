@@ -1,3 +1,25 @@
+# Reduction of word repetition
+The training corpus is omitted, you can download the corpus on your own.
+First train a tokenizer over the training corpus, e.g. we'ver done this by a BPE tokenizer from OpenNMT-Tokenizer(pyonmttok)
+
+1. baseline model: run `run.sh` and then `infer.sh`, we get a trained baseline model and baseline translation.
+2. inference with penalization, use the same checkpoint of baseline model and run `infer_rep_penalty_only.sh`, we get a penalized translation with reduced word repetition
+3. training with penalization, run `run_rep_penalty.sh` and then `infer_rep_penalty.sh`, we get a model trained with penalization and inference normally(without penalization like 2), we also get a penalized translation with reduced word repetition.
+4. Evaluation: compute BLEU score with [sacrebleu](https://github.com/mjpost/sacrebleu) and word repetition times with `wordrep` in this repo
+
+The training and inference is preferred to run on a GPU. 
+
+## ENV configuration
+
+We recommend you use `conda/mamba` to manage the environment, e.g. run
+```bash
+micromamba env create -f mini-trans.yml
+micromamba activate mini-trans
+pip install -r requirements.txt
+``` 
+
+Implementation on top of the template written by [Guillaume Klein](https://github.com/guillaumekln)
+Below are the original readme file.
 # Transformer training with PyTorch
 
 This repository contains an example of Transformer training with PyTorch. While the code is quite minimal, the training is faster than [OpenNMT-tf](https://github.com/OpenNMT/OpenNMT-tf) and models can reach a similar accuracy.
